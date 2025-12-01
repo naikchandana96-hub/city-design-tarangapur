@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Tarangapur Project Ideas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: #ffffff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+.heading {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.heading h1 {
+    font-size: 32px;
+}
+
+.heading p {
+    color: #a5b4fc;
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+}
+
+.details-container {
+    background: #020617;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+    transition: all 0.3s ease;
+}
+
+.details-container:hover {
+    transform: scale(1.03);
+    background: #020721;
+}
+
+.details-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.details-title {
+    margin: 15px 0 8px;
+    color: #38bdf8;
+}
+
+.details-text {
+    font-size: 14px;
+    color: #cbd5f5;
+    line-height: 1.6;
+}
+
+h3 {
+    color: #22c55e;
+    margin-top: 18px;
+}
+
+h4 {
+    margin-top: 12px;
+    color: #93c5fd;
+}
+
+ul {
+    padding-left: 18px;
+    font-size: 14px;
+    color: #e5e7eb;
+}
+
+.btn-green {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 15px;
+    background: linear-gradient(to right, #22c55e, #4ade80);
+    color: #000;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.btn-green:hover {
+    background: linear-gradient(to right, #16a34a, #22c55e);
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    color: #94a3b8;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="heading">
+<h1>Tarangapur Smart City - Project Ideas</h1>
+<p>Innovative Applications Using Algorithms & Data Structures</p>
+</div>
+
+<div class="project-grid">
+
+<!-- PROJECT 1 -->
+<div class="details-container">
+<div class="details">
+<img src="img1.png.png" class="details-img">
+
+<h2 class="details-title">Smart Fish Market Auction Platform</h2>
+
+<p class="details-text">
+The Smart Fish Market Auction Platform is a digital marketplace that connects
+fishermen and buyers through a real-time auction system. Fishermen upload
+their catch details, and buyers place bids remotely. The system ensures
+transparent pricing, quick transactions, and increased earnings for
+fishermen.
+</p>
+
+<h3>Algorithms & Data Structures Used</h3>
+
+<h4>1. Fish Listing & Upload</h4>
+<ul>
+<li><strong>Hashing:</strong> Used for authentication and fast ID lookups (O(1)).</li>
+<li><strong>AVL / Red-Black Trees:</strong> Store fish listings in sorted order with fast insert/search (O(log n)).</li>
+</ul>
+
+<h4>2. Live Bidding System</h4>
+<ul>
+<li><strong>Max Heap / Priority Queue:</strong> Track highest bid efficiently (Insert: O(log n), Max: O(1)).</li>
+<li><strong>Merge Sort:</strong> Sort bid histories or fish lots (O(n log n)).</li>
+</ul>
+
+<h4>3. Winner Selection</h4>
+<ul>
+<li><strong>Heap pop():</strong> Extract the highest valid bid (O(log n)).</li>
+<li><strong>Dijkstra / Radix Trees:</strong> Fast search through filtered bid data.</li>
+<li><strong>KMP / Rabin–Karp:</strong> Pattern matching for searching listings.</li>
+</ul>
+
+<h4>4. Delivery & Scheduling</h4>
+<ul>
+<li><strong>Greedy Assignment:</strong> Assign delivery agents efficiently.</li>
+<li><strong>Graph-based Routing:</strong> Optimize delivery paths using shortest-path algorithms.</li>
+</ul>
+
+<a href="https://github.com/SpoortiInamati/DAAProjectCityPlan.io/tree/de1e039a7e3526f25ff5d3a9fdce1d3c3d8dacc1/spoorti/idea1" class="btn-green" target="_blank">Algorithm</a>
+</div>
+</div>
+
+<!-- PROJECT 2 -->
+<div class="details-container">
+<div class="details">
+<img src="img2.png.jpg" class="details-img">
+
+<h2 class="details-title">Eco-Tourism Route Optimization App</h2>
+
+<p class="details-text">
+The Eco-Tourism Route Optimization App helps travelers, guides, and tourism agencies
+discover the most sustainable, scenic, and efficient travel routes. It analyzes
+environmental impact, travel time, terrain difficulty, biodiversity zones, and user
+preferences to recommend eco-friendly routes. The system supports hikers, nature
+tourists, and wildlife explorers by optimizing paths while ensuring minimal ecological
+disturbance.
+</p>
+
+<h3>Algorithms & Data Structures Used</h3>
+
+<h4>1. Eco-Route Mapping & Storage</h4>
+<ul>
+<li><strong>Geo-Hashing:</strong> Converts location coordinates into compact hashes.</li>
+<li><strong>Quad Trees:</strong> Store and query geographical regions efficiently.</li>
+</ul>
+
+<h4>2. Route Optimization Engine</h4>
+<ul>
+<li><strong>Dijkstra / A* Algorithm:</strong> Compute optimal routes.</li>
+<li><strong>Dynamic Programming:</strong> Reduce carbon footprint.</li>
+<li><strong>Merge Sort:</strong> Sort routes by difficulty or rating.</li>
+</ul>
+
+<h4>3. Wildlife-Safe Routing</h4>
+<ul>
+<li><strong>K-Means Clustering:</strong> Group wildlife zones.</li>
+<li><strong>KMP / Rabin-Karp:</strong> Fast trail searching.</li>
+</ul>
+
+<h4>4. Travel Scheduling</h4>
+<ul>
+<li><strong>Greedy Time-Slot Allocation:</strong> Assign visits efficiently.</li>
+<li><strong>Graph-Based Weather Routing:</strong> Adjust paths dynamically.</li>
+</ul>
+
+</div>
+</div>
+
+</div>
+
+<footer>
+© 2025 Tarangapur Smart City Project
+</footer>
+
+</div>
+
+</body>
+</html>
