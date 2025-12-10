@@ -2,222 +2,720 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Tarangapur Project Ideas</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0f172a;
-    color: #ffffff;
-}
-
-.container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 40px 20px;
-}
-
-.heading {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.heading h1 {
-    font-size: 32px;
-}
-
-.heading p {
-    color: #a5b4fc;
-}
-
-.project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 25px;
-}
-
-.details-container {
-    background: #020617;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 12px 25px rgba(0,0,0,0.4);
-    transition: all 0.3s ease;
-}
-
-.details-container:hover {
-    transform: scale(1.03);
-    background: #020721;
-}
-
-.details-img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 12px;
-}
-
-.details-title {
-    margin: 15px 0 8px;
-    color: #38bdf8;
-}
-
-.details-text {
-    font-size: 14px;
-    color: #cbd5f5;
-    line-height: 1.6;
-}
-
-h3 {
-    color: #22c55e;
-    margin-top: 18px;
-}
-
-h4 {
-    margin-top: 12px;
-    color: #93c5fd;
-}
-
-ul {
-    padding-left: 18px;
-    font-size: 14px;
-    color: #e5e7eb;
-}
-
-.btn-green {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 10px 15px;
-    background: linear-gradient(to right, #22c55e, #4ade80);
-    color: #000;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
-}
-
-.btn-green:hover {
-    background: linear-gradient(to right, #16a34a, #22c55e);
-}
-
-footer {
-    text-align: center;
-    margin-top: 40px;
-    color: #94a3b8;
-}
-</style>
+<title>Business  ideas</title>
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <div class="container">
 
-<div class="heading">
-<h1>Tarangapur Smart City - Project Ideas</h1>
-<p>Innovative Applications Using Algorithms & Data Structures</p>
+    <h1 class="fancy-title">Smart Fish Market Auction Platform</h1>
+
+
+    <img class="main-img" 
+    src="img1.png.png"
+    alt="Delivery Routing Image">
+
+    <h2>Description</h2>
+    <p>
+      A smart digital auction platform that supports real-time bidding, secure fish listing storage, 
+      and automated winner selection using efficient data structures and algorithms.
+    </p>
+
+    <!-- ---------------- ALGORITHM 1 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 1: AVL Tree for Fish Listing Storage</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Stores fish listings in sorted order
+  (type, weight, freshness, base price).</li>
+            <li>Ensures fast search, insert, delete.</li>
+            <li>Prevents duplicate listings and allows quick updates.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(log n)</b></li>
+            <li>Space Complexity: <b>O(n)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code1')">Show Algorithm Code</button>
+
+        <div id="code1" class="code-box">
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int price;
+    string fishName;
+    Node *left, *right;
+    int height;
+};
+
+int height(Node* n) { return (n == nullptr ? 0 : n->height); }
+
+Node* createNode(string name, int price) {
+    Node* n = new Node();
+    n->fishName = name;
+    n->price = price;
+    n->left = n->right = nullptr;
+    n->height = 1;
+    return n;
+}
+
+int getBalance(Node* n) {
+    if (!n) return 0;
+    return height(n->left) - height(n->right);
+}
+
+Node* rightRotate(Node* y) {
+    Node* x = y->left;
+    Node* T2 = x->right;
+    x->right = y;
+    y->left = T2;
+
+    y->height = max(height(y->left), height(y->right)) + 1;
+    x->height = max(height(x->left), height(x->right)) + 1;
+
+    return x;
+}
+
+Node* leftRotate(Node* x) {
+    Node* y = x->right;
+    Node* T2 = y->left;
+    y->left = x;
+    x->right = T2;
+
+    x->height = max(height(x->left), height(x->right)) + 1;
+    y->height = max(height(y->left), height(y->right)) + 1;
+
+    return y;
+}
+
+Node* insertNode(Node* root, string name, int price) {
+    if (!root) return createNode(name, price);
+
+    if (price < root->price)
+        root->left = insertNode(root->left, name, price);
+    else if (price > root->price)
+        root->right = insertNode(root->right, name, price);
+    else
+        return root; // duplicate price not allowed
+
+    root->height = 1 + max(height(root->left), height(root->right));
+
+    int balance = getBalance(root);
+
+    // Rotations
+    if (balance > 1 && price < root->left->price)
+        return rightRotate(root);
+
+    if (balance < -1 && price > root->right->price)
+        return leftRotate(root);
+
+    if (balance > 1 && price > root->left->price) {
+        root->left = leftRotate(root->left);
+        return rightRotate(root);
+    }
+
+    if (balance < -1 && price < root->right->price) {
+        root->right = rightRotate(root->right);
+        return leftRotate(root);
+    }
+
+    return root;
+}
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 2 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 2: Max Heap / Priority Queue for Live Bidding System</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>* Tracks highest bid instantly. </li>
+            <li>Used during *real-time bidding.</li>
+            <li>Ensures buyers always see the highest valid bid.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: Insert:<b>O(log n)</b><br>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp  &nbspGet Max Bid:<b> O(1)</b></li>
+            <li>Space Complexity: <b>O(n)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code2')">Show Algorithm Code</button>
+
+        <div id="code2" class="code-box">
+#include <iostream>
+#include <queue>
+using namespace std;
+
+struct Bid {
+    int amount;
+    string buyer;
+};
+
+// Max Heap (largest bid first)
+struct CompareBid {
+    bool operator()(Bid const& b1, Bid const& b2) {
+        return b1.amount < b2.amount;
+    }
+};
+
+priority_queue<Bid, vector<Bid>, CompareBid> bidHeap;
+
+void placeBid(string buyer, int amount) {
+    bidHeap.push({amount, buyer});
+}
+
+Bid getHighestBid() {
+    return bidHeap.top();
+}
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 3 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 3: Winner Selection (Heap pop)</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li> Automatically selects the highest valid bid. </li>
+            <li> Removes it from heap and declares winner.</li>
+            <li>Ensures fair, transparent auction results.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(log n)</b></li>
+             <li>Space Complexity: <b>O(n)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code3')">Show Algorithm Code</button>
+
+        <div id="code3" class="code-box">
+#include <iostream>
+using namespace std;
+
+void declareWinner() {
+    if (bidHeap.empty()) {
+        cout << "No bids placed.\n";
+        return;
+    }
+
+    Bid winner = bidHeap.top();
+    bidHeap.pop();
+
+    cout << "Winner: " << winner.buyer 
+         << " | Winning Bid: Rs." << winner.amount << endl;
+}
+
+        </div>
+    </div>
+
 </div>
+</div>
+<div class="container">
 
-<div class="project-grid">
+    <h1 class="fancy-title">Eco-Tourism Route Optimization App</h1>
 
-<!-- PROJECT 1 -->
-<div class="details-container">
-<div class="details">
-<img src="img1.png.png" class="details-img">
 
-<h2 class="details-title">Smart Fish Market Auction Platform</h2>
+    <img class="main-img" 
+    src="img2.png.jpg"
+    alt="Delivery Routing Image">
 
-<p class="details-text">
-The Smart Fish Market Auction Platform is a digital marketplace that connects
-fishermen and buyers through a real-time auction system. Fishermen upload
-their catch details, and buyers place bids remotely. The system ensures
-transparent pricing, quick transactions, and increased earnings for
-fishermen.
-</p>
+    <h2>Description</h2>
+    <p style="justify-content:center;">
+     The Eco-Tourism Route Optimization App helps tourists in Trangapur 
+     explore the best attractions through smart, personalized route planning. 
+     Users select their interests—beaches, waterfalls, temples, or nature trails—and 
+     the app calculates the most efficient travel path using real-time data. This provides
+      tourists with a smoother, time-saving travel 
+     experience while promoting sustainable and well-managed tourism.
+    </p>
 
-<h3>Algorithms & Data Structures Used</h3>
+    <!-- ---------------- ALGORITHM 1 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 1: AVL Tree for Eco-Location Storage</h2>
 
-<h4>1. Fish Listing & Upload</h4>
-<ul>
-<li><strong>Hashing:</strong> Used for authentication and fast ID lookups (O(1)).</li>
-<li><strong>AVL / Red-Black Trees:</strong> Store fish listings in sorted order with fast insert/search (O(log n)).</li>
-</ul>
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Stores eco-attractions in sorted order
+(location name, entry fee, distance, eco-rank).</li>
+            <li>Ensures fast search, insert, delete.</li>
+            <li>Handles large datasets of national parks, forest trails, lakes, viewpoints, etc.</li>
+        </ul>
 
-<h4>2. Live Bidding System</h4>
-<ul>
-<li><strong>Max Heap / Priority Queue:</strong> Track highest bid efficiently (Insert: O(log n), Max: O(1)).</li>
-<li><strong>Merge Sort:</strong> Sort bid histories or fish lots (O(n log n)).</li>
-</ul>
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(log n)</b></li>
+            <li>Space Complexity: <b>O(n)</b></li>
+        </ul>
 
-<h4>3. Winner Selection</h4>
-<ul>
-<li><strong>Heap pop():</strong> Extract the highest valid bid (O(log n)).</li>
-<li><strong>Dijkstra / Radix Trees:</strong> Fast search through filtered bid data.</li>
-<li><strong>KMP / Rabin–Karp:</strong> Pattern matching for searching listings.</li>
-</ul>
+        <button class="btn" onclick="toggleCode('code4')">Show Algorithm Code</button>
 
-<h4>4. Delivery & Scheduling</h4>
-<ul>
-<li><strong>Greedy Assignment:</strong> Assign delivery agents efficiently.</li>
-<li><strong>Graph-based Routing:</strong> Optimize delivery paths using shortest-path algorithms.</li>
-</ul>
+        <div id="code4" class="code-box">
+#include <iostream>
+using namespace std;
 
-<a href="https://github.com/SpoortiInamati/DAAProjectCityPlan.io/tree/de1e039a7e3526f25ff5d3a9fdce1d3c3d8dacc1/spoorti/idea1" class="btn-green" target="_blank">Algorithm</a>
+struct Node {
+    int ecoRank;        // sorting key
+    string locationName;
+    Node *left, *right;
+    int height;
+};
+
+int height(Node* n) { return (n == nullptr ? 0 : n->height); }
+
+Node* createNode(string name, int rank) {
+    Node* n = new Node();
+    n->locationName = name;
+    n->ecoRank = rank;
+    n->left = n->right = nullptr;
+    n->height = 1;
+    return n;
+}
+
+int getBalance(Node* n) {
+    return (!n ? 0 : height(n->left) - height(n->right));
+}
+
+Node* rightRotate(Node* y) {
+    Node* x = y->left;
+    Node* T2 = x->right;
+
+    x->right = y;
+    y->left = T2;
+
+    y->height = max(height(y->left), height(y->right)) + 1;
+    x->height = max(height(x->left), height(x->right)) + 1;
+
+    return x;
+}
+
+Node* leftRotate(Node* x) {
+    Node* y = x->right;
+    Node* T2 = y->left;
+
+    y->left = x;
+    x->right = T2;
+
+    x->height = max(height(x->left), height(x->right)) + 1;
+    y->height = max(height(y->left), height(y->right)) + 1;
+
+    return y;
+}
+
+Node* insertNode(Node* root, string name, int ecoRank) {
+    if (!root) return createNode(name, ecoRank);
+
+    if (ecoRank < root->ecoRank)
+        root->left = insertNode(root->left, name, ecoRank);
+    else if (ecoRank > root->ecoRank)
+        root->right = insertNode(root->right, name, ecoRank);
+    else
+        return root; // duplicate rank not allowed
+
+    root->height = 1 + max(height(root->left), height(root->right));
+    int balance = getBalance(root);
+
+    if (balance > 1 && ecoRank < root->left->ecoRank)
+        return rightRotate(root);
+
+    if (balance < -1 && ecoRank > root->right->ecoRank)
+        return leftRotate(root);
+
+    if (balance > 1 && ecoRank > root->left->ecoRank) {
+        root->left = leftRotate(root->left);
+        return rightRotate(root);
+    }
+
+    if (balance < -1 && ecoRank < root->right->ecoRank) {
+        root->right = rightRotate(root->right);
+        return leftRotate(root);
+    }
+
+    return root;
+}
+
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 2 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 2: Dijkstra’s Algorithm for Eco-Friendly Route Planning</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Finds least-fuel route, not just shortest path. </li>
+            <li>Uses eco-weighted edges (Green Score, emission cost).</li>
+            <li>Ideal for multi-stop eco-trails.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: Insert:<b>O((V + E) log V)</b></li>
+            <li>Space Complexity: <b>O(V)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code5')">Show Algorithm Code</button>
+
+        <div id="code5" class="code-box">
+#include <iostream>
+#include <vector>
+#include <queue>
+using namespace std;
+
+vector<vector<pair<int, int>>> graph; // node -> (neighbor, ecoWeight)
+
+vector<int> dijkstra(int start, int n) {
+    vector<int> dist(n, 1e9);
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+
+    dist[start] = 0;
+    pq.push({0, start});
+
+    while (!pq.empty()) {
+        int cost = pq.top().first;
+        int node = pq.top().second;
+        pq.pop();
+
+        for (auto &edge : graph[node]) {
+            int next = edge.first;
+            int weight = edge.second;
+
+            if (cost + weight < dist[next]) {
+                dist[next] = cost + weight;
+                pq.push({dist[next], next});
+            }
+        }
+    }
+
+    return dist;
+}
+
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 3 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 3: Kruskal’s Minimum Spanning Tree for Eco-Zone Connectivity</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li> Builds a low-environmental-impact travel network.
+
+
+
+ </li>
+            <li>Reduces travel distance between eco-sites.</li>
+            <li>Helps forest authorities plan:
+
+walking paths,
+
+safari routes,
+
+cycling tracks
+using minimal land disturbance.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+          <li>Time Complexity: Insert:<b>O( E log E)</b></li>
+            <li>Space Complexity: <b>O(E)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code6')">Show Algorithm Code</button>
+
+        <div id="code6" class="code-box">
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+struct Edge {
+    int u, v, weight;
+};
+
+vector<int> parent;
+
+int findSet(int v) {
+    if (v == parent[v]) return v;
+    return parent[v] = findSet(parent[v]);
+}
+
+void unionSet(int a, int b) {
+    a = findSet(a);
+    b = findSet(b);
+    if (a != b) parent[b] = a;
+}
+
+void kruskal(vector<Edge> edges, int n) {
+    parent.resize(n);
+    for (int i = 0; i < n; i++) parent[i] = i;
+
+    sort(edges.begin(), edges.end(),
+         [](Edge a, Edge b) { return a.weight < b.weight; });
+
+    cout << "Eco-Friendly Minimal Connectivity Routes:\n";
+
+    for (auto &e : edges) {
+        if (findSet(e.u) != findSet(e.v)) {
+            cout << e.u << " -- " << e.v 
+                 << "  (cost: " << e.weight << ")\n";
+            unionSet(e.u, e.v);
+        }
+    }
+}
+
+
+        </div>
+    </div>
+
 </div>
 </div>
+<div class="container">
 
-<!-- PROJECT 2 -->
-<div class="details-container">
-<div class="details">
-<img src="img2.png.jpg" class="details-img">
+    <h1 class="fancy-title">Smart irrigation and paddy water distribution</h1>
 
-<h2 class="details-title">Eco-Tourism Route Optimization App</h2>
 
-<p class="details-text">
-The Eco-Tourism Route Optimization App helps travelers, guides, and tourism agencies
-discover the most sustainable, scenic, and efficient travel routes. It analyzes
-environmental impact, travel time, terrain difficulty, biodiversity zones, and user
-preferences to recommend eco-friendly routes. The system supports hikers, nature
-tourists, and wildlife explorers by optimizing paths while ensuring minimal ecological
-disturbance.
-</p>
+    <img class="main-img" 
+    src="img3.png"
+    alt="Delivery Routing Image">
 
-<h3>Algorithms & Data Structures Used</h3>
+    <h2>Description</h2>
+    <p style="justify-content:center;">
+    The Smart Irrigation & Paddy Water Distribution system helps farmers manage water efficiently using sensor data and intelligent allocation algorithms. It monitors soil moisture, weather, and crop stages, then adjusts irrigation
+     schedules automatically to save water and improve crop growth.
+    </p>
 
-<h4>1. Eco-Route Mapping & Storage</h4>
-<ul>
-<li><strong>Geo-Hashing:</strong> Converts location coordinates into compact hashes.</li>
-<li><strong>Quad Trees:</strong> Store and query geographical regions efficiently.</li>
-</ul>
+    <!-- ---------------- ALGORITHM 1 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 1: Segment Tree for Moisture Range Query System</h2>
 
-<h4>2. Route Optimization Engine</h4>
-<ul>
-<li><strong>Dijkstra / A* Algorithm:</strong> Compute optimal routes.</li>
-<li><strong>Dynamic Programming:</strong> Reduce carbon footprint.</li>
-<li><strong>Merge Sort:</strong> Sort routes by difficulty or rating.</li>
-</ul>
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Stores moisture data for large paddy fields in segments.
 
-<h4>3. Wildlife-Safe Routing</h4>
-<ul>
-<li><strong>K-Means Clustering:</strong> Group wildlife zones.</li>
-<li><strong>KMP / Rabin-Karp:</strong> Fast trail searching.</li>
-</ul>
+</li>
+            <li>Supports real-time:updates (new sensor data),minimum queries</li>
+            <li>Much faster than linear search.</li>
+        </ul>
 
-<h4>4. Travel Scheduling</h4>
-<ul>
-<li><strong>Greedy Time-Slot Allocation:</strong> Assign visits efficiently.</li>
-<li><strong>Graph-Based Weather Routing:</strong> Adjust paths dynamically.</li>
-</ul>
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(log n)</b></li>
+            <li>Space Complexity: <b>O(4n)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code7')">Show Algorithm Code</button>
+
+        <div id="code7" class="code-box">
+#include <iostream>
+#include <vector>
+using namespace std;
+
+vector<int> segTree;
+
+void buildTree(vector<int>& arr, int idx, int left, int right) {
+    if (left == right) {
+        segTree[idx] = arr[left];
+        return;
+    }
+
+    int mid = (left + right) / 2;
+    buildTree(arr, idx*2, left, mid);
+    buildTree(arr, idx*2+1, mid+1, right);
+
+    segTree[idx] = min(segTree[idx*2], segTree[idx*2+1]);
+}
+
+int queryMin(int idx, int left, int right, int ql, int qr) {
+    if (qr < left || ql > right)
+        return 1e9;
+
+    if (ql <= left && right <= qr)
+        return segTree[idx];
+
+    int mid = (left + right) / 2;
+    return min(
+        queryMin(idx*2, left, mid, ql, qr),
+        queryMin(idx*2+1, mid+1, right, ql, qr)
+    );
+}
+
+void updateTree(int idx, int left, int right, int pos, int newVal) {
+    if (left == right) {
+        segTree[idx] = newVal;
+        return;
+    }
+
+    int mid = (left + right) / 2;
+    if (pos <= mid)
+        updateTree(idx*2, left, mid, pos, newVal);
+    else
+        updateTree(idx*2+1, mid+1, right, pos, newVal);
+
+    segTree[idx] = min(segTree[idx*2], segTree[idx*2+1]);
+}
+
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 2 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 2: Min-Heap for Water Demand Priority</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Uses min-heap to always select the lowest moisture region first. </li>
+            <li>Dynamic update of moisture levels triggers re-prioritization.</li>
+            <li>Efficient for hundreds of sensors and field partitions.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: Insert:<b>O( log n)</b></li>
+            <li>Space Complexity: <b>O(n)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code8')">Show Algorithm Code</button>
+
+        <div id="code8" class="code-box">
+#include <iostream>
+#include <queue>
+using namespace std;
+
+struct Field {
+    int moisture;
+    string name;
+};
+
+struct CompareMoisture {
+    bool operator()(Field const& a, Field const& b) {
+        return a.moisture > b.moisture; 
+    }
+};
+
+priority_queue<Field, vector<Field>, CompareMoisture> minHeap;
+
+void addFieldForIrrigation(string name, int moisture) {
+    minHeap.push({moisture, name});
+}
+
+Field getDriestField() {
+    return minHeap.top();
+}
+
+
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 3 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 3: Dijkstra-Based Water Routing Optimization</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li> Finds the minimum-cost water path from source (reservoir/main canal) to driest field.
+
+
+
+
+ </li>
+            <li>Ensures water reaches field efficiently, minimizing loss.</li>
+            <li>Ideal for large-scale paddy field networks with multiple branching channels.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+          <li>Time Complexity: Insert:<b>O((V + E) log V)</b></li>
+            <li>Space Complexity: <b>O(V + E)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code9')">Show Algorithm Code</button>
+
+        <div id="code9" class="code-box">
+#include <iostream>
+#include <vector>
+#include <queue>
+using namespace std;
+
+struct Edge {
+    int to;
+    int cost;  // water loss or distance
+};
+
+int V; // total number of nodes (fields + channels)
+vector<vector<Edge>> graph;
+
+vector<int> dijkstra(int source) {
+    vector<int> dist(V, 1e9);
+    dist[source] = 0;
+
+    // Min-heap: (cost, node)
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+    pq.push({0, source});
+
+    while (!pq.empty()) {
+        int uCost = pq.top().first;
+        int u = pq.top().second;
+        pq.pop();
+
+        if (uCost > dist[u]) continue;
+
+        for (auto &edge : graph[u]) {
+            int v = edge.to;
+            int cost = edge.cost;
+
+            if (dist[u] + cost < dist[v]) {
+                dist[v] = dist[u] + cost;
+                pq.push({dist[v], v});
+            }
+        }
+    }
+
+    return dist;
+}
+
+// Example usage:
+int main() {
+    V = 5;
+    graph.resize(V);
+
+    // Add edges (channels)
+    graph[0].push_back({1, 10}); // Channel from 0->1 with loss/cost 10
+    graph[0].push_back({2, 5});
+    graph[1].push_back({2, 2});
+    graph[1].push_back({3, 1});
+    graph[2].push_back({1, 3});
+    graph[2].push_back({3, 9});
+    graph[2].push_back({4, 2});
+    graph[3].push_back({4, 4});
+    graph[4].push_back({3, 6});
+
+    vector<int> minCost = dijkstra(0); // source = 0 (reservoir)
+
+    for (int i = 0; i < V; i++)
+        cout << "Minimum water cost to field " << i << " = " << minCost[i] << endl;
+}
+
+
+
+        </div>
+    </div>
 
 </div>
 </div>
-
-</div>
-
-<footer>
-© 2025 Tarangapur Smart City Project
-</footer>
-
-</div>
+<script>
+function toggleCode(id) {
+    let box = document.getElementById(id);
+    box.style.display = (box.style.display === "none") ? "block" : "none";
+}
+</script>
 
 </body>
 </html>
