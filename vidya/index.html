@@ -60,40 +60,9 @@ function Astar(start, goal):
     return failure
         </div>
     </div>
-
-    <!-- ---------------- ALGORITHM 2 ---------------- -->
+        <!-- ---------------- ALGORITHM 2 ---------------- -->
     <div class="algo-section">
-        <h2>Algorithm 2: Drone Collision Avoidance (Sensor-Based Detection)</h2>
-
-        <p><b>How this algorithm is helpful?</b></p>
-        <ul>
-            <li>Prevents mid-air collisions with buildings, trees, or other drones.</li>
-            <li>Uses ultrasonic, LiDAR, and camera data for real-time obstacle detection.</li>
-            <li>Keeps the drone flight stable and secure.</li>
-        </ul>
-
-        <p><b>Efficiency:</b></p>
-        <ul>
-            <li>Time Complexity: <b>O(n)</b> for scanning surroundings.</li>
-            <li>Space Complexity: <b>O(1)</b></li>
-        </ul>
-
-        <button class="btn" onclick="toggleCode('code2')">Show Algorithm Code</button>
-
-        <div id="code2" class="code-box">
-function avoidCollision(drone):
-    obstacles = scanSurroundings()
-
-    for each obj in obstacles:
-        if distance(drone, obj) < safetyLimit:
-            adjustPath(drone, obj.position)
-    return drone.newPath
-        </div>
-    </div>
-
-    <!-- ---------------- ALGORITHM 3 ---------------- -->
-    <div class="algo-section">
-        <h2>Algorithm 3: Battery & Payload Optimization (Greedy Approach)</h2>
+        <h2>Algorithm 2: Battery & Payload Optimization (Greedy Approach)</h2>
 
         <p><b>How this algorithm is helpful?</b></p>
         <ul>
@@ -136,3 +105,4 @@ function toggleCode(id) {
 
 </body>
 </html>
+
