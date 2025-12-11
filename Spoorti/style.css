@@ -39,7 +39,6 @@ color: #b94dff;
 /* ⭐ Fixed Image */
 .main-img {
     width: 50%;
- 
     display: block;
     margin: 10px auto 25px auto;
     border-radius: 12px;
@@ -101,4 +100,5 @@ p, li {
     font-family: Consolas, monospace;
     border: 2px solid #b94dff;
 }
+
 
