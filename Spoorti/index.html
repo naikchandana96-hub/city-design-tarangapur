@@ -6,10 +6,10 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+ <!--------------idea1--------->
+ <div class="container">
 
-<div class="container">
-
-    <h1 class="fancy-title">Smart Fish Market Auction Platform</h1>
+  
 
 
     <img class="main-img" 
@@ -17,7 +17,7 @@
     alt="Delivery Routing Image">
 
     <h2>Description</h2>
-    <p>
+    <p style="text-align: justify;">
       A smart digital auction platform that supports real-time bidding, secure fish listing storage, 
       and automated winner selection using efficient data structures and algorithms.
     </p>
@@ -135,8 +135,8 @@ Node* insertNode(Node* root, string name, int price) {
 
         <p><b>How this algorithm is helpful?</b></p>
         <ul>
-            <li>* Tracks highest bid instantly. </li>
-            <li>Used during *real-time bidding.</li>
+            <li>Tracks highest bid instantly. </li>
+            <li>Used during real-time bidding.</li>
             <li>Ensures buyers always see the highest valid bid.</li>
         </ul>
 
@@ -216,25 +216,25 @@ void declareWinner() {
         </div>
     </div>
 
-</div>
-</div>
-<div class="container">
+ </div>
+ </div>
+ <!--------------idea2--------->
+ <div class="container">
 
-    <h1 class="fancy-title">Eco-Tourism Route Optimization App</h1>
-
+    
 
     <img class="main-img" 
-    src="img2.png.jpg"
-    alt="Delivery Routing Image">
+        src="img2.png.jpg"
+        alt="Eco Tourism Image">
 
     <h2>Description</h2>
-    <p style="justify-content:center;">
-     The Eco-Tourism Route Optimization App helps tourists in Trangapur 
-     explore the best attractions through smart, personalized route planning. 
-     Users select their interests—beaches, waterfalls, temples, or nature trails—and 
-     the app calculates the most efficient travel path using real-time data. This provides
-      tourists with a smoother, time-saving travel 
-     experience while promoting sustainable and well-managed tourism.
+    <p style="text-align: justify;">
+        The Eco-Tourism Route Optimization App helps tourists in Trangapur 
+        explore the best attractions through smart, personalized route planning. 
+        Users select their interests—beaches, waterfalls, temples, or nature trails—and 
+        the app calculates the most efficient travel path using real-time data. This provides
+        tourists with a smoother, time-saving travel 
+        experience while promoting sustainable and well-managed tourism.
     </p>
 
     <!-- ---------------- ALGORITHM 1 ---------------- -->
@@ -243,8 +243,7 @@ void declareWinner() {
 
         <p><b>How this algorithm is helpful?</b></p>
         <ul>
-            <li>Stores eco-attractions in sorted order
-(location name, entry fee, distance, eco-rank).</li>
+            <li>Stores eco-attractions in sorted order (location name, entry fee, distance, eco-rank).</li>
             <li>Ensures fast search, insert, delete.</li>
             <li>Handles large datasets of national parks, forest trails, lakes, viewpoints, etc.</li>
         </ul>
@@ -258,11 +257,12 @@ void declareWinner() {
         <button class="btn" onclick="toggleCode('code4')">Show Algorithm Code</button>
 
         <div id="code4" class="code-box">
-#include <iostream>
+<pre><code>
+#include &lt;iostream&gt;
 using namespace std;
 
 struct Node {
-    int ecoRank;        // sorting key
+    int ecoRank;
     string locationName;
     Node *left, *right;
     int height;
@@ -312,35 +312,35 @@ Node* leftRotate(Node* x) {
 Node* insertNode(Node* root, string name, int ecoRank) {
     if (!root) return createNode(name, ecoRank);
 
-    if (ecoRank < root->ecoRank)
+    if (ecoRank &lt; root->ecoRank)
         root->left = insertNode(root->left, name, ecoRank);
-    else if (ecoRank > root->ecoRank)
+    else if (ecoRank &gt; root->ecoRank)
         root->right = insertNode(root->right, name, ecoRank);
     else
-        return root; // duplicate rank not allowed
+        return root;
 
     root->height = 1 + max(height(root->left), height(root->right));
     int balance = getBalance(root);
 
-    if (balance > 1 && ecoRank < root->left->ecoRank)
+    if (balance &gt; 1 && ecoRank &lt; root->left->ecoRank)
         return rightRotate(root);
 
-    if (balance < -1 && ecoRank > root->right->ecoRank)
+    if (balance &lt; -1 && ecoRank &gt; root->right->ecoRank)
         return leftRotate(root);
 
-    if (balance > 1 && ecoRank > root->left->ecoRank) {
+    if (balance &gt; 1 && ecoRank &gt; root->left->ecoRank) {
         root->left = leftRotate(root->left);
         return rightRotate(root);
     }
 
-    if (balance < -1 && ecoRank < root->right->ecoRank) {
+    if (balance &lt; -1 && ecoRank &lt; root->right->ecoRank) {
         root->right = rightRotate(root->right);
         return leftRotate(root);
     }
 
     return root;
 }
-
+</code></pre>
         </div>
     </div>
 
@@ -350,30 +350,33 @@ Node* insertNode(Node* root, string name, int ecoRank) {
 
         <p><b>How this algorithm is helpful?</b></p>
         <ul>
-            <li>Finds least-fuel route, not just shortest path. </li>
+            <li>Finds least-fuel route, not just shortest path.</li>
             <li>Uses eco-weighted edges (Green Score, emission cost).</li>
             <li>Ideal for multi-stop eco-trails.</li>
         </ul>
 
         <p><b>Efficiency:</b></p>
         <ul>
-            <li>Time Complexity: Insert:<b>O((V + E) log V)</b></li>
+            <li>Time Complexity: <b>O((V + E) log V)</b></li>
             <li>Space Complexity: <b>O(V)</b></li>
         </ul>
 
         <button class="btn" onclick="toggleCode('code5')">Show Algorithm Code</button>
 
         <div id="code5" class="code-box">
-#include <iostream>
-#include <vector>
-#include <queue>
+<pre><code>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
 using namespace std;
 
-vector<vector<pair<int, int>>> graph; // node -> (neighbor, ecoWeight)
+vector&lt;vector&lt;pair&lt;int, int&gt;&gt;&gt; graph;
 
-vector<int> dijkstra(int start, int n) {
-    vector<int> dist(n, 1e9);
-    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+vector&lt;int&gt; dijkstra(int start, int n) {
+    vector&lt;int&gt; dist(n, 1e9);
+    priority_queue&lt;pair&lt;int,int&gt;,
+                   vector&lt;pair&lt;int,int&gt;&gt;,
+                   greater&lt;pair&lt;int,int&gt;&gt;&gt; pq;
 
     dist[start] = 0;
     pq.push({0, start});
@@ -387,7 +390,7 @@ vector<int> dijkstra(int start, int n) {
             int next = edge.first;
             int weight = edge.second;
 
-            if (cost + weight < dist[next]) {
+            if (cost + weight &lt; dist[next]) {
                 dist[next] = cost + weight;
                 pq.push({dist[next], next});
             }
@@ -396,7 +399,7 @@ vector<int> dijkstra(int start, int n) {
 
     return dist;
 }
-
+</code></pre>
         </div>
     </div>
 
@@ -406,41 +409,31 @@ vector<int> dijkstra(int start, int n) {
 
         <p><b>How this algorithm is helpful?</b></p>
         <ul>
-            <li> Builds a low-environmental-impact travel network.
-
-
-
- </li>
+            <li>Builds a low-environmental-impact travel network.</li>
             <li>Reduces travel distance between eco-sites.</li>
-            <li>Helps forest authorities plan:
-
-walking paths,
-
-safari routes,
-
-cycling tracks
-using minimal land disturbance.</li>
+            <li>Helps authorities plan walking paths, safari routes, cycling tracks with minimal disturbance.</li>
         </ul>
 
         <p><b>Efficiency:</b></p>
         <ul>
-          <li>Time Complexity: Insert:<b>O( E log E)</b></li>
+            <li>Time Complexity: <b>O(E log E)</b></li>
             <li>Space Complexity: <b>O(E)</b></li>
         </ul>
 
         <button class="btn" onclick="toggleCode('code6')">Show Algorithm Code</button>
 
         <div id="code6" class="code-box">
-#include <iostream>
-#include <vector>
-#include <algorithm>
+<pre><code>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
 using namespace std;
 
 struct Edge {
     int u, v, weight;
 };
 
-vector<int> parent;
+vector&lt;int&gt; parent;
 
 int findSet(int v) {
     if (v == parent[v]) return v;
@@ -453,43 +446,38 @@ void unionSet(int a, int b) {
     if (a != b) parent[b] = a;
 }
 
-void kruskal(vector<Edge> edges, int n) {
+void kruskal(vector&lt;Edge&gt; edges, int n) {
     parent.resize(n);
-    for (int i = 0; i < n; i++) parent[i] = i;
+    for (int i = 0; i &lt; n; i++) parent[i] = i;
 
     sort(edges.begin(), edges.end(),
-         [](Edge a, Edge b) { return a.weight < b.weight; });
+         [](Edge a, Edge b) { return a.weight &lt; b.weight; });
 
-    cout << "Eco-Friendly Minimal Connectivity Routes:\n";
+    cout &lt;&lt; "Eco-Friendly Minimal Connectivity Routes:\n";
 
     for (auto &e : edges) {
         if (findSet(e.u) != findSet(e.v)) {
-            cout << e.u << " -- " << e.v 
-                 << "  (cost: " << e.weight << ")\n";
+            cout &lt;&lt; e.u &lt;&lt; " -- " &lt;&lt; e.v
+                 &lt;&lt; "  (cost: " &lt;&lt; e.weight &lt;&lt; ")\n";
             unionSet(e.u, e.v);
         }
     }
 }
-
-
+</code></pre>
         </div>
     </div>
 
 </div>
-</div>
+<!--------------idea3--------->
 <div class="container">
 
-    <h1 class="fancy-title">Smart irrigation and paddy water distribution</h1>
+    
 
-
-    <img class="main-img" 
-    src="img3.png"
-    alt="Delivery Routing Image">
+    <img class="main-img" src="img3.png" alt="Delivery Routing Image">
 
     <h2>Description</h2>
-    <p style="justify-content:center;">
-    The Smart Irrigation & Paddy Water Distribution system helps farmers manage water efficiently using sensor data and intelligent allocation algorithms. It monitors soil moisture, weather, and crop stages, then adjusts irrigation
-     schedules automatically to save water and improve crop growth.
+    <p style="text-align: justify;">
+        The Smart Irrigation & Paddy Water Distribution system helps farmers manage water efficiently using sensor data and intelligent allocation algorithms. It monitors soil moisture, weather, and crop stages, then adjusts irrigation schedules automatically to save water and improve crop growth.
     </p>
 
     <!-- ---------------- ALGORITHM 1 ---------------- -->
@@ -498,10 +486,8 @@ void kruskal(vector<Edge> edges, int n) {
 
         <p><b>How this algorithm is helpful?</b></p>
         <ul>
-            <li>Stores moisture data for large paddy fields in segments.
-
-</li>
-            <li>Supports real-time:updates (new sensor data),minimum queries</li>
+            <li>Stores moisture data for large paddy fields in segments.</li>
+            <li>Supports real-time updates (new sensor data) & minimum queries.</li>
             <li>Much faster than linear search.</li>
         </ul>
 
@@ -514,13 +500,14 @@ void kruskal(vector<Edge> edges, int n) {
         <button class="btn" onclick="toggleCode('code7')">Show Algorithm Code</button>
 
         <div id="code7" class="code-box">
-#include <iostream>
-#include <vector>
+<pre><code>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
 using namespace std;
 
-vector<int> segTree;
+vector&lt;int&gt; segTree;
 
-void buildTree(vector<int>& arr, int idx, int left, int right) {
+void buildTree(vector&lt;int&gt;& arr, int idx, int left, int right) {
     if (left == right) {
         segTree[idx] = arr[left];
         return;
@@ -561,7 +548,7 @@ void updateTree(int idx, int left, int right, int pos, int newVal) {
 
     segTree[idx] = min(segTree[idx*2], segTree[idx*2+1]);
 }
-
+</code></pre>
         </div>
     </div>
 
@@ -571,22 +558,23 @@ void updateTree(int idx, int left, int right, int pos, int newVal) {
 
         <p><b>How this algorithm is helpful?</b></p>
         <ul>
-            <li>Uses min-heap to always select the lowest moisture region first. </li>
+            <li>Uses min-heap to always select the lowest moisture region first.</li>
             <li>Dynamic update of moisture levels triggers re-prioritization.</li>
             <li>Efficient for hundreds of sensors and field partitions.</li>
         </ul>
 
         <p><b>Efficiency:</b></p>
         <ul>
-            <li>Time Complexity: Insert:<b>O( log n)</b></li>
+            <li>Time Complexity: Insert: <b>O(log n)</b></li>
             <li>Space Complexity: <b>O(n)</b></li>
         </ul>
 
         <button class="btn" onclick="toggleCode('code8')">Show Algorithm Code</button>
 
         <div id="code8" class="code-box">
-#include <iostream>
-#include <queue>
+<pre><code>
+#include &lt;iostream&gt;
+#include &lt;queue&gt;
 using namespace std;
 
 struct Field {
@@ -596,11 +584,11 @@ struct Field {
 
 struct CompareMoisture {
     bool operator()(Field const& a, Field const& b) {
-        return a.moisture > b.moisture; 
+        return a.moisture > b.moisture;
     }
 };
 
-priority_queue<Field, vector<Field>, CompareMoisture> minHeap;
+priority_queue&lt;Field, vector&lt;Field&gt;, CompareMoisture&gt; minHeap;
 
 void addFieldForIrrigation(string name, int moisture) {
     minHeap.push({moisture, name});
@@ -609,8 +597,7 @@ void addFieldForIrrigation(string name, int moisture) {
 Field getDriestField() {
     return minHeap.top();
 }
-
-
+</code></pre>
         </div>
     </div>
 
@@ -620,44 +607,42 @@ Field getDriestField() {
 
         <p><b>How this algorithm is helpful?</b></p>
         <ul>
-            <li> Finds the minimum-cost water path from source (reservoir/main canal) to driest field.
-
-
-
-
- </li>
-            <li>Ensures water reaches field efficiently, minimizing loss.</li>
-            <li>Ideal for large-scale paddy field networks with multiple branching channels.</li>
+            <li>Finds the minimum-cost water path from source (reservoir/main canal) to driest field.</li>
+            <li>Ensures water reaches field efficiently with minimal loss.</li>
+            <li>Ideal for large-scale paddy field networks with branching channels.</li>
         </ul>
 
         <p><b>Efficiency:</b></p>
         <ul>
-          <li>Time Complexity: Insert:<b>O((V + E) log V)</b></li>
+            <li>Time Complexity: <b>O((V + E) log V)</b></li>
             <li>Space Complexity: <b>O(V + E)</b></li>
         </ul>
 
         <button class="btn" onclick="toggleCode('code9')">Show Algorithm Code</button>
 
         <div id="code9" class="code-box">
-#include <iostream>
-#include <vector>
-#include <queue>
+<pre><code>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
 using namespace std;
 
 struct Edge {
     int to;
-    int cost;  // water loss or distance
+    int cost;
 };
 
-int V; // total number of nodes (fields + channels)
-vector<vector<Edge>> graph;
+int V;
+vector&lt;vector&lt;Edge&gt;&gt; graph;
 
-vector<int> dijkstra(int source) {
-    vector<int> dist(V, 1e9);
+vector&lt;int&gt; dijkstra(int source) {
+    vector&lt;int&gt; dist(V, 1e9);
     dist[source] = 0;
 
-    // Min-heap: (cost, node)
-    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+    priority_queue&lt;pair&lt;int,int&gt;,
+                   vector&lt;pair&lt;int,int&gt;&gt;,
+                   greater&lt;pair&lt;int,int&gt;&gt;&gt; pq;
+
     pq.push({0, source});
 
     while (!pq.empty()) {
@@ -681,13 +666,11 @@ vector<int> dijkstra(int source) {
     return dist;
 }
 
-// Example usage:
 int main() {
     V = 5;
     graph.resize(V);
 
-    // Add edges (channels)
-    graph[0].push_back({1, 10}); // Channel from 0->1 with loss/cost 10
+    graph[0].push_back({1, 10});
     graph[0].push_back({2, 5});
     graph[1].push_back({2, 2});
     graph[1].push_back({3, 1});
@@ -697,25 +680,1011 @@ int main() {
     graph[3].push_back({4, 4});
     graph[4].push_back({3, 6});
 
-    vector<int> minCost = dijkstra(0); // source = 0 (reservoir)
+    vector&lt;int&gt; minCost = dijkstra(0);
 
-    for (int i = 0; i < V; i++)
-        cout << "Minimum water cost to field " << i << " = " << minCost[i] << endl;
+    for (int i = 0; i &lt; V; i++)
+        cout &lt;&lt; "Minimum water cost to field " &lt;&lt; i 
+             &lt;&lt; " = " &lt;&lt; minCost[i] &lt;&lt; endl;
 }
-
-
-
+</code></pre>
         </div>
     </div>
 
 </div>
+ <!--------------idea4--------->
+<div class="container">
+
+   
+
+    <img class="main-img" src="img4.png" alt="Delivery Routing Image">
+
+    <h2>Description</h2>
+    <p style="text-align:justify;">  
+        Autonomous robots patrol beaches, detect waste using sensors, and collect it efficiently with smart path-planning algorithms.
+        They maintain cleaner beaches with less manual labor and support sustainable coastal management.
+    </p>
+
+    <!-- ================= ALGORITHM 1 ================= -->
+    <div class="algo-section">
+        <h2>Algorithm 1: BFS (Breadth-First Search) for Debris Zone Scanning</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Scans the beach level-by-level.</li>
+            <li>Detects clusters of litter in all reachable directions.</li>
+            <li>Ensures complete coverage without missing any zone.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(V + E)</b></li>
+            <li>Space Complexity: <b>O(V)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code10')">Show Algorithm Code</button>
+
+        <div id="code10" class="code-box">
+<pre>
+#include &lt;iostream&gt;
+#include &lt;queue&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int rows = 5, cols = 5;
+int beach[5][5] = {
+    {0,1,0,0,0},
+    {0,1,1,0,0},
+    {0,0,0,1,0},
+    {1,0,0,0,0},
+    {0,0,1,0,1}
+};
+
+bool visited[5][5] = {false};
+int dx[4] = {1,-1,0,0};
+int dy[4] = {0,0,1,-1};
+
+void BFS(int x, int y) {
+    queue&lt;pair&lt;int,int&gt;&gt; q;
+    q.push({x,y});
+    visited[x][y] = true;
+
+    while(!q.empty()) {
+        auto [cx, cy] = q.front();
+        q.pop();
+        cout &lt;&lt; "Debris found at: (" &lt;&lt; cx &lt;&lt; "," &lt;&lt; cy &lt;&lt; ")\n";
+
+        for(int i=0; i&lt;4; i++){
+            int nx = cx + dx[i];
+            int ny = cy + dy[i];
+
+            if(nx >= 0 && ny >= 0 && nx < rows && ny < cols &&
+               beach[nx][ny] == 1 && !visited[nx][ny]) {
+
+                visited[nx][ny] = true;
+                q.push({nx,ny});
+            }
+        }
+    }
+}
+</pre>
+        </div>
+    </div>
+
+    <!-- ================= ALGORITHM 2 ================= -->
+    <div class="algo-section">
+        <h2>Algorithm 2: Dijkstra for Energy-Efficient Routes</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Finds cheapest path based on energy usage.</li>
+            <li>Minimizes friction losses on loose sand.</li>
+            <li>Ignores heuristics, purely cost-based.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(E log V)</b></li>
+            <li>Space Complexity: <b>O(V)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code11')">Show Algorithm Code</button>
+
+        <div id="code11" class="code-box">
+<pre>
+#include &lt;limits&gt;
+#include &lt;iostream&gt;
+#include &lt;queue&gt;
+using namespace std;
+
+void dijkstra(vector&lt;vector&lt;int&gt;&gt;& graph, int src){
+    int n = graph.size();
+    vector&lt;int&gt; dist(n, numeric_limits&lt;int&gt;::max());
+    dist[src] = 0;
+
+    priority_queue&lt;pair&lt;int,int&gt;,
+                   vector&lt;pair&lt;int,int&gt;&gt;,
+                   greater&lt;pair&lt;int,int&gt;&gt;&gt; pq;
+
+    pq.push({0, src});
+
+    while(!pq.empty()){
+        auto [d, u] = pq.top(); 
+        pq.pop();
+
+        for(int v=0; v<n; v++){
+            if(graph[u][v] && dist[v] > dist[u] + graph[u][v]){
+                dist[v] = dist[u] + graph[u][v];
+                pq.push({dist[v], v});
+            }
+        }
+    }
+
+    for(int i=0;i<n;i++)
+        cout &lt;&lt; "Distance to " &lt;&lt; i &lt;&lt; ": " &lt;&lt; dist[i] &lt;&lt; endl;
+}
+</pre>
+        </div>
+    </div>
+
+    <!-- ================= ALGORITHM 3 ================= -->
+    <div class="algo-section">
+        <h2>Algorithm 3: Heapification for Optimized Garbage Collection</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Prioritizes largest waste clusters first.</li>
+            <li>Robot maximizes efficiency per trip.</li>
+            <li>Reduces battery usage and travel time.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(log n)</b></li>
+            <li>Space Complexity: <b>O(n)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code12')">Show Algorithm Code</button>
+
+        <div id="code12" class="code-box">
+<pre>
+#include &lt;queue&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+struct Waste {
+    int amount;
+    string zone;
+};
+
+struct CompareWaste {
+    bool operator()(Waste a, Waste b){
+        return a.amount < b.amount; // max heap
+    }
+};
+
+priority_queue&lt;Waste, vector&lt;Waste&gt;, CompareWaste&gt; wasteHeap;
+
+void addWaste(string zone, int amount){
+    wasteHeap.push({amount, zone});
+}
+
+void collectWaste(){
+    if(wasteHeap.empty()) {
+        cout &lt;&lt; "All zones cleaned!\n";
+        return;
+    }
+
+    Waste w = wasteHeap.top();
+    wasteHeap.pop();
+
+    cout &lt;&lt; "Collecting from: " &lt;&lt; w.zone
+         &lt;&lt; " | Waste: " &lt;&lt; w.amount &lt;&lt; endl;
+}
+</pre>
+        </div>
+    </div>
+
 </div>
+<!--------------idea5--------->
+<div class="container">
+
+  
+
+    <img class="main-img" src="img6.png" alt="Solar Trading Image">
+
+    <h2>Description</h2>
+    <p style="text-align: justify;">
+        A decentralized solar platform where households generate, trade, and distribute micro-solar energy effectively using graph algorithms.
+    </p>
+
+    <!-- ---------------- ALGORITHM 1 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 1: DFS (Depth-First Search) for Deep Energy Flow Mapping</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Traverses solar nodes deeply and recursively.</li>
+            <li>Finds long chains of connected producers.</li>
+            <li>Helps in analyzing micro-grid stability.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(V + E)</b></li>
+            <li>Space Complexity: <b>O(V)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('algoDFS')">Show Algorithm Code</button>
+
+        <div id="algoDFS" class="code-box">
+<pre><code>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+// Depth-First Search Function
+void DFS(int node, vector&lt;vector&lt;int&gt;&gt;& grid, vector&lt;bool&gt;& visited) {
+    visited[node] = true;
+    cout &lt;&lt; "Energy Cluster Node: " &lt;&lt; node &lt;&lt; endl;
+
+    for (int next : grid[node]) {
+        if (!visited[next]) {
+            DFS(next, grid, visited);
+        }
+    }
+}
+
+int main() {
+    int n = 6;
+
+    vector&lt;vector&lt;int&gt;&gt; grid = {
+        {1, 2},
+        {0, 3},
+        {0, 4},
+        {1, 5},
+        {2},
+        {3}
+    };
+
+    vector&lt;bool&gt; visited(n, false);
+
+    cout &lt;&lt; "DFS Traversal of Energy Cluster Grid:\n";
+
+    for (int i = 0; i < n; i++) {
+        if (!visited[i]) {
+            DFS(i, grid, visited);
+        }
+    }
+
+    return 0;
+}
+</code></pre>
+        </div>
+    </div>
+
+
+    <!-- ---------------- ALGORITHM 2 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 2: Dijkstra for Efficient Energy Routing (Low-Loss Transfer)</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Finds the lowest-loss path between solar nodes.</li>
+            <li>Routes surplus energy to homes demanding power.</li>
+            <li>Ensures optimal energy transfers.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(E log V)</b></li>
+            <li>Space Complexity: <b>O(V)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('algoDijkstra')">Show Algorithm Code</button>
+
+        <div id="algoDijkstra" class="code-box">
+<pre><code>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;limits&gt;
+#include &lt;queue&gt;
+
+using namespace std;
+
+void dijkstra(vector&lt;vector&lt;int&gt;&gt;& cost, int src) {
+    int n = cost.size();
+    vector&lt;int&gt; dist(n, numeric_limits&lt;int&gt;::max());
+    dist[src] = 0;
+
+    priority_queue&lt;pair&lt;int,int&gt;, 
+                   vector&lt;pair&lt;int,int&gt;&gt;, 
+                   greater&lt;pair&lt;int,int&gt;&gt;&gt; pq;
+
+    pq.push({0, src});
+
+    while (!pq.empty()) {
+        auto [currCost, u] = pq.top();
+        pq.pop();
+
+        for (int v = 0; v &lt; n; v++) {
+            if (cost[u][v] && dist[v] > dist[u] + cost[u][v]) {
+                dist[v] = dist[u] + cost[u][v];
+                pq.push({dist[v], v});
+            }
+        }
+    }
+
+    for (int i = 0; i &lt; n; i++)
+        cout &lt;&lt; "Minimum loss to node " &lt;&lt; i &lt;&lt; ": " &lt;&lt; dist[i] &lt;&lt; endl;
+}
+</code></pre>
+        </div>
+    </div>
+
+
+    <!-- ---------------- ALGORITHM 3 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 3: Bellman-Ford for Dynamic Energy Pricing & Flexible Trading</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Handles negative weights such as night-time discounts, demand drops, surge rates.</li>
+            <li>Finds cheapest trading paths when grid conditions change.</li>
+            <li>Detects negative cycles (energy loss loops).</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(V * E)</b></li>
+            <li>Space Complexity: <b>O(V)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('algoBellman')">Show Algorithm Code</button>
+
+        <div id="algoBellman" class="code-box">
+<pre><code>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+// Bellman-Ford Algorithm
+void bellmanFord(int V, int E, vector&lt;vector&lt;int&gt;&gt;& edges, int src) {
+    vector&lt;int&gt; dist(V, 1e9);
+    dist[src] = 0;
+
+    for (int i = 1; i &lt;= V - 1; i++) {
+        for (auto &e : edges) {
+            int u = e[0];
+            int v = e[1];
+            int w = e[2];
+
+            if (dist[u] != 1e9 && dist[v] > dist[u] + w)
+                dist[v] = dist[u] + w;
+        }
+    }
+
+    cout &lt;&lt; "\nBest energy price to reach each node:\n";
+    for (int i = 0; i &lt; V; i++)
+        cout &lt;&lt; "Node " &lt;&lt; i &lt;&lt; " -> " &lt;&lt; dist[i] &lt;&lt; endl;
+}
+
+int main() {
+    int V = 5, E = 7;
+
+    vector&lt;vector&lt;int&gt;&gt; edges = {
+        {0, 1, 6},
+        {0, 2, 7},
+        {1, 2, 8},
+        {1, 3, 5},
+        {1, 4, -4},
+        {2, 3, -3},
+        {4, 3, 9}
+    };
+
+    bellmanFord(V, E, edges, 0);
+    return 0;
+}
+</code></pre>
+        </div>
+    </div>
+
+</div>
+<!-------------idea6----->
+<div class="container">
+
+   
+
+    <img class="main-img" 
+        src="img8.png"
+        alt="Fishery Optimization Image">
+
+    <h2>Description</h2>
+    <p style="text-align: justify;">
+        The Fishery Fuel Optimization System helps fishing boats reduce fuel consumption 
+        by analyzing marine currents, identifying fuel-heavy zones, and generating the most 
+        efficient navigation routes. Using advanced algorithms like BFS, DFS, and Dijkstra, 
+        the system ensures optimal fuel-saving travel, safer navigation, and smarter fleet 
+        decision-making for sustainable fishing operations.
+    </p>
+
+    <!-- ---------------- ALGORITHM 1 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 1: BFS for Fuel Zone Monitoring</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Scans marine zones level-by-level to detect high fuel consumption areas.</li>
+            <li>Identifies strong currents or resistance patterns affecting fuel usage.</li>
+            <li>Builds a fuel heatmap of connected sea regions.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(V + E)</b></li>
+            <li>Space Complexity: <b>O(V)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('algo3')">Show Algorithm Code</button>
+
+        <div id="algo3" class="code-box">
+<pre><code>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+using namespace std;
+
+void BFS(int start, vector&lt;vector&lt;int&gt;&gt;& seaZones) {
+    int n = seaZones.size();
+    vector&lt;bool&gt; visited(n, false);
+
+    queue&lt;int&gt; q;
+    visited[start] = true;
+    q.push(start);
+
+    while (!q.empty()) {
+        int zone = q.front();
+        q.pop();
+
+        cout &lt;&lt; "Monitoring Fuel Zone: " &lt;&lt; zone &lt;&lt; endl;
+
+        for (int next : seaZones[zone]) {
+            if (!visited[next]) {
+                visited[next] = true;
+                q.push(next);
+            }
+        }
+    }
+}
+</code></pre>
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 2 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 2: DFS for Deep Fuel Pattern Analysis</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Explores marine regions deeply to identify long fuel-intensive routes.</li>
+            <li>Detects hidden water paths with high resistance.</li>
+            <li>Helps analyze long-term fuel behavior across connected routes.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(V + E)</b></li>
+            <li>Space Complexity: <b>O(V)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('algo4')">Show Algorithm Code</button>
+
+        <div id="algo4" class="code-box">
+<pre><code>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+void DFS(int zone, vector&lt;vector&lt;int&gt;&gt;& seaZones, vector&lt;bool&gt;& visited) {
+    visited[zone] = true;
+    cout &lt;&lt; "Analyzing Fuel Pattern (DFS Zone): " &lt;&lt; zone &lt;&lt; endl;
+
+    for (int next : seaZones[zone]) {
+        if (!visited[next]) {
+            DFS(next, seaZones, visited);
+        }
+    }
+}
+</code></pre>
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 3 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 3: Dijkstra for Fuel-Efficient Marine Navigation</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Calculates the most fuel-efficient routes between sea zones.</li>
+            <li>Avoids high-drag water regions and unfavorable current areas.</li>
+            <li>Helps boats reach fishing locations with minimal fuel waste.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(E log V)</b></li>
+            <li>Space Complexity: <b>O(V)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('algo5')">Show Algorithm Code</button>
+
+        <div id="algo5" class="code-box">
+<pre><code>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+#include &lt;limits&gt;
+using namespace std;
+
+void dijkstra(vector&lt;vector&lt;int&gt;&gt;& graph, int src) {
+    int n = graph.size();
+    vector&lt;int&gt; dist(n, numeric_limits&lt;int&gt;::max());
+    dist[src] = 0;
+
+    priority_queue&lt;pair&lt;int,int&gt;,
+                   vector&lt;pair&lt;int,int&gt;&gt;,
+                   greater&lt;pair&lt;int,int&gt;&gt;&gt; pq;
+
+    pq.push({0, src});
+
+    while (!pq.empty()) {
+        auto [cost, u] = pq.top();
+        pq.pop();
+
+        for (int v = 0; v &lt; n; v++) {
+            if (graph[u][v] && dist[v] &gt; dist[u] + graph[u][v]) {
+                dist[v] = dist[u] + graph[u][v];
+                pq.push({dist[v], v});
+            }
+        }
+    }
+
+    for (int i = 0; i &lt; n; i++)
+        cout &lt;&lt; "Fuel to reach zone " &lt;&lt; i &lt;&lt; ": " &lt;&lt; dist[i] &lt;&lt; endl;
+}
+</code></pre>
+        </div>
+    </div>
+
+</div>
+<!----------idea7----->
+<div class="container">
+
+   
+
+    <img class="main-img" 
+        src="img9.png"
+        alt="Smart Farming Image">
+
+    <h2>Description</h2>
+    <p style="text-align: justify;">
+        The Smart Farmers Price Formatting Platform helps farmers analyze market 
+        prices, understand supply-demand fluctuations, and choose the most profitable 
+        market for selling their crops. Using intelligent algorithms, the system evaluates 
+        market behavior, predicts future pricing trends, and provides automated guidance 
+        for farmers to maximize income and reduce losses.
+    </p>
+
+    <!-- ---------------- ALGORITHM 1 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 1: BFS for Supply–Demand Zone Tracking</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Scans market regions level-by-level to detect surplus and shortage zones.</li>
+            <li>Helps build a localized crop-demand heatmap.</li>
+            <li>Identifies connected market clusters that influence pricing.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(V + E)</b></li>
+            <li>Space Complexity: <b>O(V)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('algo6')">Show Algorithm Code</button>
+
+        <div id="algo6" class="code-box">
+<pre><code>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+using namespace std;
+
+void BFS(int start, vector&lt;vector&lt;int&gt;&gt;& marketZones) {
+    int n = marketZones.size();
+    vector&lt;bool&gt; visited(n, false);
+
+    queue&lt;int&gt; q;
+    visited[start] = true;
+    q.push(start);
+
+    while (!q.empty()) {
+        int zone = q.front();
+        q.pop();
+
+        cout &lt;&lt; "Analyzing Demand Zone: " &lt;&lt; zone &lt;&lt; endl;
+
+        for (int next : marketZones[zone]) {
+            if (!visited[next]) {
+                visited[next] = true;
+                q.push(next);
+            }
+        }
+    }
+}
+</code></pre>
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 2 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 2: Dijkstra’s Algorithm for Price Optimization Routing</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Finds the most profitable market with the lowest price difference.</li>
+            <li>Considers transport cost and market fluctuation weightage.</li>
+            <li>Ideal for helping farmers choose the best selling point.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(E log V)</b></li>
+            <li>Space Complexity: <b>O(V)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('algo7')">Show Algorithm Code</button>
+
+        <div id="algo7" class="code-box">
+<pre><code>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+#include &lt;limits&gt;
+using namespace std;
+
+void dijkstra(vector&lt;vector&lt;int&gt;&gt;& graph, int src) {
+    int n = graph.size();
+    vector&lt;int&gt; price(n, numeric_limits&lt;int&gt;::max());
+    price[src] = 0;
+
+    priority_queue&lt;pair&lt;int,int&gt;,
+                   vector&lt;pair&lt;int,int&gt;&gt;,
+                   greater&lt;pair&lt;int,int&gt;&gt;&gt; pq;
+
+    pq.push({0, src});
+
+    while (!pq.empty()) {
+        auto [cost, u] = pq.top();
+        pq.pop();
+
+        for (int v = 0; v &lt; n; v++) {
+            if (graph[u][v] && price[v] > price[u] + graph[u][v]) {
+                price[v] = price[u] + graph[u][v];
+                pq.push({price[v], v});
+            }
+        }
+    }
+
+    for (int i = 0; i &lt; n; i++)
+        cout &lt;&lt; "Optimal price path to market " &lt;&lt; i
+             &lt;&lt; ": " &lt;&lt; price[i] &lt;&lt; endl;
+}
+</code></pre>
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 3 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 3: Max-Heap for Ranking High-Demand Crops</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Keeps track of crops with highest demand first.</li>
+            <li>Helps the platform decide priority pricing for farmers.</li>
+            <li>Aids in scheduling crop sales during peak demand seasons.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Build Heap: <b>O(n)</b></li>
+            <li>Insert/Delete: <b>O(log n)</b></li>
+            <li>Space Complexity: <b>O(n)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('algo8')">Show Algorithm Code</button>
+
+        <div id="algo8" class="code-box">
+<pre><code>
+#include &lt;queue&gt;
+#include &lt;string&gt;
+using namespace std;
+
+struct Crop {
+    int demand;
+    string name;
+};
+
+struct CompareDemand {
+    bool operator()(Crop a, Crop b) {
+        return a.demand &lt; b.demand;  // max heap
+    }
+};
+
+priority_queue&lt;Crop, vector&lt;Crop&gt;, CompareDemand&gt; cropHeap;
+
+void addCrop(string name, int demand) {
+    cropHeap.push({demand, name});
+}
+
+void processCrop() {
+    if (cropHeap.empty()) {
+        cout &lt;&lt; "No high-demand crops in queue.\n";
+        return;
+    }
+
+    Crop c = cropHeap.top();
+    cropHeap.pop();
+
+    cout &lt;&lt; "High-Priority Crop: " &lt;&lt; c.name
+         &lt;&lt; " | Demand Score: " &lt;&lt; c.demand &lt;&lt; endl;
+}
+</code></pre>
+        </div>
+    </div>
+
+</div>
+<!----idea8------->
+<div class="container">
+
+   
+
+    <img class="main-img" 
+        src="img10.png"
+        alt="Water Taxi Routing Image">
+
+    <h2>Description</h2>
+    <p style="text-align: justify;">
+        The Water Taxi & Coastal Routing Platform provides fast and optimized 
+        water-based transportation across rivers, lakes, and coastal regions. 
+        Using advanced routing, scheduling, and navigation algorithms, the system 
+        reduces travel time, improves fuel efficiency, enhances passenger safety, 
+        and helps operators choose the best possible marine routes under dynamic 
+        water and weather conditions.
+    </p>
+
+    <!-- ---------------- ALGORITHM 1 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 1: BFS for Reachability Across Water Routes</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Determines all reachable water points from a starting dock.</li>
+            <li>Maps safe water corridors for navigation.</li>
+            <li>Useful for emergency path discovery and blocked-route detection.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(V + E)</b></li>
+            <li>Space Complexity: <b>O(V)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('algorithm')">Show Algorithm Code</button>
+
+        <div id="algorithm" class="code-box">
+<pre><code>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+using namespace std;
+
+void BFS(int start, vector&lt;vector&lt;int&gt;&gt;& waterRoutes) {
+    int n = waterRoutes.size();
+    vector&lt;bool&gt; visited(n, false);
+
+    queue&lt;int&gt; q;
+    visited[start] = true;
+    q.push(start);
+
+    while (!q.empty()) {
+        int point = q.front();
+        q.pop();
+
+        cout &lt;&lt; "Visiting Water Point: " &lt;&lt; point &lt;&lt; endl;
+
+        for (int next : waterRoutes[point]) {
+            if (!visited[next]) {
+                visited[next] = true;
+                q.push(next);
+            }
+        }
+    }
+}
+</code></pre>
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 2 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 2: Dijkstra’s Algorithm for Fastest Coastal Route</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Finds the fastest route between docks considering travel time.</li>
+            <li>Considers wave resistance and marine traffic delays.</li>
+            <li>Ideal for optimizing passenger transport schedules.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(E log V)</b></li>
+            <li>Space Complexity: <b>O(V)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('algorithm1')">Show Algorithm Code</button>
+
+        <div id="algorithm1" class="code-box">
+<pre><code>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+#include &lt;limits&gt;
+using namespace std;
+
+void dijkstra(vector&lt;vector&lt;int&gt;&gt;& graph, int src) {
+    int n = graph.size();
+    vector&lt;int&gt; dist(n, numeric_limits&lt;int&gt;::max());
+    dist[src] = 0;
+
+    priority_queue&lt;pair&lt;int,int&gt;,
+                   vector&lt;pair&lt;int,int&gt;&gt;,
+                   greater&lt;pair&lt;int,int&gt;&gt;&gt; pq;
+
+    pq.push({0, src});
+
+    while (!pq.empty()) {
+        auto [time, u] = pq.top();
+        pq.pop();
+
+        for (int v = 0; v &lt; n; v++) {
+            if (graph[u][v] && dist[v] > dist[u] + graph[u][v]) {
+                dist[v] = dist[u] + graph[u][v];
+                pq.push({dist[v], v});
+            }
+        }
+    }
+
+    for (int i = 0; i &lt; n; i++)
+        cout &lt;&lt; "Fastest time to dock " &lt;&lt; i
+             &lt;&lt; ": " &lt;&lt; dist[i] &lt;&lt; endl;
+}
+</code></pre>
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 3 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 3: Priority Queue (Min-Heap) for Marine Trip Scheduling</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Schedules boat trips based on shortest waiting time.</li>
+            <li>Ensures evenly distributed passenger loads.</li>
+            <li>Improves overall coastal transport efficiency.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Insert/Delete: <b>O(log n)</b></li>
+            <li>Space Complexity: <b>O(n)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('algorithm2')">Show Algorithm Code</button>
+
+        <div id="algorithm2" class="code-box">
+<pre><code>
+#include &lt;queue&gt;
+#include &lt;string&gt;
+using namespace std;
+
+struct Trip {
+    int waitTime;
+    string routeName;
+};
+
+struct CompareTrips {
+    bool operator()(Trip a, Trip b) {
+        return a.waitTime > b.waitTime;  // min-heap
+    }
+};
+
+priority_queue&lt;Trip, vector&lt;Trip&gt;, CompareTrips&gt; tripSchedule;
+
+void addTrip(string name, int waitTime) {
+    tripSchedule.push({waitTime, name});
+}
+
+void processTrip() {
+    if (tripSchedule.empty()) {
+        cout &lt;&lt; "No scheduled water trips.\n";
+        return;
+    }
+
+    Trip t = tripSchedule.top();
+    tripSchedule.pop();
+
+    cout &lt;&lt; "Next Trip: " &lt;&lt; t.routeName
+         &lt;&lt; " | Wait Time: " &lt;&lt; t.waitTime &lt;&lt; " minutes" &lt;&lt; endl;
+}
+</code></pre>
+        </div>
+    </div>
+
+</div>
+<!----------Reflections -->
+<div class="container">
+
+    <h1 class="fancy-title">Course Reflections </h1>
+
+ 
+
+    <p>
+        The Design and Analysis of Algorithms course has profoundly enhanced my comprehension 
+        of core data structures and algorithms and their practical applications in solving 
+        computational problems. Understanding tree-based structures such as Binary Search 
+        Trees (BSTs), AVL trees, and Red-Black trees provided clarity on self-balancing 
+        mechanisms that ensure logarithmic insertion, deletion, and search operations.
+    </p>
+
+    <p>
+        Deep exploration of heaps and the process of heapification strengthened my knowledge 
+        of priority queues and their role in efficient scheduling and sorting. Advanced data 
+        structures such as segment trees, lookup tables, and skip lists introduced robust 
+        strategies for optimizing range queries, supporting dynamic updates, and enabling 
+        probabilistic search operations.
+    </p>
+
+    <p>
+        Traversal techniques such as DFS and BFS highlighted systematic approaches to graph 
+        exploration, while studying shortest path algorithms—including Dijkstra, Bellman–Ford, 
+        and Floyd–Warshall—refined my ability to solve complex weighted graph problems under 
+        varying constraints.
+    </p>
+
+    <p>
+        The detailed study of classical sorting algorithms—bubble, selection, insertion, merge, 
+        and quick sort—allowed me to evaluate time-space trade-offs, stability, and performance 
+        in best, average, and worst-case scenarios. Pattern matching algorithms such as KMP and 
+        Rabin–Karp further deepened my understanding of efficient string-processing techniques.
+    </p>
+
+    <p>
+        One of the most transformative components of this course was algorithmic efficiency 
+        analysis. Examining C++ implementations to derive computational complexity using 
+        Big-O, Big-Theta, and Big-Omega notations helped me recognize the impact of loop 
+        structures, recursion, and optimization choices. This strengthened my ability to select 
+        the right data structure and design optimized solutions tailored to real-world 
+        applications, from transportation networks to resource allocation and auction systems.
+    </p>
+
+</div>
+
 <script>
 function toggleCode(id) {
     let box = document.getElementById(id);
     box.style.display = (box.style.display === "none") ? "block" : "none";
 }
 </script>
-
 </body>
 </html>
