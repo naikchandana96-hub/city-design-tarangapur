@@ -20,28 +20,11 @@ body {
     font-size: 45px;
     font-weight: 900;
     text-align: center;
-
-    background: linear-gradient(90deg, #00ff6a, #00c2ff, #b94dff);
--webkit-background-clip: text; /* works in Chrome, Safari */
-background-clip: text; /* fallback for others */
-color: transparent;
-
-
-    background-size: 200% 200%; /* REQUIRED for animation */
-    animation: shine 3s infinite linear;
-
-    text-shadow: 0 0 15px rgba(0, 194, 255, 0.4);
-    margin-bottom: 25px;
-}
-
-/* ✨ Gradient Shine Animation */
-@keyframes shine {
-    0% {
-        background-position: 200% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
+   
+    color:  #b94dff;
+    background-size: 200% 200%;
+ 
+    text-shadow: 0 0 15px rgba(0,194,255,0.4);
 }
 
 /* ⭐ Fixed Image */
@@ -109,3 +92,4 @@ p, li {
     font-family: Consolas, monospace;
     border: 2px solid #b94dff;
 }
+
