@@ -97,6 +97,1155 @@ function optimizeBattery(drone):
     </div>
 
 </div>
+<div class="container">
+
+    <!-- 🔥 Fancy Animated Title -->
+    <h1 class="fancy-title">Smart City Resource Allocation & Simulation Platform</h1>
+
+  <h2>Description</h2>
+    <p>
+        A digital platform that simulates and optimizes how city resources such as 
+        water, electricity, waste management, transport, and emergency services are 
+        distributed. Using AI-driven simulations, the system helps urban planners 
+        make smarter decisions, predict shortages, improve service delivery, and 
+        build future-ready sustainable smart cities.
+    </p>
+
+    <!-- ---------------- ALGORITHM 1 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 1: Multi-Resource Allocation (Linear Programming)</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Allocates limited city resources optimally across districts.</li>
+            <li>Balances supply and demand efficiently.</li>
+            <li>Prevents shortages and improves service stability.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(n³)</b> (Simplex Method)</li>
+            <li>Space Complexity: <b>O(n²)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code1')">Show Algorithm Code</button>
+
+        <div id="code1" class="code-box">
+function allocateResources(needs, capacity):
+    define objective: minimize shortage
+    add constraints: sum(allocation) <= capacity
+    run simplexOptimization()
+    return optimalDistribution
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 2 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 2: City Simulation Model (Agent-Based Simulation)</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Simulates how citizens, vehicles, and systems behave in real time.</li>
+            <li>Predicts traffic jams, water usage spikes, and emergency scenarios.</li>
+            <li>Helps planners make data-driven decisions before implementing policies.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(N)</b> per simulation step</li>
+            <li>Space Complexity: <b>O(N)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code2')">Show Algorithm Code</button>
+
+        <div id="code2" class="code-box">
+function simulateCity(agents):
+    for each agent in agents:
+        agent.state = agent.update()
+    updateEnvironment()
+    return newCityState
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 3 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 3: Emergency Response Optimization (Dijkstra + Priority Routing)</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Finds the fastest path for ambulances, fire trucks, and police.</li>
+            <li>Prioritizes high-risk zones and emergencies.</li>
+            <li>Reduces response time and increases life-saving efficiency.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(E log V)</b></li>
+            <li>Space Complexity: <b>O(V)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code3')">Show Algorithm Code</button>
+
+        <div id="code3" class="code-box">
+function emergencyRoute(graph, source):
+    priorityQueue.push(source)
+    dist[source] = 0
+
+    while queue not empty:
+        node = extractMin()
+
+        for each neighbor:
+            cost = dist[node] + weight(node, neighbor)
+            if cost < dist[neighbor]:
+                dist[neighbor] = cost
+                queue.push(neighbor)
+    return dist
+        </div>
+    </div>
+
+</div>                                                                                 
+ 
+ 
+
+<div class="container">
+
+    <!-- 🔥 Fancy Animated Title -->
+    <h1 class="fancy-title">Real-Time Traffic Violation Detection System</h1>
+
+  
+    <h2>Description</h2>
+    <p>
+        A real-time monitoring platform that detects traffic violations (red-light running,
+        illegal turns, speeding, wrong-way driving, no-helmet/no-seatbelt) using roadside cameras,
+        computer vision, ANPR (automatic number plate recognition), and streaming analytics to
+        generate alerts, evidence, and enforcement reports.
+    </p>
+
+    <!-- ---------------- ALGORITHM 1 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 1: Vision-based Violation Detection (YOLO / Multi-Task CNN)</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Detects vehicles, riders, pedestrians, helmets, and traffic signals in each video frame.</li>
+            <li>Classifies violations such as red-light running, illegal turns, and no-helmet events.</li>
+            <li>Runs on edge GPUs for sub-second inference and sends events to the stream.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Inference: <b>O(p · d)</b> per frame (p = proposals, d = model depth).</li>
+            <li>Latency: typically <b>&lt;200ms</b> per frame.</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code1')">Show Algorithm Code</button>
+
+        <div id="code1" class="code-box">
+# PSEUDOCODE (frame processing)
+function processFrame(frame):
+    detections = detector.detect(frame)
+    signals = trafficLightClassifier.cropAndClassify(frame, signalZones)
+    violations = []
+
+    for det in detections:
+        if det.class in vehicleClasses:
+            if isInIntersection(det.bbox) and signals.current == "red" and crossedStopLine(det, frame):
+                violations.append({type:"red_light", bbox:det.bbox, conf:det.conf})
+            if speedEstimator.estimate(det) > speedLimitForZone(det.zone):
+                violations.append({type:"speeding", speed:..., bbox:det.bbox})
+        if det.class == "rider" and not helmetDetected(det):
+            violations.append({type:"no_helmet", bbox:det.bbox})
+
+    return violations
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 2 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 2: Automatic Number Plate Recognition (ANPR) & Identity Linking</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Extracts license plate regions, performs OCR, normalizes plate text and resolves noisy reads.</li>
+            <li>Links detected plates to vehicle registry and previous offenses.</li>
+            <li>Uses score-based fusion across multiple frames for robust plate read.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Plate detection + OCR: <b>O(w · h)</b> for crop OCR.</li>
+            <li>Aggregation: <b>O(f)</b> across f frames.</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code2')">Show Algorithm Code</button>
+
+        <div id="code2" class="code-box">
+# PSEUDOCODE (ANPR)
+function readPlate(frame, bbox):
+    plateCrop = crop(frame, bbox)
+    plateDetected = plateDetector.detect(plateCrop)
+    if not plateDetected: return null
+    chars = OCR.read(plateCrop)
+    normalized = normalizePlate(chars)
+    return normalized
+
+function aggregateReads(reads):
+    grouped = voteByStringSimilarity(reads)
+    best = pickHighestConfidence(grouped)
+    return best.string
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 3 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 3: Real-time Streaming, Correlation & Alerting (CEP + Kafka)</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Streams violation events from multiple cameras into a CEP engine.</li>
+            <li>Correlates multi-camera sightings and deduplicates events.</li>
+            <li>Generates evidence packages and triggers enforcement workflows.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Throughput: <b>O(e)</b> per second.</li>
+            <li>Correlation: <b>O(e · log k)</b> with indexed lookups.</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code3')">Show Algorithm Code</button>
+
+        <div id="code3" class="code-box">
+# PSEUDOCODE (stream processing)
+producer.send("violations", event)
+
+function onEvent(event):
+    for v in event.violations:
+        key = normalizeKey(v.type, event.plate or event.camId)
+        dedup = dedupeStore.checkRecent(key, event.ts, window=30s)
+        if not dedup:
+            enriched = enrichWithGeodata(event, v)
+            storeEvidence(enriched)
+            alert = createAlert(enriched)
+            notifications.send(alert)
+            policyEngine.apply(enriched)
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<div class="container">
+
+    <!-- 🔥 Fancy Animated Title -->
+    <h1 class="fancy-title">Disaster Management Early-Warning & Evacuation System</h1>
+
+  
+    <h2>Description</h2>
+    <p>
+        An integrated platform that detects early signs of natural hazards (floods, storms, earthquakes, landslides),
+        issues timely warnings, simulates impact, and orchestrates optimized evacuation and resource deployment plans
+        to minimize loss of life and property.
+    </p>
+
+    <!-- ---------------- ALGORITHM 1 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 1: Early Warning Detection (Sensor Fusion & ML)</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Fuses telemetry from seismic sensors, river gauges, weather stations, satellites, and social feeds.</li>
+            <li>Detects anomalies and issues probabilistic hazard alerts with confidence estimates.</li>
+            <li>Triggers automated escalation when thresholds are exceeded.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Streaming fusion: <b>O(s)</b> per timestep (s = number of sensors).</li>
+            <li>Model inference: <b>O(d)</b> per event (d = features).</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code1')">Show Algorithm Code</button>
+
+        <div id="code1" class="code-box">
+# PSEUDOCODE (Early warning)
+function detectHazard(sensorStreams, satelliteData, socialStream):
+    fused = fuseStreams(sensorStreams, satelliteData)  # smoothing, calibration
+    features = extractFeatures(fused, recentWindow=5min)
+    mlScore = hazardModel.predict(features)            # probability of event
+    socialSignal = analyzeSocial(socialStream, location)
+    combinedScore = combineScores(mlScore, socialSignal, expertRules)
+    if combinedScore > alertThreshold:
+        issueAlert(location, hazardType, combinedScore)
+    return combinedScore
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 2 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 2: Evacuation Routing & Path Planning (Time-Dependent Shortest Path)</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Computes fastest, safe evacuation routes considering dynamic hazards, road closures, and capacity.</li>
+            <li>Supports multi-modal evacuation (vehicles, buses, walking) and dynamic re-routing.</li>
+            <li>Prioritizes vulnerable populations and emergency vehicles.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time-dependent routing: <b>O(E log V)</b> per query.</li>
+            <li>Replanning: uses incremental updates for speed.</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code2')">Show Algorithm Code</button>
+
+        <div id="code2" class="code-box">
+# PSEUDOCODE (Evacuation routing)
+function planEvacuation(graph, origins, shelters, hazardMap, timeWindow):
+    updateEdgeWeights(graph, hazardMap, timeWindow)
+    routes = {}
+    for origin in origins:
+        best = timeDependentDijkstra(graph, origin, shelters)
+        routes[origin.id] = best.path
+    balanceFlows(routes, roadCapacities)
+    return routes
+
+function onHazardUpdate(hazardMapUpdate):
+    affectedEdges = detectAffectedEdges(hazardMapUpdate)
+    incrementalReplan(affectedEdges)
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 3 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 3: Resource Allocation & Impact Simulation (Agent-Based + LP)</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Simulates population movement, resource consumption, and shelter occupancy.</li>
+            <li>Optimizes allocation of ambulances, rescue teams, relief supplies, and temporary shelters.</li>
+            <li>Provides scenario-based planning for disaster response.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Agent simulation: <b>O(N)</b> per timestep.</li>
+            <li>LP optimization: polynomial time based on constraints.</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code3')">Show Algorithm Code</button>
+
+        <div id="code3" class="code-box">
+# PSEUDOCODE (Simulation & allocation)
+function simulateImpact(agents, environment, timesteps):
+    for t in range(timesteps):
+        for agent in agents:
+            agent.updateState(environment)
+        environment.updateFromAgents(agents)
+    return environment.summary()
+
+function allocateResources(demands, supplies, constraints):
+    LP = buildLP()
+    LP.addConstraint(sumAllocatedPerSupply <= supplyCapacity)
+    LP.addConstraint(meetPriorityDemands)
+    LP.setObjective(minimize(totalDeliveryTime + penaltyUnmetDemand))
+    solution = LP.solve()
+    return solution.assignments
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<div class="container">
+
+    <!-- 🔥 Fancy Animated Title -->
+    <h1 class="fancy-title">AI-Powered Legal Document Analyzer</h1>
+
+    <h2>Description</h2>
+    <p>
+        An AI-driven platform that ingests contracts, agreements, and legal documents to
+        automatically extract clauses, identify risks, compare versions, and produce
+        concise summaries and obligation checklists for lawyers, paralegals, and business teams.
+    </p>
+
+    <!-- ---------------- ALGORITHM 1 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 1: Clause Extraction & Contract Parsing (NLP + Rule Hybrid)</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Identifies clause boundaries (e.g., indemnity, termination, payment) and metadata (parties, dates).</li>
+            <li>Combines named-entity recognition, section heuristics, and regex rules for high accuracy.</li>
+            <li>Outputs structured JSON for downstream searches and compliance checks.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Parsing: <b>O(n)</b> where n = number of tokens/lines.</li>
+            <li>NER / model inference: <b>O(n · d)</b> depending on model depth.</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code1')">Show Algorithm Code</button>
+
+        <div id="code1" class="code-box">
+# PSEUDOCODE (clause parsing)
+function parseDocument(docText):
+    pages = splitPages(docText)
+    blocks = segmentBlocks(pages)            # based on newlines, numbering, font cues
+    tokens = tokenize(blocks)
+    entities = NERModel.predict(tokens)
+    sections = detectSections(blocks)        # heuristics: headings, numbering patterns
+    clauses = []
+    for sec in sections:
+        clauseType = classifyClause(sec.text)  # classifier (NN / rules)
+        clauses.append({ type: clauseType, text: sec.text, parties: extractParties(sec, entities) })
+    return { clauses: clauses, entities: entities, sections: sections }
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 2 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 2: Semantic Clause Search & Similarity (Embeddings + ANN)</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Enables lawyers to search by concept (e.g., "material adverse change") and find matching clauses across corpus.</li>
+            <li>Finds near-duplicate clauses for benchmarking and precedent discovery.</li>
+            <li>Supports clustering of clauses to create standardized clause libraries.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Indexing: <b>O(N · d)</b> to compute embeddings (N = clauses, d = embed dim).</li>
+            <li>Query (ANN): sub-linear retrieval for large corpora.</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code2')">Show Algorithm Code</button>
+
+        <div id="code2" class="code-box">
+# PSEUDOCODE (semantic search)
+function buildClauseIndex(clauses):
+    embeds = {}
+    for c in clauses:
+        embeds[c.id] = embedText(c.text)
+    ann = ANN.build(embeds)
+    return ann
+
+function semanticSearch(query, annIndex, topK=20):
+    qv = embedText(query)
+    hits = annIndex.search(qv, topK)
+    reranked = rerankByLegalFeatures(hits, query)  # boost by jurisdiction, recency, clauseType
+    return reranked
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 3 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 3: Risk Scoring & Version Diff Detection (ML + Heuristics)</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Scores clauses and full documents for legal/commercial risk using trained models and business rules.</li>
+            <li>Detects changes between versions (additions, removals, modified obligations) and highlights high-impact edits.</li>
+            <li>Generates an actionable checklist of obligations, deadlines, and remediation steps.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Diff detection: <b>O(m + n)</b> for sequence comparison (m,n = token lengths).</li>
+            <li>Risk scoring inference: <b>O(f)</b> where f = number of features per clause.</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code3')">Show Algorithm Code</button>
+
+        <div id="code3" class="code-box">
+# PSEUDOCODE (diff + risk)
+function diffVersions(oldText, newText):
+    oldClauses = parseDocument(oldText).clauses
+    newClauses = parseDocument(newText).clauses
+    matches = matchClausesBySimilarity(oldClauses, newClauses)
+    changes = []
+    for pair in matches:
+        if pair.similarity < threshold:
+            changes.append({ old: pair.old, new: pair.new, changeType: classifyChange(pair) })
+    return changes
+
+function scoreRisk(document):
+    features = extractRiskFeatures(document)  # e.g., indemnity caps, termination notice, penalty clauses
+    score = riskModel.predict(features)       # outputs risk percentile
+    explain = explainModelFeatures(features)  # feature attributions for auditing
+    return { score: score, explain: explain }
+        </div>
+    </div>
+
+    <!-- ---------------- EXTRA: OCR & Summary ---------------- -->
+    <div class="algo-section">
+        <h2>Extras: OCR for Scanned Contracts & Auto-Summary</h2>
+
+        <p><b>How this is helpful?</b></p>
+        <ul>
+            <li>OCR pipeline converts scanned PDFs to searchable text with layout preservation.</li>
+            <li>Auto-summarization produces short human-readable briefings and obligation checklists.</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code4')">Show Algorithm Code</button>
+
+        <div id="code4" class="code-box">
+# PSEUDOCODE (OCR & summary)
+function ocrAndIndex(pdf):
+    images = renderPDFToImages(pdf)
+    pagesText = []
+    for img in images:
+        cleaned = preprocessImage(img)
+        text = OCR.engine(cleaned)
+        pagesText.append(text)
+    fullText = joinPages(pagesText)
+    indexDocument(fullText)
+    return fullText
+
+function summarizeDocument(text, length=150):
+    docVec = embedText(text)
+    sentences = splitSentences(text)
+    scored = scoreSentencesByRelevance(sentences, docVec)
+    top = selectTopK(scored, k=5)
+    return joinSentences(top)
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<div class="container">
+
+    <!-- 🔥 Fancy Animated Title -->
+    <h1 class="fancy-title">Smart Logistics & Delivery Route Optimization</h1>
+
+
+    <h2>Description</h2>
+    <p>
+        A logistics platform that optimizes delivery routes, assigns vehicles, and schedules pickups/drop-offs
+        using advanced heuristics, time-window-aware routing, and real-time re-optimization to reduce cost,
+        meet SLAs, and improve fleet utilization.
+    </p>
+
+    <!-- ---------------- ALGORITHM 1 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 1: Vehicle Routing Problem (Clarke-Wright + Local Search)</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Creates near-optimal routes that minimize distance and travel time.</li>
+            <li>Respects vehicle capacities and basic time windows.</li>
+            <li>Fast enough for daily planning with local improvements (2-opt / 3-opt).</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Heuristic runtime: <b>O(k · n²)</b> (k = iterations, n = stops)</li>
+            <li>Space Complexity: <b>O(n²)</b> for distance matrix</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code1')">Show Algorithm Code</button>
+
+        <div id="code1" class="code-box">
+# PSEUDOCODE (Clarke-Wright savings + 2-opt)
+function solveVRP(locations, depot, vehicleCapacity):
+    D = computeDistanceMatrix(locations + depot)
+    initRoutes = [[depot, loc, depot] for loc in locations]
+    savings = computeSavingsList(D)  # pairs (i,j) sorted desc
+    for (i,j) in savings:
+        if canMerge(routeOf(i), routeOf(j), vehicleCapacity):
+            mergeRoutes(routeOf(i), routeOf(j))
+    for r in routes:
+        r = twoOptImprove(r, D)
+    return routes
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 2 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 2: Time-Windowed & Pickup-Delivery Routing (PDPTW)</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Schedules deliveries with customer time windows and pickup-delivery precedence.</li>
+            <li>Ensures SLAs while minimizing lateness penalties and travel cost.</li>
+            <li>Uses insertion heuristics and local repair for scalability.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Insertion heuristic: <b>O(n · m)</b> where m = vehicles.</li>
+            <li>Space: <b>O(n)</b> for route representations.</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code2')">Show Algorithm Code</button>
+
+        <div id="code2" class="code-box">
+# PSEUDOCODE (Greedy insertion for PDPTW)
+function planPDPTW(requests, vehicles, depot):
+    routes = initializeEmptyRoutes(vehicles, depot)
+    sortedRequests = sortByPriorityAndEarliestTime(requests)
+    for req in sortedRequests:
+        best = findBestInsertion(req, routes)  # checks feasibility: capacity & time windows
+        if best:
+            insertRequestIntoRoute(req, best.route, best.position)
+        else:
+            markUnassigned(req)
+    improveRoutesWithLocalSearch(routes)
+    return { routes: routes, unassigned: list }
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 3 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 3: Real-Time Re-Optimization & Fleet Assignment (Rolling Horizon)</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Adapts routes in response to traffic, new orders, cancellations, and vehicle status.</li>
+            <li>Balances load across fleet and minimizes late deliveries.</li>
+            <li>Supports dynamic pickup merging and driver shift constraints.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Replan cycle: <b>O(m log n + k · n²)</b>.</li>
+            <li>Space Complexity: <b>O(n + v)</b>.</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code3')">Show Algorithm Code</button>
+
+        <div id="code3" class="code-box">
+# PSEUDOCODE (Rolling horizon re-optimizer)
+function rollingOptimize(currentState, horizon=60min):
+    events = collectNewEvents()  # new orders, cancellations, traffic updates
+    updateStateWithEvents(currentState, events)
+    candidateReassignments = generateLocalMoves(currentState)  # swap, relocate, merge
+    scoreMoves = evaluateMoves(candidateReassignments, costFunc)
+    applyTopKMoves(scoreMoves)
+    publishUpdatedRoutesToDrivers()
+    scheduleNextReopt()
+    return currentState
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="container">
+
+    <!-- 🔥 Fancy Animated Title -->
+    <h1 class="fancy-title">Real-Time Stock Market Pattern Analyzer</h1>
+
+
+    <h2>Description</h2>
+    <p>
+        A real-time analytics platform that ingests live market data, detects technical and statistical patterns,
+        issues trade signals, and provides visual analytics for traders and quants.
+        It combines streaming feature engineering, pattern recognition, anomaly detection,
+        and short-term forecasting to support intraday and algorithmic trading strategies.
+    </p>
+
+    <!-- ---------------- ALGORITHM 1 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 1: Real-time Feature Extraction (Streaming & Windowing)</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Computes time-series features (returns, volatility, VWAP, moving averages) in streaming fashion.</li>
+            <li>Maintains sliding windows for multi-scale feature views.</li>
+            <li>Feeds features to pattern detectors and ML models with low latency.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Per-tick update: <b>O(1)</b> amortized for incremental statistics.</li>
+            <li>Window aggregation: <b>O(w)</b> only when full recomputation is needed.</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code1')">Show Algorithm Code</button>
+
+        <div id="code1" class="code-box">
+# PSEUDOCODE (stream feature extractor)
+function updateTick(tick, state):
+    state.count += 1
+    state.lastPrice = tick.price
+    state.vwap = (state.vwap * (state.volSum) + tick.price * tick.volume) / (state.volSum + tick.volume)
+    state.volSum += tick.volume
+    state.ema_short = alpha_short * tick.price + (1-alpha_short) * state.ema_short
+    state.ema_long = alpha_long * tick.price + (1-alpha_long) * state.ema_long
+    state.returns = log(tick.price / state.prevPrice)
+    state.prevPrice = tick.price
+    pushToSlidingWindow(state.window, tick)
+    return state
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 2 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 2: Pattern Recognition (Chart Patterns + Statistical Tests)</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Detects chart patterns using shape matching and peak/trough analysis.</li>
+            <li>Identifies mean-reversion signals, momentum breakouts, fractal repeats.</li>
+            <li>Combines rule-based detections with ML classifiers.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Pattern scan: <b>O(n)</b> per window.</li>
+            <li>DTW shape matching: <b>O(n²)</b> naive.</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code2')">Show Algorithm Code</button>
+
+        <div id="code2" class="code-box">
+# PSEUDOCODE (simple peak/trough pattern)
+function detectDoubleTop(prices, threshold):
+    peaks = findLocalPeaks(prices)
+    if len(peaks) < 2: return false
+    for i in range(len(peaks)-1):
+        if abs(prices[peaks[i]] - prices[peaks[i+1]]) / prices[peaks[i]] < threshold:
+            valley = findValleyBetween(peaks[i], peaks[i+1])
+            if valley and prices[valley] < prices[peaks[i]] * (1 - depthThreshold):
+                return { pattern: "double_top", peaks: (peaks[i], peaks[i+1]), valley: valley }
+    return false
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 3 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 3: Short-Term Forecasting & Signal Scoring (Ensemble ML)</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Predicts short-term returns or direction using ensemble models.</li>
+            <li>Combines model outputs with pattern confidence.</li>
+            <li>Supports simulation and paper-trading.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Inference: <b>O(f)</b> (f = features).</li>
+            <li>Ensemble scoring: <b>O(m · f)</b>.</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code3')">Show Algorithm Code</button>
+
+        <div id="code3" class="code-box">
+# PSEUDOCODE (ensemble signal)
+function scoreSymbol(features):
+    scores = []
+    scores.append(model_fast.predict(features_fast))
+    scores.append(model_momentum.predict(features_mom))
+    scores.append(model_meanrev.predict(features_meanrev))
+    aggregate = weightedAverage(scores, weights)
+    finalScore = aggregate * (1 + patternConfidence(features.patterns))
+    action = decideAction(finalScore, riskLimits)
+    return { score: finalScore, action: action }
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<div class="container">
+
+    <!-- 🔥 Fancy Animated Title -->
+    <h1 class="fancy-title">Autonomous Traffic Routing &amp; Smart Road Navigation</h1>
+
+ 
+
+    <h2>Description</h2>
+    <p>
+        A city-scale platform that provides autonomous vehicle routing, smart road navigation,
+        and traffic orchestration using real-time sensor fusion, vehicle-to-infrastructure (V2I)
+        communication, and predictive traffic models to deliver safer, faster, and lower-emission journeys.
+    </p>
+
+    <!-- ---------------- ALGORITHM 1 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 1: Real-Time Routing (A* / Time-Dependent Shortest Path)</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Computes fastest, safest route for autonomous vehicles accounting for dynamic congestion.</li>
+            <li>Supports time-of-day, predicted delays, and lane restrictions.</li>
+            <li>Enables cooperative routing when coordinating multiple AVs to reduce conflicts.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(E log V)</b> for time-dependent graph search.</li>
+            <li>Space Complexity: <b>O(V)</b> for distance and predecessor arrays.</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code1')">Show Algorithm Code</button>
+
+        <div id="code1" class="code-box">
+# PSEUDOCODE (time-dependent A*)
+function timeAwareAstar(start, goal, departureTime, graph):
+    openSet = priorityQueue()
+    gScore = map(default=inf)
+    fScore = map(default=inf)
+    gScore[start] = 0
+    fScore[start] = heuristic(start, goal, departureTime)
+    openSet.push((fScore[start], start))
+
+    while not openSet.empty():
+        _, current = openSet.pop()
+        if current == goal:
+            return reconstructPath(cameFrom, current)
+
+        for edge in graph.neighbors(current):
+            travelTime = travelTimeForEdge(edge, departureTime + gScore[current])
+            tentativeG = gScore[current] + travelTime
+            if tentativeG < gScore[edge.to]:
+                cameFrom[edge.to] = current
+                gScore[edge.to] = tentativeG
+                fScore[edge.to] = tentativeG + heuristic(edge.to, goal, departureTime + tentativeG)
+                openSet.push((fScore[edge.to], edge.to))
+    return failure
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 2 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 2: Adaptive Signal Control (Reinforcement Learning + SCOOT-style)</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Adjusts traffic signal timings in real time to minimize queueing and delays.</li>
+            <li>Learns coordinated phase plans for corridors using RL or heuristic controllers.</li>
+            <li>Reduces stop-and-go behavior and smooths platoons for AVs and regular traffic.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Control update: <b>O(k)</b> per intersection (k = #phases/approaches).</li>
+            <li>Training: depends on RL algorithm; serving is lightweight (few ms per decision).</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code2')">Show Algorithm Code</button>
+
+        <div id="code2" class="code-box">
+# PSEUDOCODE (simple RL controller loop)
+function updateSignalController(intersection, state):
+    # state: queue lengths, arrivals, predicted inflow
+    action = policyNetwork.predict(state)   # selects phase durations or next phase
+    applySignalAction(intersection, action)
+    recordTransition(state, action, reward=computeDelayReduction())
+    if readyToTrain():
+        policyNetwork.trainFromReplay()
+    return action
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 3 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 3: Incident Detection & Cooperative Re-Routing</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Detects incidents (crashes, stalls, obstructions) using sensors, cameras, and crowd signals.</li>
+            <li>Automatically triggers localized re-routing for affected vehicles and adjusts signals to clear paths for responders.</li>
+            <li>Coordinates AV movements to form temporary corridors or merge patterns.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Detection latency: <b>O(s)</b> per sensor fusion cycle (s = sensors aggregated).</li>
+            <li>Re-routing: incremental updates allow <b>sublinear</b> recomputation for impacted subgraph.</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code3')">Show Algorithm Code</button>
+
+        <div id="code3" class="code-box">
+# PSEUDOCODE (incident handling)
+function handleIncident(incident):
+    affectedArea = mapIncidentToEdges(incident)
+    markEdgesUnavailable(affectedArea)
+    notifyNearbyVehicles(affectedArea)
+    for vehicle in vehiclesInArea(affectedArea):
+        newRoute = incrementalReplan(vehicle.currentPosition, vehicle.destination, avoid=affectedArea)
+        sendRouteUpdate(vehicle, newRoute)
+    adjustSignalsForEmergency(incident.location)
+    logIncident(incident)
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="container">
+
+    <!-- 🔥 Fancy Animated Title -->
+    <h1 class="fancy-title">Smart Farming Drone Navigation &amp; Route Optimization</h1>
+
+    <h2>Description</h2>
+    <p>
+        A precision-agriculture platform for autonomous drone navigation that plans efficient field
+        coverage, optimizes routes for spraying/survey missions, coordinates drone swarms, and manages
+        battery & payload so farms get timely monitoring and targeted interventions with minimal downtime.
+    </p>
+
+    <!-- ---------------- ALGORITHM 1 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 1: Coverage Path Planning (Boustrophedon / Lawn-mower)</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Generates complete, collision-free coverage paths for field survey or spraying.</li>
+            <li>Handles irregular field shapes and obstacles by decomposing into cells.</li>
+            <li>Minimizes turns and overlap to save battery and chemicals.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Cell decomposition + coverage: <b>O(n)</b> where n = number of cells/segments.</li>
+            <li>Path smoothing: additional local passes, typically <b>O(n)</b>.</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code1')">Show Algorithm Code</button>
+
+        <div id="code1" class="code-box">
+# PSEUDOCODE (Boustrophedon / lawn-mower)
+function planCoverage(fieldPolygon, obstacles, sensorWidth):
+    cells = decomposeToCells(fieldPolygon, obstacles)   # e.g., monotone decomposition
+    coveragePaths = []
+    for cell in cells:
+        path = generateLawnmower(cell, sensorWidth)     # parallel swaths aligned to longest axis
+        path = trimOverlap(path, cell.bounds)
+        coveragePaths.append(path)
+    fullPath = concatenatePathsWithConnectors(coveragePaths)  # short transition flights
+    fullPath = smoothTurns(fullPath, maxTurnRadius)
+    return fullPath
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 2 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 2: Route Optimization (TSP + Time/No-Fly Constraints)</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Orders inspection waypoints or treatment patches to minimize flight time.</li>
+            <li>Incorporates no-fly zones, dynamic weather constraints, and battery swap windows.</li>
+            <li>Uses heuristic solvers (Christofides/greedy + local search) for near-optimal tours quickly.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Heuristic runtime: <b>O(k · n²)</b> (k = improvement iterations, n = waypoints).</li>
+            <li>Incremental replanning for constraints: sublinear updates where possible.</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code2')">Show Algorithm Code</button>
+
+        <div id="code2" class="code-box">
+# PSEUDOCODE (TSP heuristic with battery constraints)
+function optimizeRoute(waypoints, homeBase, batteryRange, noFlyZones):
+    D = computeAerialDistanceMatrix(waypoints + [homeBase], avoid=noFlyZones)
+    route = greedyNearestNeighbor(D, start=homeBase)
+    route = twoOptImprove(route, D)
+    # enforce battery legs: split route into missions if distance > batteryRange
+    missions = splitByBatteryLimit(route, batteryRange, homeBase)
+    # schedule recharge / swap points
+    for m in missions:
+        m = ensureSafeReturnOrSwap(m, homeBase, swapStations)
+    return missions
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 3 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 3: Swarm Coordination & Battery/Load Management</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Coordinates multiple drones to parallelize coverage and avoid collisions.</li>
+            <li>Assigns tasks by battery state, payload capacity, and proximity (load balancing).</li>
+            <li>Supports dynamic hand-offs: one drone surveys while another performs precision spraying.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Task assignment: <b>O(m log n)</b> using priority queues (m = tasks, n = drones).</li>
+            <li>Consensus/formation updates: <b>O(n)</b> per control tick for n drones.</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code3')">Show Algorithm Code</button>
+
+        <div id="code3" class="code-box">
+# PSEUDOCODE (swarm task assignment + battery-aware)
+function assignTasksToDrones(tasks, drones):
+    # compute score = w1*distanceScore + w2*batteryScore + w3*payloadFit
+    pq = PriorityQueue()  # push (score, droneId, taskId)
+    for task in tasks:
+        for drone in drones:
+            if drone.available:
+                score = computeAssignmentScore(drone, task)
+                pq.push((score, drone.id, task.id))
+    assignments = {}
+    while not pq.empty():
+        score, dId, tId = pq.pop()
+        if droneAvailable(dId) and taskUnassigned(tId):
+            assignments[dId] = tId
+            updateDroneState(dId, assignedTask=tId)
+    return assignments
+
+function batteryAwareHandoff(drone, task):
+    if estimatedEnergyToComplete(task, drone) > drone.remainingBattery:
+        # find nearest drone with sufficient battery
+        partner = findNearestAvailableDrone(task.location, minBatteryNeeded)
+        planHandoff(drone, partner, task)
+    return
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<div class="container">
+
+    <!-- 🔥 Fancy Animated Title -->
+    <h1 class="fancy-title">Real-Time Water Quality Monitoring System</h1>
+
+    
+    <h2>Description</h2>
+    <p>
+        A smart IoT-based platform that continuously monitors water quality parameters such as pH, 
+        turbidity, dissolved oxygen, temperature, and contamination levels using sensor networks.
+        The system visualizes trends, detects anomalies, and alerts stakeholders in real time.
+    </p>
+
+    <!-- ---------------- ALGO 1 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 1: Sensor Calibration & Noise Filtering</h2>
+
+        <p><b>Why this algorithm?</b></p>
+        <ul>
+            <li>Ensures raw sensor readings are stable and accurate.</li>
+            <li>Removes spikes and outliers from environmental interference.</li>
+            <li>Produces clean data for prediction and detection modules.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Low-pass filtering: <b>O(n)</b> for n samples.</li>
+            <li>Running average update: <b>O(1)</b> per new reading.</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code1')">Show Algorithm Code</button>
+
+        <div id="code1" class="code-box">
+# PSEUDOCODE (Noise reduction & calibration)
+function filterSignal(rawValues):
+    smooth = []
+    for i in range(len(rawValues)):
+        win = rawValues[max(0, i-4) : i+1]       # sliding window of recent 5 readings
+        smooth.append(average(win))
+    return smooth
+
+function calibrateReading(raw, offset, scale):
+    return (raw + offset) * scale
+        </div>
+    </div>
+
+    <!-- ---------------- ALGO 2 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 2: Anomaly Detection (Threshold + Z-Score)</h2>
+
+        <p><b>Why this algorithm?</b></p>
+        <ul>
+            <li>Detects sudden contamination or pollution events.</li>
+            <li>Uses adaptive statistical thresholds based on recent history.</li>
+            <li>Works well on resource-constrained IoT devices.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Z-score detection: <b>O(n)</b>.</li>
+            <li>Threshold comparison: <b>O(1)</b> per sensor reading.</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code2')">Show Algorithm Code</button>
+
+        <div id="code2" class="code-box">
+# PSEUDOCODE (Anomaly detection)
+function detectAnomaly(value, mean, stdDev, upperLimit, lowerLimit):
+    if value > upperLimit or value < lowerLimit:
+        return "Hard Anomaly"   # outside safe range
+
+    z = (value - mean) / stdDev
+    if abs(z) > 3:
+        return "Statistical Anomaly"
+
+    return "Normal"
+        </div>
+    </div>
+
+    <!-- ---------------- ALGO 3 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 3: Predictive Analytics (Time-Series Forecasting)</h2>
+
+        <p><b>Why this algorithm?</b></p>
+        <ul>
+            <li>Predicts future contamination and water-quality changes.</li>
+            <li>Helps authorities act before conditions become unsafe.</li>
+            <li>Uses lightweight AR(1)/moving average models for IoT compatibility.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Forecast update: <b>O(1)</b> per cycle.</li>
+            <li>Historical smoothing: <b>O(n)</b>.</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code3')">Show Algorithm Code</button>
+
+        <div id="code3" class="code-box">
+# PSEUDOCODE (Simple prediction)
+function forecastNext(current, previous, alpha):
+    # Exponential smoothing model
+    return alpha * current + (1 - alpha) * previous
+
+function updateHistory(history, newValue):
+    history.append(newValue)
+    if len(history) > MAX_SIZE:
+        history.pop(0)
+    return history
+        </div>
+    </div>
+
+
+
 
 <script>
 function toggleCode(id) {
