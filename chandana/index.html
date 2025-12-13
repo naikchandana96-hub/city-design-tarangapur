@@ -2,19 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Smart Delivery Routing Platform</title>
+<title>Combined Smart Delivery & Electricity Platforms</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- ---------------- SMART DELIVERY ROUTING PLATFORM ---------------- -->
 <div class="container">
 
-    <h1 class="fancy-title">Smart Delivery Routing Platform</h1>
+    <h1 class="fancy-title">Delivery Routing Platform</h1>
 
-
-    <img class="main-img" 
-    src="img1.png.png"
-    alt="Delivery Routing Image">
+    <img class="main-img" src="img1.png" alt="Delivery Routing Image">
 
     <h2>Description</h2>
     <p>
@@ -31,7 +29,7 @@
         <ul>
             <li>Computes shortest delivery routes.</li>
             <li>Reduces fuel usage and travel cost.</li>
-            <li>Helps avoid high-traffic or long-distance roads.</li>
+            <li>Helps avoid high-traffic roads.</li>
         </ul>
 
         <p><b>Efficiency:</b></p>
@@ -43,21 +41,47 @@
         <button class="btn" onclick="toggleCode('code1')">Show Algorithm Code</button>
 
         <div id="code1" class="code-box">
-function dijkstra(graph, start):
-    dist[] = infinity
-    dist[start] = 0
-    pq = min-priority queue
-    pq.push((0, start))
 
-    while pq is not empty:
-        (currentDist, node) = pq.pop()
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
 
-        for each (neighbor, weight) in graph[node]:
-            if currentDist + weight < dist[neighbor]:
-                dist[neighbor] = currentDist + weight
-                pq.push((dist[neighbor], neighbor))
+int main() {
+    int V = 5;
+    vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; graph(V);
 
-    return dist
+    graph[0].push_back({1,10});
+    graph[0].push_back({4,5});
+    graph[1].push_back({2,1});
+    graph[1].push_back({4,2});
+    graph[2].push_back({3,4});
+    graph[4].push_back({3,2});
+
+    vector&lt;int&gt; dist(V, INT_MAX);
+    priority_queue&lt;pair&lt;int,int&gt;, vector&lt;pair&lt;int,int&gt;&gt;, greater&lt;&gt;&gt; pq;
+
+    dist[0] = 0;
+    pq.push({0,0});
+
+    while(!pq.empty()) {
+        int u = pq.top().second;
+        pq.pop();
+
+        for(auto e : graph[u]) {
+            int v = e.first, w = e.second;
+            if(dist[u] + w &lt; dist[v]) {
+                dist[v] = dist[u] + w;
+                pq.push({dist[v], v});
+            }
+        }
+    }
+
+    cout &lt;&lt; "Shortest distances:\n";
+    for(int i=0;i&lt;V;i++)
+        cout &lt;&lt; i &lt;&lt; " : " &lt;&lt; dist[i] &lt;&lt; endl;
+
+    return 0;
+}
+
         </div>
     </div>
 
@@ -67,89 +91,1984 @@ function dijkstra(graph, start):
 
         <p><b>How this algorithm is helpful?</b></p>
         <ul>
-            <li>Uses heuristics to estimate fastest path.</li>
-            <li>Efficient for real-time city navigation.</li>
-            <li>Used in modern delivery & ride apps.</li>
+            <li>Uses heuristic for faster route selection.</li>
+            <li>Ideal for real-time navigation.</li>
+            <li>Improves delivery efficiency.</li>
         </ul>
 
         <p><b>Efficiency:</b></p>
         <ul>
-            <li>Time Complexity: <b>O(E)</b> (depends on heuristic)</li>
+            <li>Time Complexity: <b>O(E)</b></li>
             <li>Space Complexity: <b>O(V)</b></li>
         </ul>
 
         <button class="btn" onclick="toggleCode('code2')">Show Algorithm Code</button>
 
         <div id="code2" class="code-box">
-function A*(start, goal):
-    openSet = priority queue
-    openSet.push(start)
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
 
-    gScore[start] = 0
-    fScore[start] = heuristic(start, goal)
+int heuristic(int a, int b) {
+    return abs(a - b);
+}
 
-    while openSet not empty:
-        current = node with lowest fScore
+int main() {
+    int V = 6;
+    vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; graph(V);
 
-        if current == goal:
-            return reconstruct_path()
+    graph[0] = {{1,2},{2,4}};
+    graph[1] = {{3,7}};
+    graph[2] = {{3,1}};
+    graph[3] = {{4,3}};
+    graph[4] = {{5,1}};
 
-        for each neighbor of current:
-            temp = gScore[current] + distance(current, neighbor)
+    int start = 0, goal = 5;
 
-            if temp < gScore[neighbor]:
-                gScore[neighbor] = temp
-                fScore[neighbor] = temp + heuristic(neighbor, goal)
-                openSet.push(neighbor)
+    vector&lt;int&gt; g(V, INT_MAX);
+    priority_queue&lt;pair&lt;int,int&gt;, vector&lt;pair&lt;int,int&gt;&gt;, greater&lt;&gt;&gt; pq;
 
-    return failure
+    g[start] = 0;
+    pq.push({heuristic(start,goal), start});
+
+    while(!pq.empty()) {
+        int u = pq.top().second;
+        pq.pop();
+
+        if(u == goal) {
+            cout &lt;&lt; "Goal reached with cost: " &lt;&lt; g[u] &lt;&lt; endl;
+            return 0;
+        }
+
+        for(auto e : graph[u]) {
+            int v = e.first, w = e.second;
+            if(g[u] + w &lt; g[v]) {
+                g[v] = g[u] + w;
+                pq.push({g[v] + heuristic(v,goal), v});
+            }
+        }
+    }
+
+    cout &lt;&lt; "Path not found";
+    return 0;
+}
+
         </div>
     </div>
 
     <!-- ---------------- ALGORITHM 3 ---------------- -->
     <div class="algo-section">
-        <h2>Algorithm 3: Minimum Spanning Tree (Prim's Algorithm)</h2>
+        <h2>Algorithm 3: Prim's Minimum Spanning Tree</h2>
 
         <p><b>How this algorithm is helpful?</b></p>
         <ul>
-            <li>Helps connect all delivery points at minimum cost.</li>
-            <li>Efficient network planning for logistics.</li>
-            <li>Reduces infrastructure and operational costs.</li>
+            <li>Minimizes delivery network cost.</li>
+            <li>Efficient route infrastructure planning.</li>
+            <li>Reduces operational expenses.</li>
         </ul>
 
         <p><b>Efficiency:</b></p>
         <ul>
-            <li>Time Complexity: <b>O(|E| log |V|)</b></li>
+            <li>Time Complexity: <b>O(V²)</b></li>
         </ul>
 
         <button class="btn" onclick="toggleCode('code3')">Show Algorithm Code</button>
 
         <div id="code3" class="code-box">
-function primMST(graph):
-    key[] = infinity
-    parent[] = -1
-    mstSet[] = false
-    key[0] = 0
 
-    for count in 0 to V-1:
-        u = minKey(key, mstSet)
-        mstSet[u] = true
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
 
-        for each vertex v adjacent to u:
-            if not mstSet[v] and weight(u,v) < key[v]:
-                parent[v] = u
-                key[v] = weight(u,v)
+int main() {
+    int V = 5;
+    vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; graph(V);
 
-    return parent[]
+    graph[0] = {{1,2},{3,6}};
+    graph[1] = {{0,2},{2,3},{3,8},{4,5}};
+    graph[2] = {{1,3},{4,7}};
+    graph[3] = {{0,6},{1,8}};
+    graph[4] = {{1,5},{2,7}};
+
+    vector&lt;int&gt; key(V, INT_MAX), parent(V, -1);
+    vector&lt;bool&gt; mst(V, false);
+    key[0] = 0;
+
+    for(int i=0;i&lt;V-1;i++) {
+        int u=-1;
+        for(int j=0;j&lt;V;j++)
+            if(!mst[j] && (u==-1 || key[j]&lt;key[u]))
+                u=j;
+
+        mst[u]=true;
+
+        for(auto e:graph[u]) {
+            int v=e.first,w=e.second;
+            if(!mst[v] && w&lt;key[v]) {
+                key[v]=w;
+                parent[v]=u;
+            }
+        }
+    }
+
+    cout &lt;&lt; "Edges in MST:\n";
+    for(int i=1;i&lt;V;i++)
+        cout &lt;&lt; parent[i] &lt;&lt; " - " &lt;&lt; i &lt;&lt; " (" &lt;&lt; key[i] &lt;&lt; ")\n";
+
+    return 0;
+}
+
         </div>
     </div>
 
 </div>
 
+
+<!-- ---------------- SMART CITY ELECTRICITY DEMAND BALANCER ---------------- -->
+<div class="container">
+
+    <h1 class="fancy-title"> Electricity Demand Balancer</h1>
+
+    <img class="main-img" 
+    src="img2.png"
+    alt="Electricity Load Balancing">
+
+    <h2>Description</h2>
+    <p>
+        A smart power management system that monitors electricity consumption 
+        across different city zones, balances load in real time, and optimizes 
+        power routing to reduce outages and energy waste.
+    </p>
+
+    <!-- ---------------- ALGORITHM 1 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 1: Segment Trees</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Maintains electricity usage of all houses/zones efficiently.</li>
+            <li>Queries total electricity load in any area instantly.</li>
+            <li>Supports real-time updates as consumption changes.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(log N)</b> for update and query</li>
+            <li>Space Complexity: <b>O(N)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code4')">Show Algorithm Code</button>
+
+        <div id="code4" class="code-box">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+vector&lt;int&gt; seg;  
+
+void build(vector&lt;int&gt; &arr, int node, int l, int r) {
+    if (l == r) {
+        seg[node] = arr[l];
+        return;
+    }
+    int mid = (l + r) / 2;
+    build(arr, 2 * node, l, mid);
+    build(arr, 2 * node + 1, mid + 1, r);
+    seg[node] = seg[2 * node] + seg[2 * node + 1];
+}
+
+int query(int node, int l, int r, int L, int R) {
+    if (R &lt; l || r &lt; L) return 0; 
+    if (L &lt;= l && r &lt;= R) return seg[node]; 
+    int mid = (l + r) / 2;
+    return query(2 * node, l, mid, L, R) +
+           query(2 * node + 1, mid + 1, r, L, R);
+}
+
+void update(int node, int l, int r, int idx, int val) {
+    if (l == r) {
+        seg[node] = val;
+        return;
+    }
+    int mid = (l + r) / 2;
+    if (idx &lt;= mid)
+        update(2 * node, l, mid, idx, val);
+    else
+        update(2 * node + 1, mid + 1, r, idx, val);
+
+    seg[node] = seg[2 * node] + seg[2 * node + 1];
+}
+
+int main() {
+    vector&lt;int&gt; arr = {3, 2, 1, 7, 5};
+    int n = (int)arr.size();
+
+    seg.assign(4 * n, 0); 
+
+    build(arr, 1, 0, n - 1);
+
+    cout &lt;&lt; "Sum of range(1, 3): " &lt;&lt; query(1, 0, n - 1, 1, 3) &lt;&lt; endl;
+
+    update(1, 0, n - 1, 2, 10); 
+
+    cout &lt;&lt; "After update, sum of range(1, 3): " &lt;&lt; query(1, 0, n - 1, 1, 3) &lt;&lt; endl;
+
+    return 0;
+}
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 2 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 2: Heaps (Priority Queue)</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Identifies zones with extremely high electricity usage.</li>
+            <li>Helps prioritize which area needs immediate load balancing.</li>
+            <li>Maintains top overloaded zones efficiently.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(log N)</b> for insertion/removal</li>
+            <li>Space Complexity: <b>O(N)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code5')">Show Algorithm Code</button>
+
+        <div id="code5" class="code-box">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+pair&lt;string, int&gt; getMaxLoad(vector&lt;pair&lt;string,int&gt;&gt; &zones) {
+    priority_queue&lt;pair&lt;int,string&gt;&gt; pq;
+    for(auto &z : zones) {
+        pq.push({z.second, z.first});
+    }
+    return {pq.top().second, pq.top().first};
+}
+
+int main() {
+    vector&lt;pair&lt;string,int&gt;&gt; zones = { {"ZoneA",40}, {"ZoneB",55}, {"ZoneC",30} };
+    auto result = getMaxLoad(zones);
+    cout &lt;&lt; "Highest Load Zone = " &lt;&lt; result.first &lt;&lt; " Load = " &lt;&lt; result.second &lt;&lt; endl;
+    return 0;
+}
+        </div>
+    </div>
+    <!-- ---------------- ALGORITHM 3 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 3: BST / AVL Tree</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Stores electricity meter readings efficiently.</li>
+            <li>Allows fast lookup of any house or meter ID.</li>
+            <li>Self-balancing ensures queries remain fast.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(log N)</b> for search, insert, delete</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code6')">Show Algorithm Code</button>
+
+        <div id="code6" class="code-box">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+struct Node {
+    int key;
+    Node *left, *right;
+    int height;
+    Node(int k) : key(k), left(NULL), right(NULL), height(1) {}
+};
+
+int getHeight(Node* n){ return n ? n->height : 0; }
+int getBalance(Node* n){ return n ? getHeight(n->left)-getHeight(n->right) : 0; }
+
+Node* rotateRight(Node* y){
+    Node* x=y->left; Node* T2=x->right;
+    x->right=y; y->left=T2;
+    y->height=1+max(getHeight(y->left),getHeight(y->right));
+    x->height=1+max(getHeight(x->left),getHeight(x->right));
+    return x;
+}
+
+Node* rotateLeft(Node* x){
+    Node* y=x->right; Node* T2=y->left;
+    y->left=x; x->right=T2;
+    x->height=1+max(getHeight(x->left),getHeight(x->right));
+    y->height=1+max(getHeight(y->left),getHeight(y->right));
+    return y;
+}
+
+Node* insert(Node* root,int key){
+    if(!root) return new Node(key);
+    if(key<root->key) root->left=insert(root->left,key);
+    else if(key>root->key) root->right=insert(root->right,key);
+    else return root;
+    root->height=1+max(getHeight(root->left),getHeight(root->right));
+    int balance=getBalance(root);
+    if(balance>1 && key<root->left->key) return rotateRight(root);
+    if(balance<-1 && key>root->right->key) return rotateLeft(root);
+    if(balance>1 && key>root->left->key){ root->left=rotateLeft(root->left); return rotateRight(root);}
+    if(balance<-1 && key<root->right->key){ root->right=rotateRight(root->right); return rotateLeft(root);}
+    return root;
+}
+
+void inorder(Node* root){
+    if(!root) return;
+    inorder(root->left);
+    cout &lt;&lt; root->key &lt;&lt; " ";
+    inorder(root->right);
+}
+
+int main(){
+    Node* root=NULL;
+    vector&lt;int&gt; values={30,20,40,10,25,35,50};
+    for(int x:values) root=insert(root,x);
+    cout &lt;&lt; "AVL Tree (Inorder): ";
+    inorder(root);
+}
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 4 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 4: Bellman-Ford Algorithm</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Finds optimal electricity transmission routes.</li>
+            <li>Handles negative weights like energy-saving adjustments.</li>
+            <li>Ensures minimum power loss during transmission.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(V × E)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('code7')">Show Algorithm Code</button>
+
+        <div id="code7" class="code-box">
+  #include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+vector<int> bellmanFord(int V, vector<tuple<int,int,int>> &edges, int src) {
+    const int INF = 1e9;
+    vector<int> dist(V, INF);
+    dist[src] = 0;
+
+    for(int i = 0; i &lt; V-1; i++) {
+        for(auto &e : edges) {
+            int u, v, w;
+            tie(u,v,w) = e;
+            if(dist[u] != INF && dist[u] + w < dist[v]) {
+                dist[v] = dist[u] + w;
+            }
+        }
+    }
+    return dist;
+}      </div>
+    </div>
+</div>
+    <div class="container">
+
+    <h1 class="fancy-title"> Inventory & Warehouse Management</h1>
+
+    <img class="main-img"
+    src="img3.png"
+    alt="Warehouse Management System">
+
+    <h2>Description</h2>
+    <p>
+        A smart warehouse system that monitors stock levels, manages incoming/outgoing 
+        inventory, tracks item locations, and optimizes order processing to reduce 
+        delays and improve efficiency.
+    </p>
+
+    <!-- ---------------- ALGORITHM 1 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 1: BST / AVL Tree</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Stores product IDs and details efficiently.</li>
+            <li>Allows fast lookup of any item in the warehouse.</li>
+            <li>Self-balancing ensures high performance even when stock grows large.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(log N)</b> (search, insert, delete)</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('codeInv1')">Show Algorithm Code</button>
+
+        <div id="codeInv1" class="code-box">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+struct Node {
+    int productID;
+    Node *left, *right;
+    int height;
+    Node(int id) : productID(id), left(NULL), right(NULL), height(1) {}
+};
+
+int height(Node* n) { return n ? n->height : 0; }
+int balance(Node* n) { return n ? height(n->left) - height(n->right) : 0; }
+
+Node* rotateRight(Node* y){
+    Node* x = y->left;
+    y->left = x->right;
+    x->right = y;
+
+    y->height = 1 + max(height(y->left), height(y->right));
+    x->height = 1 + max(height(x->left), height(x->right));
+
+    return x;
+}
+
+Node* rotateLeft(Node* x){
+    Node* y = x->right;
+    x->right = y->left;
+    y->left = x;
+
+    x->height = 1 + max(height(x->left), height(x->right));
+    y->height = 1 + max(height(y->left), height(y->right));
+
+    return y;
+}
+
+Node* insert(Node* root, int id){
+    if(!root) return new Node(id);
+
+    if(id < root->productID) root->left = insert(root->left, id);
+    else if(id > root->productID) root->right = insert(root->right, id);
+    else return root;
+
+    root->height = 1 + max(height(root->left), height(root->right));
+
+    int b = balance(root);
+
+    if(b > 1 && id < root->left->productID) return rotateRight(root);
+    if(b < -1 && id > root->right->productID) return rotateLeft(root);
+
+    if(b > 1 && id > root->left->productID){
+        root->left = rotateLeft(root->left);
+        return rotateRight(root);
+    }
+
+    if(b < -1 && id < root->right->productID){
+        root->right = rotateRight(root->right);
+        return rotateLeft(root);
+    }
+
+    return root;
+}
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 2 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 2: Segment Trees</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Maintains real-time stock quantity levels for each product category.</li>
+            <li>Quickly checks total available stock in any range.</li>
+            <li>Supports fast updates when stock increases or decreases.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(log N)</b> (update + query)</li>
+            <li>Space Complexity: <b>O(N)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('codeInv2')">Show Algorithm Code</button>
+
+        <div id="codeInv2" class="code-box">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+vector<int> seg;
+
+void build(vector<int> &arr, int node, int l, int r) {
+    if(l == r){
+        seg[node] = arr[l];
+        return;
+    }
+    int mid = (l + r) / 2;
+    build(arr, node*2, l, mid);
+    build(arr, node*2+1, mid+1, r);
+    seg[node] = seg[node*2] + seg[node*2+1];
+}
+
+int query(int node, int l, int r, int L, int R){
+    if(R < l || L > r) return 0;
+    if(L <= l && r <= R) return seg[node];
+
+    int mid = (l + r)/2;
+    return query(node*2, l, mid, L, R)
+         + query(node*2+1, mid+1, r, L, R);
+}
+
+void update(int node, int l, int r, int idx, int val){
+    if(l == r){
+        seg[node] = val;
+        return;
+    }
+    int mid = (l + r)/2;
+    if(idx <= mid) update(node*2, l, mid, idx, val);
+    else update(node*2+1, mid+1, r, idx, val);
+
+    seg[node] = seg[node*2] + seg[node*2+1];
+}
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 3 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 3: Heaps (Priority Queue)</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Identifies urgent orders that must be processed first.</li>
+            <li>Helps schedule picking and packing based on priority.</li>
+            <li>Manages real-time priority updates for order queues.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(log N)</b> (insert/remove)</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('codeInv3')">Show Algorithm Code</button>
+
+        <div id="codeInv3" class="code-box">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+pair<int,string> getUrgentOrder(vector<pair<int,string>> &orders){
+    priority_queue<pair<int,string>> pq;
+
+    for(auto &o : orders){
+        pq.push({o.first, o.second}); 
+    }
+    return pq.top();
+}
+
+int main(){
+    vector<pair<int,string>> orders = {
+        {5, "Order101"},
+        {9, "Order202"},
+        {3, "Order303"}
+    };
+
+    auto urgent = getUrgentOrder(orders);
+    cout &lt;&lt; "Urgent Order: " << urgent.second 
+         << " Priority = " << urgent.first << endl;
+}
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 4 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 4: Sorting Algorithms</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Organizes inventory by price, expiry, SKU, or quantity.</li>
+            <li>Speeds up search and warehouse layout optimization.</li>
+            <li>Improves batch processing and shipment grouping.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Quick Sort: <b>O(N log N)</b> average</li>
+            <li>Merge Sort: <b>O(N log N)</b> guaranteed</li>
+            <li>Insertion Sort: <b>O(N²)</b> (best for small datasets)</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('codeInv4')">Show Sorting Code</button>
+
+        <div id="codeInv4" class="code-box">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+void mergeSort(vector<int> &arr){
+    sort(arr.begin(), arr.end()); 
+}
+
+int main(){
+    vector<int> stock = {40, 10, 60, 20, 30};
+
+    mergeSort(stock);
+
+    cout << "Sorted Stock Levels: ";
+    for(int x : stock) cout << x << " ";
+}
+        </div>
+    </div>
+
+</div>
+
+<!-- ---------------- SMART WASTE MANAGEMENT SYSTEM ---------------- -->
+<div class="container">
+
+    <h1 class="fancy-title">Waste Management System</h1>
+
+    <img class="main-img"
+         src="img4.png"
+         alt="Smart Waste Management">
+
+    <h2>Description</h2>
+    <p>
+        A smart waste management system that optimizes garbage-collection routes,
+        predicts bin fill levels using sensors, prioritizes urgent pickups, and
+        schedules collections to minimize fuel use and delays.
+    </p>
+
+    <!-- ---------------- ALGORITHM 1 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 1: Dijkstra's Algorithm </h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Finds shortest/fastest routes for garbage trucks between bins and depot.</li>
+            <li>Accounts for dynamic road costs (traffic, road closures) when weighted.</li>
+            <li>Enables near-real-time route recalculation after urgent pickups are added.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O((V + E) log V)</b> with a binary heap (priority_queue)</li>
+            <li>Space Complexity: <b>O(V)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('codeSW1')">Show Algorithm Code</button>
+
+        <div id="codeSW1" class="code-box">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+
+vector<int> dijkstra(int V, vector<vector<pair<int,int>>>& adj, int src) {
+    const int INF = 1e9;
+    vector<int> dist(V, INF);
+    dist[src] = 0;
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+    pq.push({0, src});
+
+    while(!pq.empty()) {
+        auto [d, u] = pq.top(); pq.pop();
+        if(d > dist[u]) continue;
+        for(auto &edge : adj[u]) {
+            int v = edge.first, w = edge.second;
+            if(dist[u] + w < dist[v]) {
+                dist[v] = dist[u] + w;
+                pq.push({dist[v], v});
+            }
+        }
+    }
+    return dist;
+}
+
+int main() {
+    int V = 6;
+    vector<vector<pair<int,int>>> adj(V);
+    adj[0].push_back({1, 7});
+    adj[0].push_back({2, 9});
+    adj[0].push_back({5,14});
+    adj[1].push_back({2,10});
+    adj[1].push_back({3,15});
+    adj[2].push_back({3,11});
+    adj[2].push_back({5,2});
+    adj[3].push_back({4,6});
+    adj[4].push_back({5,9});
+
+    vector<int> dist = dijkstra(V, adj, 0);
+    cout &lt;&lt; "Distances from depot (0):\\n";
+    for(int i = 0; i &lt; V; ++i) cout &lt;&lt; i &lt;&lt; ": " &lt;&lt; dist[i] &lt;&lt; "\\n";
+    return 0;
+}
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 2 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 2: Segment Tree for Bin Fill Levels</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Maintains sensor-reported fill levels for all bins efficiently.</li>
+            <li>Queries aggregate fill-level stats for any region quickly (e.g., total or max).</li>
+            <li>Supports fast updates when sensors report new fill percentages.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(log N)</b> for update and range query</li>
+            <li>Space Complexity: <b>O(N)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('codeSW2')">Show Algorithm Code</button>
+
+        <div id="codeSW2" class="code-box">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+vector<int> seg; 
+
+void build(vector<int>& arr, int node, int l, int r) {
+    if(l == r) { seg[node] = arr[l]; return; }
+    int mid = (l + r) / 2;
+    build(arr, 2*node, l, mid);
+    build(arr, 2*node+1, mid+1, r);
+    seg[node] = max(seg[2*node], seg[2*node+1]); // store max fill %
+}
+
+int queryMax(int node, int l, int r, int L, int R) {
+    if(R &lt; l || r &lt; L) return -1; // no overlap
+    if(L &lt;= l && r &lt;= R) return seg[node];
+    int mid = (l + r) / 2;
+    return max(queryMax(2*node, l, mid, L, R),
+               queryMax(2*node+1, mid+1, r, L, R));
+}
+
+void update(int node, int l, int r, int idx, int val) {
+    if(l == r) { seg[node] = val; return; }
+    int mid = (l + r) / 2;
+    if(idx &lt;= mid) update(2*node, l, mid, idx, val);
+    else update(2*node+1, mid+1, r, idx, val);
+    seg[node] = max(seg[2*node], seg[2*node+1]);
+}
+
+int main() {
+    vector<int> fill = {20, 55, 40, 78, 10, 90}; // fill percentages per bin
+    int n = (int)fill.size();
+    seg.assign(4*n, 0);
+    build(fill, 1, 0, n-1);
+
+    cout &lt;&lt; "Max fill in range(1,4): " &lt;&lt; queryMax(1,0,n-1,1,4) &lt;&lt; endl;
+
+    
+    update(1,0,n-1,2,95);
+    cout &lt;&lt; "After update, max in range(1,4): " &lt;&lt; queryMax(1,0,n-1,1,4) &lt;&lt; endl;
+    return 0;
+}
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 3 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 3: Heaps (Priority Queue) for Urgent Bins</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Prioritizes bins that are near-full or overflowing for immediate pickup.</li>
+            <li>Efficiently retrieves top-k urgent bins when scheduling routes.</li>
+            <li>Supports dynamic priority updates as new sensor data arrives.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(log N)</b> insertion/removal</li>
+            <li>Space Complexity: <b>O(N)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('codeSW3')">Show Algorithm Code</button>
+
+        <div id="codeSW3" class="code-box">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+
+pair<int,int> getTopUrgent(vector<pair<int,int>>& bins) {
+   
+    priority_queue<pair<int,int>> pq; 
+    for(auto &b : bins) pq.push({b.second, b.first});
+    auto top = pq.top();
+    return {top.second, top.first}; 
+}
+
+int main() {
+    vector<pair<int,int>> bins = { {101, 60}, {102, 95}, {103, 80}, {104, 45} };
+    auto urgent = getTopUrgent(bins);
+    cout &lt;&lt; "Most urgent bin ID = " &lt;&lt; urgent.first
+         &lt;&lt; " Fill% = " &lt;&lt; urgent.second &lt;&lt; endl;
+    return 0;
+}
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 4 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 4: BST / AVL for Bin Registry & Schedules</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Stores bin metadata (ID, location, capacity) for fast lookup.</li>
+            <li>Supports insert/delete when bins are added/removed from the network.</li>
+            <li>Self-balancing keeps operations fast as the number of bins grows.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(log N)</b> search/insert/delete</li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('codeSW4')">Show Algorithm Code</button>
+
+        <div id="codeSW4" class="code-box">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+struct Node {
+    int binID;
+    Node *left, *right;
+    int height;
+    Node(int id) : binID(id), left(NULL), right(NULL), height(1) {}
+};
+
+int height(Node* n){ return n ? n->height : 0; }
+int getBalance(Node* n){ return n ? height(n->left) - height(n->right) : 0; }
+
+Node* rotateRight(Node* y){
+    Node* x = y->left; Node* T2 = x->right;
+    x->right = y; y->left = T2;
+    y->height = 1 + max(height(y->left), height(y->right));
+    x->height = 1 + max(height(x->left), height(x->right));
+    return x;
+}
+
+Node* rotateLeft(Node* x){
+    Node* y = x->right; Node* T2 = y->left;
+    y->left = x; x->right = T2;
+    x->height = 1 + max(height(x->left), height(x->right));
+    y->height = 1 + max(height(y->left), height(y->right));
+    return y;
+}
+
+Node* insert(Node* root, int id){
+    if(!root) return new Node(id);
+    if(id < root->binID) root->left = insert(root->left, id);
+    else if(id > root->binID) root->right = insert(root->right, id);
+    else return root;
+
+    root->height = 1 + max(height(root->left), height(root->right));
+    int balance = getBalance(root);
+
+    if(balance > 1 && id < root->left->binID) return rotateRight(root);
+    if(balance < -1 && id > root->right->binID) return rotateLeft(root);
+    if(balance > 1 && id > root->left->binID) { root->left = rotateLeft(root->left); return rotateRight(root); }
+    if(balance < -1 && id < root->right->binID) { root->right = rotateRight(root->right); return rotateLeft(root); }
+
+    return root;
+}
+
+void inorder(Node* root){
+    if(!root) return;
+    inorder(root->left);
+    cout &lt;&lt; root->binID &lt;&lt; " ";
+    inorder(root->right);
+}
+
+int main(){
+    Node* root = NULL;
+    vector<int> bins = {201, 150, 300, 110, 175, 260};
+    for(int id : bins) root = insert(root, id);
+    cout &lt;&lt; "Bin registry (inorder IDs): ";
+    inorder(root);
+    cout &lt;&lt; endl;
+    return 0;
+}
+        </div>
+    </div>
+
+</div>
+<!-- ---------------- SMART AGRICULTURE MONITORING SYSTEM ---------------- -->
+<!-- ---------------- SMART AGRICULTURE MONITORING SYSTEM ---------------- -->
+<div class="container">
+
+    <h1 class="fancy-title">Agriculture Monitoring System</h1>
+
+    <img class="main-img"
+         src="img5.png"
+         alt="Smart Agriculture">
+
+    <h2>Description</h2>
+    <p>
+        A smart agriculture monitoring system that analyzes soil moisture, temperature,
+        humidity, crop health, and irrigation needs across all farm zones. It automates
+        irrigation scheduling, detects disease spread, and prioritizes critical crop areas
+        for better yield and reduced waste.
+    </p>
+
+    <!-- ---------------- ALGORITHM 1 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 1: Segment Tree for Soil Moisture & Temperature</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Stores soil moisture/temperature values for different farm plots.</li>
+            <li>Allows fast range queries (e.g., find min moisture in plots 5–20).</li>
+            <li>Updates instantly when sensor data changes.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(log N)</b> for update & range query</li>
+            <li>Space Complexity: <b>O(N)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('codeAG1')">Show Algorithm Code</button>
+
+        <div id="codeAG1" class="code-box">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+vector<int> segTree;
+
+
+void build(vector<int>& arr, int node, int start, int end) {
+    if(start == end) {
+        segTree[node] = arr[start];
+        return;
+    }
+    int mid = (start + end) / 2;
+    build(arr, node*2, start, mid);
+    build(arr, node*2+1, mid+1, end);
+    segTree[node] = min(segTree[node*2], segTree[node*2+1]); 
+}
+
+
+int queryMin(int node, int start, int end, int l, int r) {
+    if(r < start || end < l) return INT_MAX;
+    if(l <= start && end <= r) return segTree[node];
+    int mid = (start + end) / 2;
+    return min(queryMin(node*2, start, mid, l, r),
+               queryMin(node*2+1, mid+1, end, l, r));
+}
+
+
+void update(int node, int start, int end, int idx, int val) {
+    if(start == end) {
+        segTree[node] = val;
+        return;
+    }
+    int mid = (start + end) / 2;
+    if(idx <= mid) update(node*2, start, mid, idx, val);
+    else update(node*2+1, mid+1, end, idx, val);
+
+    segTree[node] = min(segTree[node*2], segTree[node*2+1]);
+}
+
+int main() {
+    vector<int> moisture = {40, 55, 33, 60, 20, 75};
+    int n = moisture.size();
+    segTree.assign(4*n, 0);
+
+    build(moisture, 1, 0, n-1);
+    cout &lt;&lt; "Min moisture in range(1,4): "
+         &lt;&lt; queryMin(1, 0, n-1, 1, 4) &lt;&lt; endl;
+
+    update(1, 0, n-1, 2, 18);
+
+    cout &lt;&lt; "After update, min moisture in range(1,4): "
+         &lt;&lt; queryMin(1, 0, n-1, 1, 4) &lt;&lt; endl;
+}
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 2 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 2: Max-Heap for Irrigation Priority</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Picks top priority zones that need irrigation urgently.</li>
+            <li>Updates priorities dynamically as soil moisture changes.</li>
+            <li>Makes irrigation efficient and automated.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(log N)</b> push & pop</li>
+            <li>Space Complexity: <b>O(N)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('codeAG2')">Show Algorithm Code</button>
+
+        <div id="codeAG2" class="code-box">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+
+pair<int,int> getIrrigationPriority(vector<pair<int,int>>& zones) {
+    priority_queue<pair<int,int>> pq; 
+
+    for(auto &z : zones) {
+        int dryness = 100 - z.second;
+        pq.push({dryness, z.first});
+    }
+
+    auto top = pq.top();
+    return {top.second, 100 - top.first}; 
+}
+
+int main() {
+    vector<pair<int,int>> zones = { {1,40}, {2,20}, {3,55}, {4,10} };
+    auto urgent = getIrrigationPriority(zones);
+
+    cout &lt;&lt; "Highest priority zone = " &lt;&lt; urgent.first
+         &lt;&lt; " Moisture = " &lt;&lt; urgent.second &lt;&lt; endl;
+}
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 3 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 3: Graph + DFS for Disease Spread Detection</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Represents farm plots as a graph (adjacent plots connected).</li>
+            <li>DFS helps detect how disease spreads from infected plots.</li>
+            <li>Identifies all affected plots quickly for early action.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(V + E)</b></li>
+            <li>Space Complexity: <b>O(V)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('codeAG3')">Show Algorithm Code</button>
+
+        <div id="codeAG3" class="code-box">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+vector<vector<int>> graphFarm;
+vector<bool> visited;
+
+void dfs(int node) {
+    visited[node] = true;
+    cout &lt;&lt; "Infected plot: " &lt;&lt; node &lt;&lt; endl;
+
+    for(int next : graphFarm[node]) {
+        if(!visited[next]) dfs(next);
+    }
+}
+
+int main() {
+    int plots = 6;
+    graphFarm.assign(plots, {});
+    visited.assign(plots, false);
+
+   
+    graphFarm[0] = {1};
+    graphFarm[1] = {0,2,3};
+    graphFarm[2] = {1,4};
+    graphFarm[3] = {1,5};
+    graphFarm[4] = {2};
+    graphFarm[5] = {3};
+
+    int infectedStart = 1;
+    cout &lt;&lt; "Disease spreading from plot " &lt;&lt; infectedStart &lt;&lt; endl;
+    dfs(infectedStart);
+
+    return 0;
+}
+        </div>
+    </div>
+
+</div>
+<!-- ---------------- FRAUD DETECTION IN BANKING ---------------- -->
+<div class="container">
+
+    <h1 class="fancy-title">Fraud Detection in Banking</h1>
+
+    <img class="main-img"
+         src="img6.png"
+         alt="Banking Fraud Detection">
+
+    <h2>Description</h2>
+    <p>
+        A fraud detection system that analyzes transaction patterns, monitors user behavior,
+        scans suspicious transfer chains, and detects anomalies in real-time. Uses graph
+        algorithms, hashing, and pattern matching to identify fraudulent transactions with
+        high accuracy.
+    </p>
+
+    <!-- ---------------- ALGORITHM 1 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 1: Hash Table for Fast Transaction Lookup</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Stores user transactions for O(1) average lookup time.</li>
+            <li>Quickly detects duplicate, repeated, or abnormal transactions.</li>
+            <li>Useful for checking blacklisted accounts instantly.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(1)</b> average search/insert</li>
+            <li>Space Complexity: <b>O(N)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('codeFD1')">Show Algorithm Code</button>
+
+        <div id="codeFD1" class="code-box">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+
+int main() {
+    unordered_map<string, int> transactionCount;
+
+    vector<string> transactions = {
+        "TX1001", "TX1002", "TX1003", "TX1002", "TX1005"
+    };
+
+    for (auto &tx : transactions) {
+        transactionCount[tx]++;
+
+        if (transactionCount[tx] > 1) {
+            cout &lt;&lt; "Suspicious: repeated transaction ID = " &lt;&lt; tx &lt;&lt; endl;
+        }
+    }
+
+    return 0;
+}
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 2 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 2: Graph + BFS/DFS for Fraud Chain Detection</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Treats bank accounts as nodes and transactions as edges.</li>
+            <li>BFS/DFS can detect long suspicious transaction chains.</li>
+            <li>Identifies linked accounts involved in money laundering.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(V + E)</b></li>
+            <li>Space Complexity: <b>O(V)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('codeFD2')">Show Algorithm Code</button>
+
+        <div id="codeFD2" class="code-box">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+vector<vector<int>> graphBank;
+vector<bool> visited;
+
+void dfs(int node) {
+    visited[node] = true;
+    cout &lt;&lt; "Suspicious linked account: " &lt;&lt; node &lt;&lt; endl;
+
+    for (int next : graphBank[node]) {
+        if (!visited[next]) dfs(next);
+    }
+}
+
+int main() {
+    int accounts = 6;
+    graphBank.assign(accounts, {});
+    visited.assign(accounts, false);
+    graphBank[0] = {1, 2};
+    graphBank[1] = {3};
+    graphBank[2] = {4};
+    graphBank[3] = {5};
+    graphBank[4] = {};
+    graphBank[5] = {};
+
+    int suspectStart = 0;
+    cout &lt;&lt; "Fraud chain starts from account " &lt;&lt; suspectStart &lt;&lt; endl;
+    dfs(suspectStart);
+
+    return 0;
+}
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 3 ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 3: Rabin-Karp for Pattern-Based Fraud Detection</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Detects fraud patterns in transaction descriptions.</li>
+            <li>Uses rolling hash to find suspicious keywords fast.</li>
+            <li>Efficient when scanning thousands of transaction logs.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(n + m)</b> average</li>
+            <li>Space Complexity: <b>O(1)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('codeFD3')">Show Algorithm Code</button>
+
+        <div id="codeFD3" class="code-box">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+vector<int> rabinKarp(string text, string pattern) {
+    const int p = 31;
+    const int m = 1e9 + 9;
+    int T = text.size(), P = pattern.size();
+    vector<long long> power(T);
+    power[0] = 1;
+
+    for (int i = 1; i < T; i++) 
+        power[i] = (power[i - 1] * p) % m;
+
+    long long patHash = 0, currHash = 0;
+
+    for (int i = 0; i < P; i++) {
+        patHash = (patHash + (pattern[i] - 'a' + 1) * power[i]) % m;
+        currHash = (currHash + (text[i] - 'a' + 1) * power[i]) % m;
+    }
+
+    vector<int> positions;
+    for (int i = 0; i + P <= T; i++) {
+        if (patHash == currHash)
+            positions.push_back(i);
+
+        if (i + P < T) {
+            currHash = (currHash - (text[i] - 'a' + 1) + m) % m;
+            currHash = (currHash + (text[i + P] - 'a' + 1) * power[P - 1]) % m;
+            currHash = (currHash * p) % m;
+        }
+    }
+    return positions;
+}
+
+int main() {
+    string logs = "transaction flagged suspicious transfer suspicious alert";
+    string keyword = "suspicious";
+
+    auto found = rabinKarp(logs, keyword);
+
+    for (int pos : found)
+        cout &lt;&lt; "Suspicious keyword found at index: " &lt;&lt; pos &lt;&lt; endl;
+
+    return 0;
+}
+        </div>
+    </div>
+
+</div>
+<!-- ---------------- OPTIMIZED SHIP ROUTING & MARINE NAVIGATION ---------------- -->
+<div class="container">
+
+    <h1 class="fancy-title">Optimized Ship Routing & Marine Navigation</h1>
+
+    <img class="main-img"
+         src="img9.png"
+         alt="Marine Navigation">
+
+    <h2>Description</h2>
+    <p>
+        A marine navigation system that calculates the safest and shortest sea routes by analyzing
+        distance, weather conditions, traffic density, and restricted zones. Uses graph algorithms
+        to find optimal paths between ports and detect blocked or dangerous sea regions.
+    </p>
+
+    <!-- ---------------- ALGORITHM 1: DIJKSTRA ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 1: Dijkstra for Shortest Route Between Ports</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Finds safest and shortest routes between ports.</li>
+            <li>Considers distances, fuel cost, risk level, etc.</li>
+            <li>Fast for real-time navigation systems.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O((V + E) log V)</b></li>
+            <li>Space Complexity: <b>O(V)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('codeSR1')">Show Algorithm Code</button>
+
+        <div id="codeSR1" class="code-box">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+
+vector<int> dijkstra(int V, vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; &graph, int src) {
+    vector<int> dist(V, INT_MAX);
+    priority_queue&lt;pair&lt;int,int&gt;, vector&lt;pair&lt;int,int&gt;&gt;, greater&lt;pair&lt;int,int&gt;&gt;&gt; pq;
+
+    dist[src] = 0;
+    pq.push({0, src});
+
+    while (!pq.empty()) {
+        int d = pq.top().first;
+        int node = pq.top().second;
+        pq.pop();
+
+        for (auto &edge : graph[node]) {
+            int next = edge.first;
+            int weight = edge.second;
+
+            if (d + weight &lt; dist[next]) {
+                dist[next] = d + weight;
+                pq.push({dist[next], next});
+            }
+        }
+    }
+    return dist;
+}
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 2: BELLMAN-FORD ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 2: Bellman-Ford for Risky/Negative Routes</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Detects risky paths such as storms or restricted zones.</li>
+            <li>Useful when route weights can be negative (danger score).</li>
+            <li>Finds safest alternate path if danger level increases.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(V × E)</b></li>
+            <li>Space Complexity: <b>O(V)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('codeSR2')">Show Algorithm Code</button>
+
+        <div id="codeSR2" class="code-box">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+
+vector<int> bellmanFord(int V, vector&lt;tuple&lt;int,int,int&gt;&gt; &edges, int src) {
+    vector<int> dist(V, INT_MAX);
+    dist[src] = 0;
+
+    for (int i = 0; i &lt; V - 1; i++) {
+        for (auto &e : edges) {
+            int u, v, w;
+            tie(u, v, w) = e;
+
+            if (dist[u] != INT_MAX && dist[u] + w &lt; dist[v]) {
+                dist[v] = dist[u] + w;
+            }
+        }
+    }
+    return dist;
+}
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 3: FLOYD-WARSHALL ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 3: Floyd-Warshall for All-Port Navigation</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Finds shortest path between every port pair.</li>
+            <li>Helps generate complete marine route maps.</li>
+            <li>Detects indirect safe paths when direct routes are blocked.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(V³)</b></li>
+            <li>Space Complexity: <b>O(V²)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('codeSR3')">Show Algorithm Code</button>
+
+        <div id="codeSR3" class="code-box">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+
+void floydWarshall(int V, vector&lt;vector&lt;int&gt;&gt; &dist) {
+    for (int k = 0; k &lt; V; k++) {
+        for (int i = 0; i &lt; V; i++) {
+            for (int j = 0; j &lt; V; j++) {
+                if (dist[i][k] != INT_MAX && dist[k][j] != INT_MAX)
+                    dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
+            }
+        }
+    }
+}
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 4: BFS ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 4: BFS for Checking Reachable Sea Paths</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Finds reachable ports from a starting port.</li>
+            <li>Useful to check routes open after storms.</li>
+            <li>Helps detect disconnected or blocked sea lanes.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(V + E)</b></li>
+            <li>Space Complexity: <b>O(V)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('codeSR4')">Show Algorithm Code</button>
+
+        <div id="codeSR4" class="code-box">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+
+void bfs(int start, vector&lt;vector&lt;int&gt;&gt; &graph) {
+    vector&lt;bool&gt; visited(graph.size(), false);
+    queue&lt;int&gt; q;
+
+    visited[start] = true;
+    q.push(start);
+
+    while (!q.empty()) {
+        int port = q.front();
+        q.pop();
+
+        cout &lt;&lt; "Reachable port: " &lt;&lt; port &lt;&lt; endl;
+
+        for (int next : graph[port]) {
+            if (!visited[next]) {
+                visited[next] = true;
+                q.push(next);
+            }
+        }
+    }
+}
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 5: DFS ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 5: DFS for Detecting Blocked or Restricted Zones</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Detects blocked paths and restricted regions.</li>
+            <li>Useful for safety alerts during navigation.</li>
+            <li>Identifies chain of connected dangerous zones.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(V + E)</b></li>
+            <li>Space Complexity: <b>O(V)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('codeSR5')">Show Algorithm Code</button>
+
+        <div id="codeSR5" class="code-box">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+void dfs(int node, vector&lt;vector&lt;int&gt;&gt; &graph, vector&lt;bool&gt; &visited) {
+    visited[node] = true;
+    cout &lt;&lt; "Blocked path detected at: " &lt;&lt; node &lt;&lt; endl;
+
+    for (int next : graph[node]) {
+        if (!visited[next]) {
+            dfs(next, graph, visited);
+        }
+    }
+}
+        </div>
+    </div>
+
+</div>
+<!-- ---------------- ONLINE EDUCATION ADAPTIVE LEARNING PLATFORM ---------------- -->
+<div class="container">
+
+    <h1 class="fancy-title">Online Education Adaptive Learning Platform</h1>
+
+    <img class="main-img"
+         src="img7.png"
+         alt="Adaptive Learning">
+
+    <h2>Description</h2>
+    <p>
+        A personalized learning system that adapts study material, test difficulty, and lesson
+        recommendations based on the student's performance. Uses advanced data structures and
+        pattern-matching algorithms to optimize learning paths and detect content plagiarism.
+    </p>
+
+    <!-- ---------------- ALGORITHM 1: AVL TREE / RB TREE ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 1: AVL Tree for Organizing Courses & Modules</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Keeps course modules sorted and balanced.</li>
+            <li>Allows fast search for lessons based on difficulty or topic.</li>
+            <li>Automatically organizes new topics when added.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(log n)</b> for search/insert/delete</li>
+            <li>Space Complexity: <b>O(n)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('codeED1')">Show Algorithm Code</button>
+
+        <div id="codeED1" class="code-box">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+
+struct Node {
+    int key;
+    Node *left, *right;
+    int height;
+    Node(int k) { key = k; left = right = NULL; height = 1; }
+};
+
+int getHeight(Node* n) { return n ? n-&gt;height : 0; }
+
+int getBalance(Node* n) { return n ? getHeight(n-&gt;left) - getHeight(n-&gt;right) : 0; }
+
+Node* rightRotate(Node* y) {
+    Node* x = y-&gt;left;
+    Node* T = x-&gt;right;
+
+    x-&gt;right = y;
+    y-&gt;left = T;
+
+    y-&gt;height = max(getHeight(y-&gt;left), getHeight(y-&gt;right)) + 1;
+    x-&gt;height = max(getHeight(x-&gt;left), getHeight(x-&gt;right)) + 1;
+
+    return x;
+}
+
+Node* leftRotate(Node* x) {
+    Node* y = x-&gt;right;
+    Node* T = y-&gt;left;
+
+    y-&gt;left = x;
+    x-&gt;right = T;
+
+    x-&gt;height = max(getHeight(x-&gt;left), getHeight(x-&gt;right)) + 1;
+    y-&gt;height = max(getHeight(y-&gt;left), getHeight(y-&gt;right)) + 1;
+
+    return y;
+}
+
+Node* insertNode(Node* node, int key) {
+    if (!node) return new Node(key);
+
+    if (key &lt; node-&gt;key)
+        node-&gt;left = insertNode(node-&gt;left, key);
+    else if (key &gt; node-&gt;key)
+        node-&gt;right = insertNode(node-&gt;right, key);
+    else
+        return node;
+
+    node-&gt;height = 1 + max(getHeight(node-&gt;left), getHeight(node-&gt;right));
+
+    int balance = getBalance(node);
+
+    if (balance &gt; 1 && key &lt; node-&gt;left-&gt;key)
+        return rightRotate(node);
+
+    if (balance &lt; -1 && key &gt; node-&gt;right-&gt;key)
+        return leftRotate(node);
+
+    if (balance &gt; 1 && key &gt; node-&gt;left-&gt;key) {
+        node-&gt;left = leftRotate(node-&gt;left);
+        return rightRotate(node);
+    }
+
+    if (balance &lt; -1 && key &lt; node-&gt;right-&gt;key) {
+        node-&gt;right = rightRotate(node-&gt;right);
+        return leftRotate(node);
+    }
+
+    return node;
+}
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 2: HEAP FOR PRIORITY LESSONS ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 2: Max-Heap for Suggesting Priority Lessons</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Ranks lessons based on difficulty, performance, and urgency.</li>
+            <li>Suggests top priority lessons for students.</li>
+            <li>Efficiently retrieves most important topics first.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(log n)</b> for insert/delete</li>
+            <li>Space Complexity: <b>O(n)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('codeED2')">Show Algorithm Code</button>
+
+        <div id="codeED2" class="code-box">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+
+int main() {
+    priority_queue&lt;pair&lt;int,string&gt;&gt; pq;
+
+    pq.push({90, "Data Structures"});
+    pq.push({70, "Algorithms"});
+    pq.push({95, "Operating Systems"});
+
+    cout &lt;&lt; "Top priority lesson: " &lt;&lt; pq.top().second &lt;&lt; endl;
+
+    return 0;
+}
+        </div>
+    </div>
+
+    <!-- ---------------- ALGORITHM 3: KMP / RABIN-KARP ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 3: KMP for Plagiarism Detection</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Detects copied content in student assignments.</li>
+            <li>Fast pattern matching on large documents.</li>
+            <li>Identifies exact match phrases efficiently.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(n + m)</b></li>
+            <li>Space Complexity: <b>O(m)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('codeED3')">Show Algorithm Code</button>
+
+        <div id="codeED3" class="code-box">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+
+vector<int> computeLPS(string pattern) {
+    int m = pattern.size();
+    vector<int> lps(m);
+    int len = 0;
+
+    for (int i = 1; i &lt; m; ) {
+        if (pattern[i] == pattern[len]) {
+            lps[i++] = ++len;
+        } else if (len != 0) {
+            len = lps[len - 1];
+        } else {
+            lps[i++] = 0;
+        }
+    }
+    return lps;
+}
+
+vector<int> KMP(string text, string pattern) {
+    vector<int> result;
+    vector<int> lps = computeLPS(pattern);
+
+    int i = 0, j = 0;
+    while (i &lt; text.size()) {
+        if (text[i] == pattern[j]) {
+            i++; j++;
+        }
+        if (j == pattern.size()) {
+            result.push_back(i - j);
+            j = lps[j - 1];
+        } else if (i &lt; text.size() && text[i] != pattern[j]) {
+            if (j != 0) j = lps[j - 1];
+            else i++;
+        }
+    }
+    return result;
+}
+
+int main() {
+    string assignment = "machine learning is important learning tool";
+    string phrase = "learning";
+
+    auto found = KMP(assignment, phrase);
+
+    for (int pos : found)
+        cout &lt;&lt; "Plagiarism pattern found at index: " &lt;&lt; pos &lt;&lt; endl;
+
+    return 0;
+}
+        </div>
+    </div>
+
+</div>
+<!-- ---------------- INTELLIGENT DOCUMENT SEARCH & ANALYSIS PLATFORM ---------------- -->
+<div class="container">
+
+    <h1 class="fancy-title">Intelligent Document Search and Analysis Platform </h1>
+
+    <img class="main-img"
+         src="img8.png"
+         alt="Document Search">
+
+    <h2>Description</h2>
+    <p>
+        A high-performance platform for searching, indexing, and analyzing large document databases.
+        Uses fast pattern matching algorithms, balanced trees, heaps, and hash tables to offer
+        instant keyword search, plagiarism detection, and ranked document retrieval.
+    </p>
+
+
+
+    <!-- ---------------- ALGORITHM 1: RABIN-KARP / KMP ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 1: Rabin-Karp for Fast Pattern Matching</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Finds keywords, sentences, or patterns in huge documents quickly.</li>
+            <li>Useful for plagiarism detection and search engines.</li>
+            <li>Efficient hashing avoids character-by-character checking.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(n + m)</b> average</li>
+            <li>Space Complexity: <b>O(1)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('codeDS1')">Show Algorithm Code</button>
+
+        <div id="codeDS1" class="code-box">
+#include <bits/stdc++.h>
+using namespace std;
+
+
+vector<int> rabinKarp(string text, string pattern) {
+    int n = text.size(), m = pattern.size();
+    int prime = 101; 
+    int d = 256;
+
+    long long pHash = 0, tHash = 0, h = 1;
+
+    for (int i = 0; i < m - 1; i++)
+        h = (h * d) % prime;
+
+    for (int i = 0; i < m; i++) {
+        pHash = (d * pHash + pattern[i]) % prime;
+        tHash = (d * tHash + text[i]) % prime;
+    }
+
+    vector<int> positions;
+
+    for (int i = 0; i <= n - m; i++) {
+        if (pHash == tHash) {
+            if (text.substr(i, m) == pattern)
+                positions.push_back(i);
+        }
+        if (i < n - m) {
+            tHash = (d * (tHash - text[i] * h) + text[i + 1]) % prime;
+            if (tHash < 0)
+                tHash += prime;
+        }
+    }
+
+    return positions;
+}
+
+int main() {
+    string text = "big data analytics platform";
+    string pattern = "data";
+
+    auto found = rabinKarp(text, pattern);
+
+    for (int pos : found)
+        cout << "Pattern found at index: " << pos << endl;
+
+    return 0;
+}
+        </div>
+    </div>
+
+
+
+
+
+    <!-- ---------------- ALGORITHM 2: AVL TREE FOR DOCUMENT INDEXING ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 2: AVL Tree for Document Indexing</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Keeps documents sorted alphabetically or by timestamp.</li>
+            <li>Provides fast searching and insertion.</li>
+            <li>Useful for database indexing & metadata storage.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(log n)</b> for search/insert/delete</li>
+            <li>Space Complexity: <b>O(n)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('codeDS2')">Show Algorithm Code</button>
+
+        <div id="codeDS2" class="code-box">
+#include <bits/stdc++.h>
+using namespace std;
+
+
+struct Node {
+    string title;
+    Node *left, *right;
+    int height;
+    Node(string t) { title = t; left = right = NULL; height = 1; }
+};
+
+int getHeight(Node* n) { return n ? n->height : 0; }
+
+int getBalance(Node* n) { return n ? getHeight(n->left) - getHeight(n->right) : 0; }
+
+Node* rightRotate(Node* y) {
+    Node* x = y->left;
+    Node* T = x->right;
+
+    x->right = y;
+    y->left = T;
+
+    y->height = max(getHeight(y->left), getHeight(y->right)) + 1;
+    x->height = max(getHeight(x->left), getHeight(x->right)) + 1;
+
+    return x;
+}
+
+Node* leftRotate(Node* x) {
+    Node* y = x->right;
+    Node* T = y->left;
+
+    y->left = x;
+    x->right = T;
+
+    x->height = max(getHeight(x->left), getHeight(x->right)) + 1;
+    y->height = max(getHeight(y->left), getHeight(y->right)) + 1;
+
+    return y;
+}
+
+Node* insertDoc(Node* node, string title) {
+    if (!node) return new Node(title);
+
+    if (title < node->title)
+        node->left = insertDoc(node->left, title);
+    else if (title > node->title)
+        node->right = insertDoc(node->right, title);
+    else
+        return node;
+
+    node->height = 1 + max(getHeight(node->left), getHeight(node->right));
+
+    int balance = getBalance(node);
+
+    if (balance > 1 && title < node->left->title)
+        return rightRotate(node);
+
+    if (balance < -1 && title > node->right->title)
+        return leftRotate(node);
+
+    if (balance > 1 && title > node->left->title) {
+        node->left = leftRotate(node->left);
+        return rightRotate(node);
+    }
+
+    if (balance < -1 && title < node->right->title) {
+        node->right = rightRotate(node->right);
+        return leftRotate(node);
+    }
+
+    return node;
+}
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- ---------------- ALGORITHM 3: HEAP FOR DOCUMENT RANKING ---------------- -->
+    <div class="algo-section">
+        <h2>Algorithm 3: Max-Heap for Ranking Documents</h2>
+
+        <p><b>How this algorithm is helpful?</b></p>
+        <ul>
+            <li>Ranks documents by relevance, frequency, or date.</li>
+            <li>Retrieves top-most important documents instantly.</li>
+            <li>Used for search engines & recommendation systems.</li>
+        </ul>
+
+        <p><b>Efficiency:</b></p>
+        <ul>
+            <li>Time Complexity: <b>O(log n)</b> for insert/remove</li>
+            <li>Space Complexity: <b>O(n)</b></li>
+        </ul>
+
+        <button class="btn" onclick="toggleCode('codeDS3')">Show Algorithm Code</button>
+
+        <div id="codeDS3" class="code-box">
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    priority_queue<pair<int,string>> pq;
+
+    pq.push({95, "AI Research Paper"});
+    pq.push({80, "Data Mining Basics"});
+    pq.push({60, "History Notes"});
+
+    cout << "Top ranked document: " << pq.top().second << endl;
+
+    return 0;
+}
+        </div>
+    </div>
+
+</div>
+
+</div>
+
 <script>
-function toggleCode(id) {
-    let box = document.getElementById(id);
-    box.style.display = (box.style.display === "none") ? "block" : "none";
+function toggleCode(id){
+    let box=document.getElementById(id);
+    box.style.display=(box.style.display==="none")?"block":"none";
 }
 </script>
 
