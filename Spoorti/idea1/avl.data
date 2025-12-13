@@ -1,0 +1,20 @@
+{
+    "fish_listings": [
+        {
+            "name": "Salmon",
+            "price": 250
+        },
+        {
+            "name": "Tuna",
+            "price": 300
+        },
+        {
+            "name": "Rohu",
+            "price": 180
+        },
+        {
+            "name": "Pomfret",
+            "price": 400
+        }
+    ]
+}

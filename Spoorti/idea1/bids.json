@@ -1,0 +1,20 @@
+{
+    "bids": [
+        {
+            "buyer": "Arjun",
+            "amount": 500
+        },
+        {
+            "buyer": "Ravi",
+            "amount": 650
+        },
+        {
+            "buyer": "Meera",
+            "amount": 550
+        },
+        {
+            "buyer": "Karan",
+            "amount": 700
+        }
+    ]
+}
