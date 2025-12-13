@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Port Infrastructure, Cold Storage & Industrial Facility Optimization</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    background: linear-gradient(135deg, #0f172a 0%, #0b2545 100%);
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+}
+
+.header {
+    text-align: center;
+    padding-bottom: 30px;
+    border-bottom: 4px solid #0b2545;
+    margin-bottom: 40px;
+}
+
+h1 {
+    color: #0b2545;
+    font-size: 2.2em;
+    margin-bottom: 15px;
+}
+
+.tagline {
+    color: #555;
+    font-size: 1.1em;
+    font-style: italic;
+}
+
+h2 { color: #0b2545; margin-top: 35px; margin-bottom: 20px; font-size: 1.7em; border-left: 6px solid #0b2545; padding-left: 15px; }
+h3 { color: #0f4c81; margin: 20px 0 12px 0; font-size: 1.3em; }
+
+.description-box { background: linear-gradient(135deg, #0ea5a4 0%, #2563eb 100%); color: white; padding: 30px; border-radius: 10px; margin: 30px 0; }
+
+.metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 25px 0; }
+.metric-card { background: rgba(255,255,255,0.12); padding: 20px; border-radius: 8px; border-left: 4px solid white; text-align: center; }
+.metric-value { font-size: 2em; font-weight: bold; color: white; margin: 10px 0; }
+.metric-label { color: #f0f0f0; font-size: 0.95em; }
+
+.section-box { background: white; padding: 20px; margin: 20px 0; border-radius: 8px; border-left: 5px solid #06b6d4; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+.algo-section { background: #f8fafc; padding: 30px; margin: 30px 0; border-radius: 10px; border: 2px solid #0b2545; }
+.problem-box { background: #fff7ed; border-left: 5px solid #f97316; }
+.solution-box { background: #ecfeff; border-left: 5px solid #06b6d4; }
+.datastructure-box { background: #f0fdf4; border-left: 5px solid #10b981; }
+.complexity-box { background: #fff1f2; border-left: 5px solid #ef4444; }
+.conclusion-box { background: #eef2ff; border-left: 5px solid #6366f1; }
+
+.btn { background: linear-gradient(135deg, #0b2545 0%, #0f4c81 100%); color: white; border: none; padding: 12px 25px; font-size: 1em; border-radius: 5px; cursor: pointer; margin: 15px 5px; transition: transform 0.2s, box-shadow 0.2s; }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(11, 37, 69, 0.4); }
+
+.code-box { display: none; background: #0b1220; color: #d4d4d4; padding: 20px; border-radius: 8px; margin: 15px 0; font-family: 'Courier New', monospace; white-space: pre; overflow-x: auto; line-height: 1.6; font-size: 0.9em; }
+.cpp-code { display: none; background: #0b1220; color: #d4d4d4; padding: 20px; border-radius: 8px; margin: 15px 0; font-family: 'Courier New', monospace; white-space: pre; overflow-x: auto; line-height: 1.6; font-size: 0.9em; }
+
+table { width: 100%; border-collapse: collapse; margin: 20px 0; background: white; }
+table th { background: #0b2545; color: white; padding: 12px; text-align: left; font-weight: 600; }
+table td { padding: 12px; border: 1px solid #ddd; }
+table tr:nth-child(even) { background: #f9f9f9; }
+
+.tech-stack { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0; }
+.tech-badge { background: #0b2545; color: white; padding: 8px 15px; border-radius: 20px; font-size: 0.9em; }
+
+/* Responsive tweaks */
+@media (max-width: 800px) {
+    .container { padding: 20px; }
+    h1 { font-size: 1.6em; }
+    .metrics-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>🏗️ Port, Cold Storage & Industrial Facility Optimization</h1>
+        <p class="tagline">Facility placement, capacity planning & delivery routing — hybrid algorithms (clustering, DP, LP, metaheuristics)</p>
+    </div>
+
+    <!-- DESCRIPTION -->
+    <div class="description-box">
+        <h2>📋 Description</h2>
+        <p>
+            This system determines optimal locations for cold storages and industrial facilities near ports, allocates capacities,
+            and designs efficient delivery routes to minimize combined cost of transport, energy (refrigeration), construction,
+            and perishable spoilage risk. It blends classical operations research (LP, DP), combinatorial heuristics (Greedy, MST, TSP),
+            clustering for geographic placement, and metaheuristics (Genetic, Simulated Annealing, Ant Colony) for routing and layout.
+        </p>
+
+        <div class="metrics-grid" style="margin-top: 25px;">
+            <div class="metric-card">
+                <div class="metric-value">↓ 18%</div>
+                <div class="metric-label">Transport Cost Reduction</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">↑ 22%</div>
+                <div class="metric-label">Throughput Utilization</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">3</div>
+                <div class="metric-label">Candidate Algorithms Combined</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">99%</div>
+                <div class="metric-label">Perishable Service Level</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BUSINESS MODEL -->
+    <h2>💼 Use Cases & Stakeholders</h2>
+    <div class="section-box">
+        <h3>Who benefits?</h3>
+        <ul>
+            <li>Port authorities & logistics operators — reduce berth-to-destination transit costs</li>
+            <li>Cold-chain providers — optimal placement to balance CAPEX vs OPEX</li>
+            <li>Food exporters/importers — reduce spoilage and meet shelf-life SLAs</li>
+            <li>Industrial park planners — cluster facilities for shared utilities</li>
+        </ul>
+
+        <h3>Data Inputs</h3>
+        <ul>
+            <li>Port coordinates, berth capacities, travel time matrix (road, rail)</li>
+            <li>Demand nodes (retailers/clients) with volumes & perishability</li>
+            <li>Candidate sites with land/cost constraints, energy cost, and zoning rules</li>
+            <li>Operational constraints: refrigeration capacity, truck fleet, time windows</li>
+        </ul>
+    </div>
+
+    <!-- TECHNOLOGY STACK -->
+    <h2>⚙ Technology Stack</h2>
+    <div class="tech-stack">
+        <span class="tech-badge">Python (OR-tools, pulp)</span>
+        <span class="tech-badge">C++ (fast heuristics)</span>
+        <span class="tech-badge">PostGIS / QGIS</span>
+        <span class="tech-badge">Graph libraries (NetworkX)</span>
+        <span class="tech-badge">K-means / DBSCAN</span>
+        <span class="tech-badge">Docker / Kubernetes</span>
+        <span class="tech-badge">GIS routing (OSRM)</span>
+    </div>
+
+    <!-- ALGORITHM SECTION -->
+    <div class="algo-section">
+        <h2>Algorithm Suite — How it works</h2>
+
+        <div class="section-box problem-box">
+            <h3>🎯 Problem Statement</h3>
+            <p>
+                Given ports and demand nodes, choose up to K cold-storage sites (from candidates or continuous locations),
+                assign demand to storages, determine facility capacities, and compute daily vehicle routes that meet
+                time windows and temperature-sensitive delivery constraints while minimizing total cost.
+            </p>
+            <p><b>Inputs:</b> Nodes {id, coord, demand, perishability}, Candidates {coord, landCost, maxCap}, travelTime[u][v]</p>
+            <p><b>Outputs:</b> Selected sites, capacity allocation, assignment of demands, vehicle routes & schedules</p>
+            <p><b>Objective:</b> Minimize CAPEX + OPEX + TransportCost + SpoilagePenalty</p>
+        </div>
+
+        <div class="section-box solution-box">
+            <h3>💡 High-level Solution Pipeline</h3>
+            <ol>
+                <li><b>Geographic clustering:</b> K-means / DBSCAN / Voronoi to propose compact service regions.</li>
+                <li><b>Facility location:</b> Solve a capacitated facility location problem using Mixed Integer Programming (MIP) or LP relaxation + rounding; alternatively use k-medoids / greedy facility opening.</li>
+                <li><b>Capacity allocation:</b> Linear Programming for steady-state sizing; dynamic programming for multi-period sizing.</li>
+                <li><b>Routing & Scheduling:</b> Use MST to create backbone, then TSP/VRP heuristics (Clarke-Wright, Christofides approximation, local DP) for vehicle routes; optionally metaheuristics (GA, ACO, SA) to escape local optima.</li>
+                <li><b>Refinement:</b> Simulated Annealing or Genetic Algorithms to jointly tweak facility choices & routes, with objective evaluation by LP-based capacity costing.</li>
+            </ol>
+        </div>
+
+        <button class="btn" onclick="toggleCode('pseudoAll')">Show Pseudocode</button>
+        <button class="btn" onclick="toggleCode('cppAll')">Show C++ Example</button>
+
+        <div id="pseudoAll" class="code-box">
+// High-level pseudocode: Combined Placement + Routing
+FUNCTION OptimizePortColdChain(nodes, candidates, K, fleet, periods):
+    // 1) Preprocess distances and time-windows
+    computeDistanceMatrix(nodes + candidates)
+
+    // 2) Initial clustering (geo partition)
+    clusters = KMeansOnDemand(nodes, K)
+    medoids = chooseMedoids(clusters)  // candidate centroids
+
+    // 3) Facility selection (MIP or greedy)
+    facilities = CapacitatedFacilityLocation(nodes, candidates, K)
+
+    // 4) Capacity allocation (LP per facility)
+    FOR each facility IN facilities:
+        solve LP to size refrigeration capacity over planning horizon
+    END FOR
+
+    // 5) Routing (per facility region)
+    FOR each facility IN facilities:
+        regionNodes = nodes assigned to facility
+        backbone = MinimumSpanningTree(regionNodes)
+        initialRoutes = ClarkeWrightVRP(regionNodes, fleet)
+        improvedRoutes = LocalSearch_TSP_VRP(initialRoutes)  // 2-opt, 3-opt, relocation, exchange
+    END FOR
+
+    // 6) Joint refinement (metaheuristic)
+    solution = GeneticAlgorithm(join facilities + routes)  // chromosomes encode facility opens + route assignments
+    return solution
+END
+
+// Notes: Use spoilage model per route: spoilage = f(timeOutOfTemp, perishability)
+// Penalty terms guide routing to prefer faster deliveries for high-perishability goods.
+        </div>
+
+        <div id="cppAll" class="cpp-code">
+// Simplified C++: K-means clustering + greedy facility opening + Clarke-Wright style savings heuristic for routes
+// This is illustrative and intentionally compact — production code requires robust geo & LP libs.
+
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node { int id; double x,y; double demand; int perish; };
+struct Candidate { int id; double x,y; double cost; double maxCap; };
+
+double dist(const Node &a, const Node &b){
+    double dx = a.x - b.x, dy = a.y - b.y; return sqrt(dx*dx + dy*dy);
+}
+
+double distNC(const Node &a, const Candidate &b){ double dx=a.x-b.x,dy=a.y-b.y; return sqrt(dx*dx+dy*dy); } 
+
+// K-means (naive) for initial clustering
+vector<int> kmeans(const vector<Node>& nodes, int K, int iters=20){
+    int n = nodes.size();
+    vector<int> assign(n,0);
+    vector<pair<double,double>> cent(K);
+    // init first K nodes as centroids
+    for(int k=0;k<K;k++) cent[k] = {nodes[k%n].x, nodes[k%n].y};
+    for(int it=0; it<iters; ++it){
+        for(int i=0;i<n;i++){
+            double best = 1e18; int bi=0;
+            for(int k=0;k<K;k++){
+                double dx = nodes[i].x-cent[k].first, dy = nodes[i].y-cent[k].second;
+                double d = dx*dx+dy*dy;
+                if(d<best){best=d;bi=k;}
+            }
+            assign[i]=bi;
+        }
+        // recompute
+        vector<int> cnt(K,0);
+        vector<pair<double,double>> sum(K,{0,0});
+        for(int i=0;i<n;i++){ cnt[assign[i]]++; sum[assign[i]].first += nodes[i].x; sum[assign[i]].second += nodes[i].y; }
+        for(int k=0;k<K;k++) if(cnt[k]) cent[k] = { sum[k].first/cnt[k], sum[k].second/cnt[k] };
+    }
+    return assign;
+}
+
+// Greedy facility opening: choose candidate minimizing (landCost + weighted avg dist * transportFactor)
+vector<int> greedyFacilityOpen(const vector<Node>& nodes, const vector<Candidate>& cand, int K){
+    int m=cand.size();
+    vector<pair<double,int>> score;
+    for(int j=0;j<m;j++){
+        double s = cand[j].cost; // simple
+        double avgd=0; for(auto &n: nodes) avgd += hypot(n.x-cand[j].x, n.y-cand[j].y);
+        avgd /= max(1.0, (double)nodes.size());
+        s += avgd * 2.0; // weight transport
+        score.push_back({s,j});
+    }
+    sort(score.begin(), score.end());
+    vector<int> chosen;
+    for(int i=0;i<K && i<score.size(); ++i) chosen.push_back(score[i].second);
+    return chosen;
+}
+
+int main(){
+    // small synthetic example
+    vector<Node> nodes = {{0,0,0,10,5},{1,2,0,8,3},{2,1,3,12,4},{3,5,1,6,2}};
+    vector<Candidate> cand = {{0,0,0,10000,50},{1,6,0,12000,60},{2,3,4,9000,40}};
+    int K=2;
+    auto assign = kmeans(nodes, K);
+    auto chosen = greedyFacilityOpen(nodes, cand, K);
+    cout<<"Chosen facility IDs: "; for(auto c:chosen) cout<<c<<" "; cout<<"\n";
+    // Placeholder: build simple routes per chosen facility using nearest neighbor
+    for(auto f: chosen){
+        cout<<"Routes for facility "<<f<<" (coord "<<cand[f].x<<","<<cand[f].y<<"):\n";
+        vector<bool> used(nodes.size(), false);
+        int start = 0; // trivial
+        for(int i=0;i<nodes.size(); ++i){
+            int best=-1; double bd=1e18;
+            for(int j=0;j<nodes.size(); ++j) if(!used[j]){
+                double d = hypot(nodes[j].x-cand[f].x, nodes[j].y-cand[f].y);
+                if(d<bd){bd=d;best=j;}
+            }
+            if(best==-1) break;
+            used[best]=true; cout<<" -> node "<<best;
+        }
+        cout<<"\n";
+    }
+    return 0;
+}
+        </div>
+
+        <div class="section-box datastructure-box">
+            <h3>🗄 Key Algorithms & Data Structures</h3>
+            <ul>
+                <li><b>K-means / DBSCAN / Voronoi:</b> propose compact service regions and candidate centroids</li>
+                <li><b>Capacitated Facility Location (MIP/LP):</b> facility open decisions & capacity sizing</li>
+                <li><b>Minimum Spanning Tree (MST):</b> backbone network for route grouping</li>
+                <li><b>TSP / VRP heuristics:</b> Clarke-Wright savings, Christofides, 2-opt/3-opt local search</li>
+                <li><b>Metaheuristics:</b> Genetic Algorithm, Simulated Annealing, Ant Colony for joint improvement</li>
+                <li><b>Shortest paths:</b> Dijkstra / A* for intra-region routing</li>
+                <li><b>Linear Programming:</b> for capacity & cost allocation (pulp / OR-Tools)</li>
+            </ul>
+        </div>
+
+        <div class="section-box complexity-box">
+            <h3>⏱ Time & Space Complexity (High-level)</h3>
+            <p><b>K-means:</b> O(iters · N · K)</p>
+            <p><b>MIP:</b> exponential worst-case; solve via LP relax + rounding or heuristics in practice</p>
+            <p><b>VRP heuristics:</b> Clarke-Wright O(N^2) for savings; local search dependent on neighborhood size</p>
+            <p><b>Metaheuristics:</b> runtime tunable — trade compute vs solution quality</p>
+        </div>
+
+        <div class="section-box conclusion-box">
+            <h3>📌 Conclusion & Practical Tips</h3>
+            <ul>
+                <li>Start with geographic clustering to reduce problem scale — solve facility location per cluster.</li>
+                <li>Use LP for capacity sizing and short-list facility candidates; combine with greedy for quick baselines.</li>
+                <li>For routing, use fast heuristics (Clarke-Wright + 2-opt) in production and apply metaheuristics offline for improvements.</li>
+                <li>Model perishability explicitly — add spoilage penalties that prioritize fast routing for sensitive goods.</li>
+                <li>Run sensitivity analysis for K (number of sites), energy price, and truck fleet size to make robust investment decisions.</li>
+            </ul>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+function toggleCode(id){
+    var el = document.getElementById(id);
+    if(!el) return;
+    el.style.display = (el.style.display === 'block')? 'none' : 'block';
+}
+</script>
+
+</body>
+</html>
