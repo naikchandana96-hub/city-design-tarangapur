@@ -1,1467 +1,1398 @@
-<!DOCTYPE html>
+v<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Port-Based Ship Repair & Maintenance Hub</title>
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+    <meta charset="UTF-8">
+    <title>Comprehensive Sustainable City Business Ideas: Algorithmic Suite (17 Initiatives)</title>
+    <style>
+        /* --- PROFESSIONAL BASE STYLES --- */
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif; /* Formal/Professional Font */
+            background-color: #f0f2f5; /* Very Light Blue-Gray Background */
+            margin: 0;
+            padding: 30px;
+            color: #212529; /* Deep Charcoal Text */
+        }
+        .main-content {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
-    padding: 20px;
-}
+        /* --- HEADER & TITLES --- */
+        .header-container {
+            background-color: #001f40; /* Very Dark Navy Blue */
+            color: white;
+            padding: 45px 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .header-container h1 { 
+            font-family: 'Playfair Display', serif; /* Elegant Title Font */
+            font-size: 2.8rem; 
+            margin-bottom: 10px; 
+            font-weight: 700;
+        }
+        .header-container p { 
+            font-size: 1.1rem; 
+            opacity: 0.85;
+        }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    background: white;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 15px 50px rgba(0,0,0,0.3);
-}
+        /* --- SECTION HEADINGS --- */
+        .category-heading {
+            color: #0056b3; /* Primary Blue Accent */
+            border-bottom: 4px solid #0056b3;
+            padding-bottom: 10px;
+            margin-top: 45px;
+            margin-bottom: 25px;
+            font-size: 2.2rem;
+            font-weight: 600;
+            font-family: 'Segoe UI', sans-serif;
+        }
 
-.header {
-    text-align: center;
-    padding-bottom: 30px;
-    border-bottom: 4px solid #0f2027;
-    margin-bottom: 40px;
-}
+        /* --- INITIATIVE LIST & TITLES --- */
+        .initiative-list { 
+            list-style: none; 
+            padding: 0; 
+            /* Grid layout for better organization */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        .initiative-list li {
+            margin-bottom: 0; /* Remove default list item margin */
+        }
+        .initiative-title {
+            background-color: white;
+            padding: 20px 25px;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+            /* This border color will be set dynamically below */
+            border-left: 6px solid #ff7f50; 
+            cursor: pointer;
+            transition: all 0.3s ease;
+            height: 100%; /* Ensure all items in the grid are same height */
+            box-sizing: border-box;
+        }
+        .initiative-title:hover { 
+            background-color: #fcfcfc; 
+            border-left-color: #e65c00; 
+            transform: translateY(-2px);
+        }
+        .initiative-title strong { 
+            color: #003366; 
+            font-size: 1.2rem; 
+            font-weight: 600;
+            display: block; /* Ensure title is on its own line */
+            margin-bottom: 5px;
+        }
+        .data-structure-tag { 
+            font-weight: 500; 
+            color: #495057; 
+            margin-top: 5px;
+            background-color: #e9ecef; 
+            padding: 5px 10px; 
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            display: inline-block;
+            font-size: 0.85rem;
+        }
+        .sdg-tag {
+            font-weight: 700;
+            color: #007bff;
+            background-color: #e3f2fd;
+            padding: 5px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            border: 1px solid #007bff;
+        }
 
-h1 {
-    color: #0f2027;
-    font-size: 2.2em;
-    margin-bottom: 15px;
-}
+        /* --- DETAIL CARD (The Algorithm Report) --- */
+        .detail-card {
+            /* Now placed outside the grid for full width presentation */
+            background-color: #ffffff;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            display: none; 
+            grid-column: 1 / -1; /* Make detail card span entire width of the grid */
+        }
+        .detail-card h3 { 
+            color: #212529; 
+            border-bottom: 2px solid #adb5bd; 
+            padding-bottom: 8px; 
+            margin-top: 0; 
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        .detail-card h4 { 
+            color: #1a7e44; /* Dark Green for key sections */
+            margin-top: 25px; 
+            margin-bottom: 10px; 
+            font-size: 1.2rem; 
+            font-weight: 600;
+        }
+        .detail-card p, .detail-card li { 
+            font-size: 1.0rem; 
+            line-height: 1.7; 
+            color: #495057;
+        }
+        
+        /* --- CODE & DATA FORMATTING --- */
+        pre {
+            background-color: #343a40; /* Dark Gray Code Background */
+            color: #e9ecef; /* Light Gray Code Text */
+            padding: 18px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.4;
+            margin-top: 12px;
+            white-space: pre-wrap;
+        }
+        .cpp-code {
+            background-color: #000c1a; /* Darker Blue-Black for C++ */
+            color: #c9e6ff; /* Lighter Blue for C++ */
+            border-left: 5px solid #007bff;
+        }
 
-.tagline {
-    color: #555;
-    font-size: 1.1em;
-    font-style: italic;
-}
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #f8f9fa;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+            font-size: 0.95em;
+        }
+        th {
+            background-color: #6c757d; /* Muted gray header */
+            color: white;
+            font-weight: 600;
+        }
+        .efficiency-badge {
+            display: inline-block;
+            background-color: #dc3545; 
+            color: white;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-top: 15px;
+        }
+        .reflection-block {
+            background-color: #e9f0f7;
+            border: 2px solid #0056b3;
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 60px;
+        }
+        .reflection-block h2 {
+            color: #001f40;
+            font-size: 2.2rem;
+            border-bottom: 3px dashed #adb5bd;
+            padding-bottom: 10px;
+        }
+        .reflection-block p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #212529;
+            margin-bottom: 20px;
+        }
+        .reflection-block ul {
+            list-style: none;
+            padding: 0;
+        }
+        .reflection-block li {
+            background-color: #ffffff;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-left: 4px solid #1a7e44;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .reflection-block li strong {
+            color: #0056b3;
+        }
 
-h2 {
-    color: #203a43;
-    margin-top: 35px;
-    margin-bottom: 20px;
-    font-size: 1.7em;
-    border-left: 6px solid #0f2027;
-    padding-left: 15px;
-}
 
-h3 {
-    color: #0f2027;
-    margin: 20px 0 12px 0;
-    font-size: 1.3em;
-}
+        /* --- CATEGORY COLOR ACCENTS --- */
+        /* Port/Logistics (Initiatives 1-5): Cyan/Teal */
+        .logistics-title { border-left-color: #17a2b8; } 
+        /* Tourism/Food Truck (Initiatives 6-8): Coral/Orange */
+        .tourism-title { border-left-color: #ff7f50; } 
+        /* Public Services (Initiatives 9-11): Blue */
+        .public-service-title { border-left-color: #007bff; } 
+        /* Health/Wellness (Initiatives 12-14): Green */
+        .health-title { border-left-color: #28a745; } 
+        /* Gen-Z/Lifestyle (Initiatives 15-17): Vibrant Orange */
+        .lifestyle-title { border-left-color: #fd7e14; } 
 
-h4 {
-    color: #203a43;
-    margin: 15px 0 10px 0;
-    font-size: 1.1em;
-}
-
-p {
-    margin-bottom: 15px;
-    text-align: justify;
-    color: #333;
-    font-size: 1.02em;
-}
-
-/* UPDATED DESCRIPTION BOX GRADIENT */
-.description-box {
-    background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 50%, #ffd89b 100%);
-    color: white;
-    padding: 30px;
-    border-radius: 10px;
-    margin: 30px 0;
-}
-
-.description-box h2 {
-    color: white;
-    border-left: 6px solid rgba(255,255,255,0.9);
-}
-
-.metrics-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    margin: 25px 0;
-}
-
-.metric-card {
-    background: rgba(255,255,255,0.15);
-    padding: 20px;
-    border-radius: 8px;
-    border-left: 4px solid white;
-    text-align: center;
-}
-
-.metric-value {
-    font-size: 2em;
-    font-weight: bold;
-    color: white;
-    margin: 10px 0;
-}
-
-.metric-label {
-    color: #f0f0f0;
-    font-size: 0.95em;
-}
-
-.sdg-box {
-    background: #e3f2fd;
-    padding: 25px;
-    border-radius: 8px;
-    border-left: 5px solid #1976d2;
-    margin: 25px 0;
-}
-
-.sdg-box h3 {
-    color: #1565c0;
-    margin-bottom: 15px;
-}
-
-.section-box {
-    background: white;
-    padding: 20px;
-    margin: 20px 0;
-    border-radius: 8px;
-    border-left: 5px solid #2c5364;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.algo-section {
-    background: #f8f9fa;
-    padding: 30px;
-    margin: 30px 0;
-    border-radius: 10px;
-    border: 2px solid #0f2027;
-}
-
-.problem-box {
-    background: #fff3cd;
-    border-left: 5px solid #ffc107;
-}
-
-.solution-box {
-    background: #d1ecf1;
-    border-left: 5px solid #17a2b8;
-}
-
-.datastructure-box {
-    background: #d4edda;
-    border-left: 5px solid #28a745;
-}
-
-.complexity-box {
-    background: #f8d7da;
-    border-left: 5px solid #dc3545;
-}
-
-.conclusion-box {
-    background: #e7e7ff;
-    border-left: 5px solid #6f42c1;
-}
-
-ul {
-    margin-left: 30px;
-    margin-bottom: 15px;
-}
-
-li {
-    margin: 8px 0;
-    color: #444;
-}
-
-b {
-    color: #0f2027;
-}
-
-.btn {
-    background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    font-size: 1em;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 15px 5px;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(15, 32, 39, 0.4);
-}
-
-.code-box, .cpp-code {
-    display: none;
-    background: #1e1e1e;
-    color: #d4d4d4;
-    padding: 20px;
-    border-radius: 8px;
-    margin: 15px 0;
-    font-family: 'Courier New', monospace;
-    white-space: pre;
-    overflow-x: auto;
-    line-height: 1.6;
-    font-size: 0.92em;
-}
-
-.keyword { color: #569cd6; }
-.function { color: #dcdcaa; }
-.comment { color: #6a9955; }
-.string { color: #ce9178; }
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    background: white;
-}
-
-table th {
-    background: #0f2027;
-    color: white;
-    padding: 12px;
-    text-align: left;
-    font-weight: 600;
-}
-
-table td {
-    padding: 12px;
-    border: 1px solid #ddd;
-}
-
-table tr:nth-child(even) {
-    background: #f9f9f9;
-}
-
-.tech-stack {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 20px 0;
-}
-
-.tech-badge {
-    background: #0f2027;
-    color: white;
-    padding: 8px 15px;
-    border-radius: 20px;
-    font-size: 0.9em;
-}
-
-.investment-box {
-    background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
-    color: white;
-    padding: 30px;
-    border-radius: 10px;
-    margin: 30px 0;
-}
-
-.investment-box h3 {
-    color: white;
-    border-bottom: 2px solid white;
-    padding-bottom: 10px;
-    margin-bottom: 15px;
-}
-</style>
+    </style>
+    <script>
+        function toggleDetails(id) {
+            const element = document.getElementById(id);
+            if (element.style.display === "grid") {
+                element.style.display = "none";
+            } else {
+                // Hide all other open detail cards before showing the new one
+                const allDetails = document.querySelectorAll('.detail-card');
+                allDetails.forEach(card => {
+                    if (card.id !== id) {
+                        card.style.display = 'none';
+                    }
+                });
+                // Display the selected card using grid to match the container's display style
+                element.style.display = "grid"; 
+            }
+        }
+    </script>
 </head>
 <body>
 
-<div class="container">
-
-    <div class="header">
-        <h1>⚓ Port-Based Ship Repair & Maintenance Hub</h1>
-        <p class="tagline">Multi-Stage Repair Optimization Using Dynamic Programming</p>
+    <div class="header-container">
+        <h1>Comprehensive Sustainable City Business Ideas</h1>
+        <p>Strategic technology blueprint for diverse business initiatives, incorporating SDG alignment and detailed algorithmic analysis.</p>
     </div>
 
-    <!-- DESCRIPTION -->
-    <div class="description-box">
-        <h2>📋 Description</h2>
-        <p>
-            A comprehensive ship repair and maintenance facility that optimizes multi-stage repair 
-            workflows across specialized workstations. Using assembly-line scheduling algorithms 
-            powered by dynamic programming, the hub minimizes total completion time while maximizing 
-            resource utilization across hull repair, engine overhaul, electrical systems, painting, 
-            and quality inspection stations.
-        </p>
-        <p>
-            <b>Core Capabilities:</b> Intelligent task sequencing across 8 specialized workstations, 
-            parallel processing optimization, dynamic resource allocation, real-time schedule 
-            adjustments for urgent repairs, and predictive maintenance analytics to prevent vessel 
-            downtime.
-        </p>
+    <div class="main-content">
         
-        <div class="metrics-grid" style="margin-top: 25px;">
-            <div class="metric-card">
-                <div class="metric-value">12 days</div>
-                <div class="metric-label">Avg Repair Time</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-value">85%</div>
-                <div class="metric-label">Station Utilization</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-value">180+</div>
-                <div class="metric-label">Ships/Year</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-value">₹420 Cr</div>
-                <div class="metric-label">Annual Revenue</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- SDG ALIGNMENT -->
-    <div class="sdg-box">
-        <h3>🌍 UN SDG Alignment</h3>
-        <p><b>Primary Impact:</b> SDG 8 (Decent Work), SDG 9 (Industry & Infrastructure), SDG 12 (Responsible Production)</p>
-        
-        <table style="margin-top: 15px;">
-            <tr>
-                <th>SDG Target</th>
-                <th>Our Solution</th>
-                <th>Impact Achieved</th>
-            </tr>
-            <tr>
-                <td><b>SDG 8.2:</b> Economic productivity through technology</td>
-                <td>Dynamic programming reduces repair time by 35%</td>
-                <td>850+ skilled jobs, ₹420 Cr annual output</td>
-            </tr>
-            <tr>
-                <td><b>SDG 9.1:</b> Develop quality infrastructure</td>
-                <td>Optimized assembly-line scheduling maximizes capacity</td>
-                <td>85% utilization vs 58% industry average</td>
-            </tr>
-            <tr>
-                <td><b>SDG 12.2:</b> Sustainable resource management</td>
-                <td>Minimize material waste through efficient sequencing</td>
-                <td>42% reduction in rework and material waste</td>
-            </tr>
-            <tr>
-                <td><b>SDG 14.1:</b> Prevent marine pollution</td>
-                <td>Proper maintenance reduces at-sea breakdowns/spills</td>
-                <td>95% of ships pass environmental compliance</td>
-            </tr>
-        </table>
-        
-        <p style="margin-top: 15px;">
-            <b>Economic Impact:</b> Supporting ₹2,800 Cr maritime trade through reliable ship 
-            maintenance. Employing 850+ skilled technicians with 18% higher wages than industry average.
-        </p>
-    </div>
-
-    <!-- BUSINESS MODEL -->
-    <h2>💼 Business Model & Market</h2>
+        <h2 class="category-heading">🚢 Port Operations, IT & Maritime Logistics</h2>
+        <ul class="initiative-list">
+            
+            <li class="initiative-title logistics-title" onclick="toggleDetails('details_1_1')">
+                <strong>1. Multilingual BPO & IT Services Hub</strong>: <span class="data-structure-tag">Scheduling Algorithm (Round-Robin)</span>
+                <span class="sdg-tag">SDG 8: Decent Work & Economic Growth</span>
+            </li>
+            <div id="details_1_1" class="detail-card">
+                <h3>Problem Statement</h3>
+                Fairly distribute incoming calls and tasks among a pool of multilingual agents to ensure fast and equitable service, preventing agent burnout or idle time.
+                <h4>Solution Approach</h4>
+                The **Round-Robin Scheduling** algorithm is chosen because it inherently guarantees **fairness and starvation-free execution**. By circulating the assignment pointer, it ensures that every agent receives an equal share of the workload over time, which directly contributes to better agent morale, reduced burnout, and consistent service quality. 
+                <h4>Pseudo Code (Conceptual)</h4>
+                <pre>
+FUNCTION RoundRobin_Assign(AgentPool, NextIndex, Task):
+    N = Size of AgentPool
+    START_INDEX = NextIndex
+    WHILE AgentPool[NextIndex] IS Busy:
+        NextIndex = (NextIndex + 1) % N
+        IF NextIndex == START_INDEX:
+            RETURN "Wait Queue" // All agents busy
     
-    <div class="section-box">
-        <h3>📊 Key Business Metrics</h3>
-        <div class="metrics-grid">
-            <div class="metric-card" style="background: #f5f5f5; border-left: 4px solid #2c5364;">
-                <div class="metric-value" style="color: #0f2027;">₹420 Cr</div>
-                <div class="metric-label" style="color: #666;">Annual Revenue</div>
-            </div>
-            <div class="metric-card" style="background: #f5f5f5; border-left: 4px solid #2c5364;">
-                <div class="metric-value" style="color: #0f2027;">38%</div>
-                <div class="metric-label" style="color: #666;">EBITDA Margin</div>
-            </div>
-            <div class="metric-card" style="background: #f5f5f5; border-left: 4px solid #2c5364;">
-                <div class="metric-value" style="color: #0f2027;">180</div>
-                <div class="metric-label" style="color: #666;">Ships Serviced/Year</div>
-            </div>
-            <div class="metric-card" style="background: #f5f5f5; border-left: 4px solid #2c5364;">
-                <div class="metric-value" style="color: #0f2027;">92%</div>
-                <div class="metric-label" style="color: #666;">Client Retention</div>
-            </div>
-        </div>
+    Assign Task to AgentPool[NextIndex]
+    NextIndex = (NextIndex + 1) % N // Move to the next agent
+    RETURN NextIndex
+</pre>
+                <h4>C++ Pseudo-Code Implementation</h4>
+                <pre class="cpp-code">
+// Assumptions: AgentPool is a vector<Agent>, bool isBusy(int) is a check function
+// Global or Class Member: static int next_agent_index = 0;
 
-        <h3>💰 Revenue Streams</h3>
-        <ul>
-            <li><b>Major Overhauls:</b> ₹180 Cr/year – Complete ship refurbishment (₹1-3 Cr per vessel)</li>
-            <li><b>Routine Maintenance:</b> ₹120 Cr/year – Scheduled inspections and repairs</li>
-            <li><b>Emergency Repairs:</b> ₹85 Cr/year – Premium pricing for urgent fixes</li>
-            <li><b>Parts & Materials:</b> ₹35 Cr/year – Markup on components and supplies</li>
+int assign_task_round_robin(const std::vector&lt;Agent&gt;& agentPool, Task& task) {
+    int N = agentPool.size();
+    if (N == 0) return -1;
+
+    int start_index = next_agent_index;
+    do {
+        if (!agentPool[next_agent_index].isBusy()) {
+            agentPool[next_agent_index].assign(task);
+            return next_agent_index; // Task assigned
+
+        }
+        next_agent_index = (next_agent_index + 1) % N;
+    } while (next_agent_index != start_index);
+
+    return -2; // All agents busy, task goes to wait queue
+}
+</pre>
+                <h4>Data Set (Input/Output Example)</h4>
+                <table>
+                    <thead><tr><th>Call Arrival</th><th>Agent Status</th><th>Next Agent Index</th><th>SDG Alignment</th></tr></thead>
+                    <tbody>
+                        <tr><td>Call 1</td><td>{F, F, F}</td><td>0</td><td rowspan="3">SDG 8 (Decent Work) ensures equitable task distribution among employees.</td></tr>
+                        <tr><td>Call 2</td><td>{T, F, F}</td><td>1</td></tr>
+                        <tr><td>Call 3</td><td>{T, T, F}</td><td>2</td></tr>
+                    </tbody>
+                </table>
+                <span class="efficiency-badge">Efficiency: $O(N)$ (N = number of agents, worst case scan for availability), $O(1)$ average</span>
+            </div>
+            
+            <li class="initiative-title logistics-title" onclick="toggleDetails('details_1_2')">
+                <strong>2. Smart Port Security, Surveillance & Resource Allocation</strong>: <span class="data-structure-tag">Dijkstra + Stable Matching</span>
+                <span class="sdg-tag">SDG 9: Industry, Innovation & Infrastructure</span>
+            </li>
+            <div id="details_1_2" class="detail-card">
+                <h3>Problem Statement</h3>
+                Assign the best-suited patrol units (responders) to security emergencies, minimizing response time (using shortest path) while considering responder capabilities and incident requirements (stable assignment).
+                <h4>Solution Approach</h4>
+                This crucial safety system combines two powerful paradigms. **Dijkstra's Algorithm** is applied first to find the globally optimal shortest path in terms of time, ensuring maximum efficiency in reaching the incident.  **Stable Matching (Gale-Shapley)** then uses these minimum times, along with responder/incident preference lists (skills vs. incident type), to find an assignment that minimizes the chances of a responder *preferring* a different, faster incident, thereby creating a reliable and non-blocking security plan.
+                <h4>Pseudo Code (Stable Matching Component)</h4>
+                <pre>
+FUNCTION GaleShapley(Incidents, Responders):
+    WHILE there is an Incident I that is free and hasn't proposed to everyone:
+        R = I's highest ranked Responder (who hasn't been proposed to yet)
+        IF R is free:
+            (I, R) become matched
+        ELSE IF R prefers I to its current partner I':
+            I' becomes free
+            (I, R) become matched
+        ELSE:
+            I proposes to its next preference
+    RETURN Stable Matching
+</pre>
+                <h4>C++ Pseudo-Code Implementation (Dijkstra Component)</h4>
+                <pre class="cpp-code">
+// Uses Priority Queue (Min-Heap) for efficiency
+// V = vertices (locations), E = edges (roads)
+
+std::vector&lt;int&gt; dijkstra(const std::vector&lt;std::pair&lt;int, int&gt;&gt; adj[], int V, int start) {
+    std::vector&lt;int&gt; dist(V, INT_MAX);
+    std::priority_queue&lt;std::pair&lt;int, int&gt;, 
+                        std::vector&lt;std::pair&lt;int, int&gt;&gt;, 
+                        std::greater&lt;std::pair&lt;int, int&gt;&gt;&gt; pq;
+
+    dist[start] = 0;
+    pq.push({0, start}); // {distance, vertex}
+
+    while (!pq.empty()) {
+        int d = pq.top().first;
+        int u = pq.top().second;
+        pq.pop();
+
+        if (d > dist[u]) continue;
+
+        for (const auto& edge : adj[u]) {
+            int v = edge.first;
+            int weight = edge.second;
+            if (dist[u] + weight &lt; dist[v]) {
+                dist[v] = dist[u] + weight;
+                pq.push({dist[v], v});
+            }
+        }
+    }
+    return dist; // Returns min response time from start to all V
+}
+</pre>
+                <h4>Data Set (Input/Output Example)</h4>
+                <table>
+                    <thead><tr><th>Incident ID</th><th>Required Skill</th><th>Responder Min Time (via Dijkstra)</th><th>SDG Alignment</th></tr></thead>
+                    <tbody>
+                        <tr><td>I-01 (Fire)</td><td>A/B certified</td><td>R1: 5 mins, R2: 8 mins</td><td rowspan="3">SDG 9 focuses on building resilient infrastructure and fostering innovation, which smart security systems achieve.</td></tr>
+                        <tr><td>I-02 (HAZMAT)</td><td>HAZMAT certified</td><td>R1: 10 mins, R2: 3 mins</td></tr>
+                    </tbody>
+                </table>
+                <span class="efficiency-badge">Efficiency: Dijkstra $O(E \log V)$; Stable Matching $O(N^2)$ (N = number of responders/incidents)</span>
+            </div>
+            
+            <li class="initiative-title logistics-title" onclick="toggleDetails('details_1_3')">
+                <strong>3. Port-Based Ship Repair & Maintenance Hub</strong>: <span class="data-structure-tag">Assembly-Line Scheduling (Dynamic Programming)</span>
+                <span class="sdg-tag">SDG 9: Industry, Innovation & Infrastructure</span>
+            </li>
+            <div id="details_1_3" class="detail-card">
+                <h3>Problem Statement</h3>
+                Schedule multi-stage ship repair tasks across two or more parallel repair lines (workstations) to minimize the total completion time (makespan).
+                <h4>Solution Approach</h4>
+                **Assembly-Line Scheduling**, a core **Dynamic Programming** technique, is perfectly suited here. It avoids exhaustive search by identifying the optimal path to complete stage $j$ by referencing the minimum time achieved at stage $j-1$.  This approach systematically accounts for all time costs—work time, entry/exit time, and inter-line transfer time—ensuring the ship is repaired in the fastest possible manner, maximizing resource utilization.
+                <h4>Pseudo Code (Conceptual)</h4>
+                <pre>
+FUNCTION MinTime_DP(Lines, Stages, EntryTime, ExitTime, TransferTime):
+    // Time[i][j] = min time to finish stage j on line i
+    Time[1][1] = EntryTime[1] + WorkTime[1][1]
+    Time[2][1] = EntryTime[2] + WorkTime[2][1]
+
+    FOR j = 2 TO Stages:
+        Time[1][j] = min(Time[1][j-1], Time[2][j-1] + TransferTime[2] to [1]) + WorkTime[1][j]
+        Time[2][j] = min(Time[2][j-1], Time[1][j-1] + TransferTime[1] to [2]) + WorkTime[2][j]
+
+    RETURN min(Time[1][Stages] + ExitTime[1], Time[2][Stages] + ExitTime[2])
+</pre>
+                <h4>C++ Pseudo-Code Implementation</h4>
+                <pre class="cpp-code">
+// N is number of stages. WorkTime[i][j] and TransferTime[i][j] are given
+int assembly_line_scheduling(int WorkTime[2][N], int TransferTime[2][N], 
+                             int EntryTime[2], int ExitTime[2], int N) {
+    
+    int T1[N], T2[N]; // T[i] stores min time to finish stage i on line 1/2
+
+    // Base Case for Stage 1 (j=0)
+    T1[0] = EntryTime[0] + WorkTime[0][0]; 
+    T2[0] = EntryTime[1] + WorkTime[1][0];
+
+    // Fill the rest of the DP tables
+    for (int j = 1; j < N; j++) {
+        // Line 1
+        T1[j] = std::min(T1[j-1] + WorkTime[0][j], 
+                         T2[j-1] + TransferTime[1][j] + WorkTime[0][j]);
+
+        // Line 2
+        T2[j] = std::min(T2[j-1] + WorkTime[1][j], 
+                         T1[j-1] + TransferTime[0][j] + WorkTime[1][j]);
+    }
+
+    // Final result
+    return std::min(T1[N-1] + ExitTime[0], T2[N-1] + ExitTime[1]);
+}
+</pre>
+                <h4>Data Set (Input/Output Example)</h4>
+                <table>
+                    <thead><tr><th>Stage (j)</th><th>Line 1 Time</th><th>Line 2 Time</th><th>SDG Alignment</th></tr></thead>
+                    <tbody>
+                        <tr><td>Hull Repair (1)</td><td>10 hrs</td><td>12 hrs</td><td rowspan="2">SDG 9 promotes industrialization and innovation by optimizing complex, resource-intensive processes like ship repair.</td></tr>
+                        <tr><td>Engine Maint (2)</td><td>8 hrs</td><td>6 hrs</td></tr>
+                    </tbody>
+                </table>
+                <span class="efficiency-badge">Efficiency: $O(N)$ (N = number of stages)</span>
+            </div>
+
+            <li class="initiative-title logistics-title" onclick="toggleDetails('details_1_4')">
+                <strong>4. Harbor Logistics Truck Parking & Cargo Processing</strong>: <span class="data-structure-tag">FIFO + Greedy + Simulation</span>
+                <span class="sdg-tag">SDG 12: Responsible Consumption & Production</span>
+            </li>
+            <div id="details_1_4" class="detail-card">
+                <h3>Problem Statement</h3>
+                Control the flow of trucks for arrival, parking, scanning, and weighing in the harbor to prevent congestion, managing queues while prioritizing high-value or fast-track cargo.
+                <h4>Solution Approach</h4>
+                This system uses a hybrid approach to balance fairness and throughput. The **FIFO Queue** maintains order for standard arrivals, while a **Greedy Strategy (Shortest Job First)** is implemented at the processing bottlenecks (scanner/weighing). This greedy prioritization ensures that resources are efficiently used by immediately processing the quickest tasks or highest-priority cargo, maximizing the flow of goods and minimizing truck idling time, thereby reducing emissions and congestion. 
+                <h4>Pseudo Code (Greedy Selection at Bottleneck)</h4>
+                <pre>
+FUNCTION SelectNextTruck(ProcessingQueue):
+    IF ProcessingQueue is EMPTY:
+        RETURN NULL
+        
+    BestTruck = ProcessingQueue[0]
+    // Greedy: Find highest priority/fastest processing truck
+    FOR each Truck in ProcessingQueue:
+        IF Truck.Priority == HIGH:
+            RETURN Truck
+        ELSE IF Truck.ProcessTime < BestTruck.ProcessTime:
+            BestTruck = Truck
+            
+    RETURN BestTruck
+</pre>
+                <h4>C++ Pseudo-Code Implementation (SJF/Priority)</h4>
+                <pre class="cpp-code">
+struct Truck { int id; int priority; int process_time; };
+
+Truck select_next_truck_greedy(std::vector&lt;Truck&gt;& processingQueue) {
+    if (processingQueue.empty()) {
+        return {-1, 0, 0}; // NULL truck
+    }
+
+    auto best_it = processingQueue.begin();
+
+    for (auto it = processingQueue.begin(); it != processingQueue.end(); ++it) {
+        // Priority 1: High priority always wins
+        if (it->priority > best_it->priority) { 
+            best_it = it;
+        } 
+        // Priority 2: Shortest Job First (SJF) among equal priorities
+        else if (it->priority == best_it->priority && 
+                 it->process_time < best_it->process_time) {
+            best_it = it;
+        }
+    }
+
+    Truck best_truck = *best_it;
+    processingQueue.erase(best_it); // Remove the selected truck
+    return best_truck;
+}
+</pre>
+                <h4>Data Set (Input/Output Example)</h4>
+                <table>
+                    <thead><tr><th>Truck ID</th><th>Priority</th><th>Processing Time (mins)</th><th>SDG Alignment</th></tr></thead>
+                    <tbody>
+                        <tr><td>T-101</td><td>LOW</td><td>15</td><td rowspan="3">SDG 12 addresses waste reduction and efficient resource use by minimizing truck idling time and fuel consumption in the harbor.</td></tr>
+                        <tr><td>T-Fast</td><td>HIGH</td><td>5</td></tr>
+                    </tbody>
+                </table>
+                <span class="efficiency-badge">Efficiency: $O(N \log N)$ (N=queue size, due to sorting for greedy selection), $O(1)$ average</span>
+            </div>
+            
+            <li class="initiative-title logistics-title" onclick="toggleDetails('details_1_5')">
+                <strong>5. Port Infrastructure, Cold Storage & Industrial Facility Optimization</strong>: <span class="data-structure-tag">Dynamic Programming + Greedy + TSP</span>
+                <span class="sdg-tag">SDG 13: Climate Action</span>
+            </li>
+            <div id="details_1_5" class="detail-card">
+                <h3>Problem Statement</h3>
+                Determine the optimal placement of new cold storage facilities within a large port area and establish the most cost-effective delivery routes for refrigerated cargo.
+                <h4>Solution Approach</h4>
+                The problem is modeled as the **Traveling Salesperson Problem (TSP)**, an NP-hard problem. Since finding the absolute optimum is too slow for large inputs, we choose a strategic hybrid: **Dynamic Programming with Bitmasking** for small clusters (exact route planning) and efficient **Greedy Heuristics** (like Nearest Neighbor or Clark-Wright) for larger networks.  Minimizing the total distance traveled by refrigerated trucks is crucial for reducing fuel consumption and associated carbon emissions.
+                <h4>Pseudo Code (TSP - Dynamic Programming)</h4>
+                <pre>
+FUNCTION TSP_DP(StartNode, Mask):
+    IF Mask == (1 << N) - 1: // All nodes visited
+        RETURN Cost[StartNode][InitialNode]
+    IF DP[StartNode][Mask] is Computed:
+        RETURN DP[StartNode][Mask]
+        
+    MinCost = Infinity
+    FOR NextNode = 0 TO N-1:
+        IF (Mask & (1 << NextNode)) == 0: // If NextNode not visited
+            NewMask = Mask | (1 << NextNode)
+            Cost = Cost[StartNode][NextNode] + TSP_DP(NextNode, NewMask)
+            MinCost = min(MinCost, Cost)
+            
+    DP[StartNode][Mask] = MinCost
+    RETURN MinCost
+</pre>
+                <h4>C++ Pseudo-Code Implementation (TSP with Bitmasking)</h4>
+                <pre class="cpp-code">
+// Cost[N][N] is the distance matrix. N <= 20 for feasible DP.
+// DP[1 << N][N] is the memoization table.
+int N = 5; // Number of nodes (cold stores)
+int DP[1 << 20][20];
+int Cost[20][20];
+
+int tsp_dp_solve(int mask, int pos) {
+    if (mask == ((1 << N) - 1)) {
+        return Cost[pos][0]; // Return to starting node (0)
+    }
+    if (DP[mask][pos] != -1) {
+        return DP[mask][pos];
+    }
+
+    int min_cost = INT_MAX;
+    for (int next = 0; next < N; next++) {
+        // Check if the 'next' node has not been visited (bit is not set in mask)
+        if ((mask & (1 << next)) == 0) {
+            int new_mask = mask | (1 << next);
+            int current_cost = Cost[pos][next] + tsp_dp_solve(new_mask, next);
+            min_cost = std::min(min_cost, current_cost);
+        }
+    }
+
+    return DP[mask][pos] = min_cost;
+}
+
+// Call with: tsp_dp_solve(1, 0) // Starting at node 0, with mask indicating node 0 visited
+</pre>
+                <h4>Data Set (Input/Output Example)</h4>
+                <table>
+                    <thead><tr><th>Location</th><th>Distance Matrix</th><th>Demand Zone</th><th>SDG Alignment</th></tr></thead>
+                    <tbody>
+                        <tr><td>5 Cold Stores (Nodes)</td><td>Cost[i][j] (Trucking cost)</td><td>High volume export/import areas</td><td rowspan="3">SDG 13 requires action to combat climate change, which is achieved here by minimizing fuel consumption through optimal route planning.</td></tr>
+                    </tbody>
+                </table>
+                <span class="efficiency-badge">Efficiency: $O(N^2 \cdot 2^N)$ (TSP Dynamic Programming, exact solution)</span>
+            </div>
+
+        </ul>
+
+        <h2 class="category-heading">🏖 Coastal Tourism, Events & Hospitality</h2>
+        <ul class="initiative-list">
+            
+            <li class="initiative-title tourism-title" onclick="toggleDetails('details_2_1')">
+                <strong>6. Beach Wedding & Events Hub</strong>: <span class="data-structure-tag">Job Scheduling + Resource Allocation</span>
+                <span class="sdg-tag">SDG 8: Decent Work & Economic Growth</span>
+            </li>
+            <div id="details_2_1" class="detail-card">
+                <h3>Problem Statement</h3>
+                Schedule multiple events (jobs) in a multi-venue environment, ensuring no time overlaps while tracking limited resources (staff, equipment, power) required by each event.
+                <h4>Solution Approach</h4>
+                This is solved using the **Greedy Interval Scheduling** approach. By sorting all events by their **earliest finish time**, the algorithm greedily selects the next compatible event. This is proven to maximize the total number of events scheduled, which translates directly to maximizing venue utilization and economic output without scheduling conflicts. 
+                <h4>Pseudo Code (Activity Selection/Interval Scheduling)</h4>
+                <pre>
+FUNCTION MaximizeEvents(Events, Resources):
+    Events = SORT(Events, by_Finish_Time)
+    
+    LastFinishTime = 0
+    FOR each Event E in Sorted Events:
+        IF E.StartTime >= LastFinishTime AND Resources.CanAllocate(E):
+            Schedule E
+            LastFinishTime = E.FinishTime
+            Resources.Allocate(E)
+            
+    RETURN ScheduledEvents
+</pre>
+                <h4>C++ Pseudo-Code Implementation</h4>
+                <pre class="cpp-code">
+struct Event { int start; int end; int staff_needed; };
+
+// Custom comparator to sort by finish time
+bool compareEvents(const Event& a, const Event& b) {
+    return a.end < b.end;
+}
+
+std::vector&lt;Event&gt; max_events_greedy(std::vector&lt;Event&gt;& events, int total_staff) {
+    std::sort(events.begin(), events.end(), compareEvents);
+
+    std::vector&lt;Event&gt; scheduled_events;
+    int last_finish_time = 0;
+    int current_staff_used = 0;
+
+    for (const auto& E : events) {
+        if (E.start >= last_finish_time && 
+            current_staff_used + E.staff_needed <= total_staff) {
+            
+            scheduled_events.push_back(E);
+            last_finish_time = E.end;
+            // For simplicity, this assumes staff is released immediately
+            current_staff_used += E.staff_needed; 
+            // More complex tracking needed for simultaneous events
+        }
+    }
+    return scheduled_events;
+}
+</pre>
+                <h4>Data Set (Input/Output Example)</h4>
+                <table>
+                    <thead><tr><th>Event</th><th>Start</th><th>End</th><th>Staff Needed</th><th>SDG Alignment</th></tr></thead>
+                    <tbody>
+                        <tr><td>A (Wedding)</td><td>9:00</td><td>12:00</td><td>8</td><td rowspan="2">SDG 8 focuses on maximizing productivity and full employment by efficiently utilizing venue capacity and maximizing event opportunities.</td></tr>
+                        <tr><td>B (Party)</td><td>11:00</td><td>13:00</td><td>4</td></tr>
+                    </tbody>
+                </table>
+                <span class="efficiency-badge">Efficiency: $O(N \log N)$ (due to initial sorting)</span>
+            </div>
+            
+            <li class="initiative-title tourism-title" onclick="toggleDetails('details_2_2')">
+                <strong>7. EV Bike + Water Sports Rental Management</strong>: <span class="data-structure-tag">Hash Tables + Priority Queues</span>
+                <span class="sdg-tag">SDG 12: Responsible Consumption & Production</span>
+            </li>
+            <div id="details_2_2" class="detail-card">
+                <h3>Problem Statement</h3>
+                Track the status of every equipment piece instantly, manage return times, and prioritize equipment that needs charging or maintenance immediately.
+                <h4>Solution Approach</h4>
+                **Hash Tables** provide $O(1)$ average time complexity for real-time status lookup, which is essential for fast customer service. A **Min-Heap Priority Queue** is used to prioritize maintenance tasks based on battery level (lowest battery first).  This dual-structure system ensures operational speed and minimizes equipment downtime, maximizing the useful life and utilization of each rental asset.
+                <h4>Pseudo Code (Priority Queue for Charging)</h4>
+                <pre>
+FUNCTION PrioritizeCharging(EquipmentQueue, EquipmentID, BatteryLevel):
+    // Use min-heap where key is BatteryLevel
+    EquipmentQueue.Insert(BatteryLevel, EquipmentID)
+    
+FUNCTION GetNextToCharge():
+    RETURN EquipmentQueue.ExtractMin()
+</pre>
+                <h4>C++ Pseudo-Code Implementation</h4>
+                <pre class="cpp-code">
+// Hash Table for real-time status lookup
+std::unordered_map&lt;int, std::string&gt; equipment_status; 
+
+// Priority Queue (Min-Heap) for charging priority. 
+// Stores {battery_level, equipment_id}. std::pair naturally sorts by first element.
+std::priority_queue&lt;std::pair&lt;int, int&gt;, 
+                    std::vector&lt;std::pair&lt;int, int&gt;&gt;, 
+                    std::greater&lt;std::pair&lt;int, int&gt;&gt;&gt; charge_queue;
+
+void update_charge_queue(int id, int battery_level) {
+    // Note: C++ standard PQ doesn't support easy 'decrease key' (update)
+    // Common solution is to insert the new value and ignore the old one when extracted
+    charge_queue.push({battery_level, id}); 
+}
+
+int get_next_to_charge() {
+    if (charge_queue.empty()) return -1;
+    
+    int id = charge_queue.top().second;
+    charge_queue.pop();
+    return id; // Returns ID of the equipment with the lowest battery level
+}
+</pre>
+                <h4>Data Set (Input/Output Example)</h4>
+                <table>
+                    <thead><tr><th>ID (Key)</th><th>Battery Level</th><th>Status (Hash)</th><th>SDG Alignment</th></tr></thead>
+                    <tbody>
+                        <tr><td>Bike-05</td><td>15%</td><td>Rented by P1</td><td rowspan="3">SDG 12 promotes sustainable management and efficient use of natural resources, extending product life through timely maintenance and optimal charging.</td></tr>
+                        <tr><td>JetSki-01</td><td>80%</td><td>Available</td></tr>
+                    </tbody>
+                </table>
+                <span class="efficiency-badge">Efficiency: $O(1)$ (Hash Lookup), $O(\log N)$ (Priority Queue Operations)</span>
+            </div>
+            
+            <li class="initiative-title tourism-title" onclick="toggleDetails('details_2_3')">
+                <strong>8. Coastal Food Truck Fleet Logistics & Inventory Optimization (Combined 8 & 9)</strong>: <span class="data-structure-tag">VRP with Capacity Constraints (VRP-C)</span>
+                <span class="sdg-tag">SDG 13: Climate Action</span>
+            </li>
+            <div id="details_2_3" class="detail-card">
+                <h3>Problem Statement (Consolidated)</h3>
+                Determine the optimal **inventory** to load onto each food truck (Knapsack/Bin Packing) and calculate the most **cost-effective route** for that truck to its assigned coastal zones, ensuring the truck capacity is never exceeded and total distance is minimized.
+                <h4>Solution Approach</h4>
+                Addressing this as the **Vehicle Routing Problem with Capacity Constraints (VRP-C)** allows for simultaneous route and inventory optimization. The **Clark-Wright Savings Algorithm** is the chosen heuristic because it quickly and effectively merges routes that yield the greatest cost savings, provided the capacity constraint of the truck is respected.  This methodology directly reduces fleet mileage, cutting fuel costs, delivery time, and carbon emissions.
+                <h4>Pseudo Code (Clark-Wright VRP-C Heuristic)</h4>
+                <pre>
+FUNCTION ClarkWrightVRP_C(Depot, Customers, TruckCapacity):
+    Compute all Savings S(i, j) = Dist(Depot, i) + Dist(Depot, j) - Dist(i, j)
+    SORT Savings S(i, j) in decreasing order
+    
+    Start each Customer in its own route (Depot -> i -> Depot)
+    
+    FOR each Saving S(i, j) in sorted order:
+        IF i and j are currently in different routes:
+            TotalDemand = Demand(Route i) + Demand(Route j)
+            
+            IF TotalDemand < TruckCapacity:
+                Merge Route i and Route j
+                
+    RETURN Final Optimized Routes (Inventory & Route Combined)
+</pre>
+                <h4>C++ Pseudo-Code Implementation (Savings Calculation)</h4>
+                <pre class="cpp-code">
+struct Saving { int i, j, value; };
+
+// Custom comparator to sort savings in descending order
+bool compareSavings(const Saving& a, const Saving& b) {
+    return a.value > b.value;
+}
+
+// Assumes Dist[N][N] is the distance matrix (N = customers + depot)
+// Node 0 is the Depot. Customers are 1 to N-1.
+std::vector&lt;Saving&gt; compute_savings(int N, const int Dist[N][N]) {
+    std::vector&lt;Saving&gt; savings;
+    for (int i = 1; i < N; ++i) {
+        for (int j = i + 1; j < N; ++j) {
+            int s = Dist[0][i] + Dist[0][j] - Dist[i][j];
+            savings.push_back({i, j, s});
+        }
+    }
+    std::sort(savings.begin(), savings.end(), compareSavings);
+    return savings;
+}
+
+// Merging logic (omitted for brevity, requires complex route data structure and capacity check)
+</pre>
+                <h4>Data Set (Input/Output Example)</h4>
+                <table>
+                    <thead><tr><th>Zone (Node)</th><th>Demand (Inventory Weight)</th><th>Distance to Depot</th><th>SDG Alignment</th></tr></thead>
+                    <tbody>
+                        <tr><td>Zone A (1)</td><td>70 kg</td><td>10 km</td><td rowspan="3">SDG 13 addresses climate change by reducing the carbon footprint of the fleet through minimized travel distance.</td></tr>
+                        <tr><td>Zone B (2)</td><td>120 kg</td><td>15 km</td></tr>
+                        <tr><td>Zone C (3)</td><td>40 kg</td><td>5 km</td></tr>
+                    </tbody>
+                </table>
+                <span class="efficiency-badge">Efficiency: NP-hard (Exact VRP-C), Clark-Wright $O(N^2)$</span>
+            </div>
+
         </ul>
         
-        <h3>📈 Market Opportunity</h3>
-        <p>
-            India's shipping industry operates 1,400+ commercial vessels. Global ship repair market: 
-            $28 billion, growing at 4.2% CAGR. Indian market: ₹15,000 Cr with 15% going overseas due 
-            to capacity constraints. Target: Capture additional 8% of domestic market = ₹1,200 Cr 
-            revenue potential (3x current).
-        </p>
-    </div>
+        <h2 class="category-heading">🏦 Public Services & Customer Management</h2>
+        <ul class="initiative-list">
+            
+            <li class="initiative-title public-service-title" onclick="toggleDetails('details_3_1')">
+                <strong>9. Customer Service & Public Service Queue Management</strong>: <span class="data-structure-tag">Round-Robin + Multi-Level Priority Queues</span>
+                <span class="sdg-tag">SDG 16: Peace, Justice & Strong Institutions</span>
+            </li>
+            <div id="details_3_1" class="detail-card">
+                <h3>Problem Statement</h3>
+                Maintain fair queue processing (FIFO/Round-Robin) for standard citizens while ensuring emergency cases (medical, time-critical) are immediately processed by dedicated staff/counters.
+                <h4>Solution Approach</h4>
+                This system utilizes **Multi-Level Priority Queues** to achieve both **equity and urgency**. Standard requests are handled on a first-come, first-served basis for fairness, while emergency cases are placed in a Max-Heap Priority Queue.  The algorithm always checks the Max-Heap first, ensuring critical needs (Max Priority) are met immediately, a crucial requirement for responsive public services.
+                <h4>Pseudo Code (Conceptual)</h4>
+                <pre>
+FUNCTION ProcessCustomer(EmergencyQueue, StandardQueue):
+    IF EmergencyQueue IS NOT EMPTY:
+        Customer = EmergencyQueue.PopMaxPriority()
+        Dispatch to Emergency Counter
+    ELSE:
+        Customer = StandardQueue.RoundRobinPop()
+        Dispatch to Standard Counter
+</pre>
+                <h4>C++ Pseudo-Code Implementation</h4>
+                <pre class="cpp-code">
+struct Customer { int id; int priority; };
 
-    <!-- TECHNOLOGY STACK -->
-    <h2>⚙️ Technology Stack</h2>
-    <div class="tech-stack">
-        <span class="tech-badge">C++ Optimization Engine</span>
-        <span class="tech-badge">Python Analytics</span>
-        <span class="tech-badge">Dynamic Programming</span>
-        <span class="tech-badge">PostgreSQL Database</span>
-        <span class="tech-badge">Redis Queue</span>
-        <span class="tech-badge">React Scheduling UI</span>
-        <span class="tech-badge">IoT Sensors</span>
-        <span class="tech-badge">3D Modeling CAD</span>
-        <span class="tech-badge">Azure Cloud</span>
-    </div>
+// Max-Heap for Emergency Queue (priority = higher number is more critical)
+// Default std::priority_queue is a Max-Heap
+std::priority_queue&lt;std::pair&lt;int, int&gt;&gt; emergency_queue; // {priority, id}
 
-    <!-- ALGORITHM: Assembly-Line Scheduling -->
-    <div class="algo-section">
-        <h2>Algorithm: Assembly-Line Scheduling (Dynamic Programming)</h2>
+// Standard Queue (FIFO, can use std::queue)
+std::queue&lt;int&gt; standard_queue; 
 
-        <div class="section-box problem-box">
-            <h3>🎯 Problem Statement</h3>
-            <p>
-                A ship passes through n repair stations (S1, S2, ..., Sn) arranged in two parallel 
-                assembly lines (Line 1 and Line 2). Each station performs specific tasks with different 
-                processing times. Ships can switch between lines between stations with a transfer cost. 
-                Determine the optimal path through stations to minimize total completion time.
-            </p>
-            <p><b>Input:</b> Processing times a[i][j] for station j on line i, Transfer costs t[i][j] to switch lines after station j, Entry/exit times e[i] and x[i]</p>
-            <p><b>Output:</b> Minimum time path and which line to use at each station</p>
-            <p><b>Constraints:</b> Must complete all stations in sequence, can only switch between adjacent stations</p>
-        </div>
+int dispatch_next_customer() {
+    if (!emergency_queue.empty()) {
+        int id = emergency_queue.top().second;
+        emergency_queue.pop();
+        return id; // Emergency case
+    } else if (!standard_queue.empty()) {
+        int id = standard_queue.front();
+        standard_queue.pop();
+        return id; // Standard case (FIFO/Round Robin)
+    }
+    return -1; // No customers
+}
+</pre>
+                <h4>Data Set (Input/Output Example)</h4>
+                <table>
+                    <thead><tr><th>Customer ID</th><th>Type</th><th>Priority</th><th>SDG Alignment</th></tr></thead>
+                    <tbody>
+                        <tr><td>C-101</td><td>Standard</td><td>1</td><td rowspan="3">SDG 16 focuses on effective, accountable, and inclusive institutions by ensuring equitable access and responsive service delivery.</td></tr>
+                        <tr><td>C-Emer</td><td>Emergency</td><td>10</td></tr>
+                    </tbody>
+                </table>
+                <span class="efficiency-badge">Efficiency: $O(\log N)$ (Emergency Pop), $O(1)$ (Standard Pop)</span>
+            </div>
+            
+            <li class="initiative-title public-service-title" onclick="toggleDetails('details_3_2')">
+                <strong>10. Fast Facility Lookup & Navigation System</strong>: <span class="data-structure-tag">Trie (Prefix Tree)</span>
+                <span class="sdg-tag">SDG 9: Industry, Innovation & Infrastructure</span>
+            </li>
+            <div id="details_3_2" class="detail-card">
+                <h3>Problem Statement</h3>
+                Provide instant, prefix-based search and autocomplete functionality for internal navigation to rooms, counters, offices, or departments.
+                <h4>Solution Approach</h4>
+                The **Trie (Prefix Tree)** is chosen specifically for its unparalleled efficiency in prefix searching.  Unlike hash tables or binary trees, a Trie enables lookups and autocomplete suggestions in time proportional only to the length of the query ($O(L)$), regardless of the total number of items stored ($N$). This is essential for creating a responsive, high-speed, and intuitive navigation experience.
+                <h4>Pseudo Code (Conceptual)</h4>
+                <pre>
+FUNCTION Insert(Trie, Word):
+    CurrentNode = Root
+    FOR each Char in Word:
+        IF Char is NOT in CurrentNode.Children:
+            Create New Node for Char
+        CurrentNode = CurrentNode.Child[Char]
+    CurrentNode.IsEndOfWord = True
 
-        <div class="section-box solution-box">
-            <h3>💡 Solution Approach</h3>
-            <p>
-                Use <b>Dynamic Programming</b> to build optimal solution bottom-up. Define f[i][j] = 
-                minimum time to reach station j on line i. At each station, choose minimum between: 
-                (1) staying on same line, or (2) transferring from other line. Track decisions to 
-                reconstruct optimal path.
-            </p>
-            <p><b>Why Dynamic Programming?</b></p>
+FUNCTION SearchPrefix(Trie, Prefix):
+    CurrentNode = Root
+    FOR each Char in Prefix:
+        CurrentNode = CurrentNode.Child[Char]
+        IF CurrentNode is NULL:
+            RETURN Empty List
+    RETURN All Words under CurrentNode subtree
+</pre>
+                <h4>C++ Pseudo-Code Implementation</h4>
+                <pre class="cpp-code">
+#define ALPHABET_SIZE 26
+
+struct TrieNode {
+    TrieNode* children[ALPHABET_SIZE];
+    bool isEndOfWord;
+
+    TrieNode() : isEndOfWord(false) {
+        for (int i = 0; i < ALPHABET_SIZE; i++) {
+            children[i] = nullptr;
+        }
+    }
+};
+
+void insert_word(TrieNode* root, const std::string& key) {
+    TrieNode* curr = root;
+    for (char c : key) {
+        int index = c - 'a'; // Assuming lowercase English letters
+        if (!curr->children[index]) {
+            curr->children[index] = new TrieNode();
+        }
+        curr = curr->children[index];
+    }
+    curr->isEndOfWord = true;
+}
+// Helper functions for search and autocomplete are omitted for brevity.
+</pre>
+                <h4>Data Set (Input/Output Example)</h4>
+                <table>
+                    <thead><tr><th>Stored Words</th><th>Input Prefix</th><th>Trie Traversal</th><th>SDG Alignment</th></tr></thead>
+                    <tbody>
+                        <tr><td>Accounts, Audit, Admin</td><td>A</td><td>Root -> A</td><td rowspan="2">SDG 9 promotes technological innovation and adoption in public services to increase efficiency and accessibility.</td></tr>
+                        <tr><td>-</td><td>Au</td><td>Root -> A -> u</td></tr>
+                    </tbody>
+                </table>
+                <span class="efficiency-badge">Efficiency: $O(L)$ (L = length of prefix/word, regardless of total words N)</span>
+            </div>
+            
+            <li class="initiative-title public-service-title" onclick="toggleDetails('details_3_3')">
+                <strong>11. Digital Advertising & Events Hub</strong>: <span class="data-structure-tag">Interval Scheduling + Constraint Satisfaction</span>
+                <span class="sdg-tag">SDG 8: Decent Work & Economic Growth</span>
+            </li>
+            <div id="details_3_3" class="detail-card">
+                <h3>Problem Statement</h3>
+                Schedule digital advertisements and events (intervals) within a fixed timeline without time overlaps, maximizing the total value generated, subject to placement rules (constraints).
+                <h4>Solution Approach</h4>
+                This is a classic optimization problem solved using a **Greedy Algorithm** for the **Interval Scheduling Problem**. By sorting all potential advertisements or events by their **finish time**, the algorithm makes the locally optimal choice at each step (selecting the event that finishes earliest).  This strategy is mathematically proven to yield the globally maximum number of non-overlapping activities, maximizing the utilization and revenue potential of the digital platform.
+                <h4>Pseudo Code (Interval Scheduling)</h4>
+                <pre>
+FUNCTION MaximizeValue(Intervals, Constraints):
+    Intervals = SORT(Intervals, by_Finish_Time)
+    
+    ScheduledSet = Empty
+    LastFinishTime = 0
+    FOR each Interval I in Sorted Intervals:
+        IF I.StartTime >= LastFinishTime AND CheckConstraints(I, ScheduledSet):
+            Add I to ScheduledSet
+            LastFinishTime = I.FinishTime
+            
+    RETURN ScheduledSet
+</pre>
+                <h4>C++ Pseudo-Code Implementation</h4>
+                <pre class="cpp-code">
+struct Interval { int start; int end; std::string name; };
+
+// Custom comparator to sort intervals by end time
+bool compareIntervals(const Interval& a, const Interval& b) {
+    return a.end < b.end;
+}
+
+std::vector&lt;Interval&gt; interval_scheduling_greedy(std::vector&lt;Interval&gt;& intervals) {
+    std::sort(intervals.begin(), intervals.end(), compareIntervals);
+
+    std::vector&lt;Interval&gt; scheduled;
+    int last_finish_time = 0;
+
+    for (const auto& I : intervals) {
+        if (I.start >= last_finish_time) {
+            // Check for additional constraints (omitted for simplicity)
+            scheduled.push_back(I);
+            last_finish_time = I.end;
+        }
+    }
+    return scheduled;
+}
+</pre>
+                <h4>Data Set (Input/Output Example)</h4>
+                <table>
+                    <thead><tr><th>Ad/Event</th><th>Start Time</th><th>End Time</th><th>SDG Alignment</th></tr></thead>
+                    <tbody>
+                        <tr><td>Ad A</td><td>10:00</td><td>10:30</td><td rowspan="2">SDG 8 promotes sustained economic growth by ensuring the efficient and optimal use of digital advertising resources to maximize revenue and economic activity.</td></tr>
+                        <tr><td>Ad B</td><td>10:15</td><td>10:45</td></tr>
+                    </tbody>
+                </table>
+                <span class="efficiency-badge">Efficiency: $O(N \log N)$ (due to initial sorting)</span>
+            </div>
+
+        </ul>
+        
+        <h2 class="category-heading">🧘 Health & Wellness</h2>
+        <ul class="initiative-list">
+
+            <li class="initiative-title health-title" onclick="toggleDetails('details_4_1')">
+                <strong>12. Coastal Massage, Spa & Appointment Booking</strong>: <span class="data-structure-tag">Segment Trees + Interval Queries</span>
+                <span class="sdg-tag">SDG 3: Good Health & Well-being</span>
+            </li>
+            <div id="details_4_1" class="detail-card">
+                <h3>Problem Statement</h3>
+                Efficiently check for availability or density of spa/massage appointments over time intervals (e.g., how many bookings are there between 2 PM and 4 PM across all treatment rooms).
+                <h4>Solution Approach</h4>
+                A **Segment Tree** with **Lazy Propagation** is the most efficient choice for handling large volumes of range-based data.  Booking an appointment is treated as a range update on the time axis, and checking availability for a specific time window is a range query. This structure guarantees $O(\log N)$ time complexity for both operations, ensuring near-instantaneous query responses even with a fully booked schedule.
+                <h4>Pseudo Code (Segment Tree - Lazy Propagation for Range Update)</h4>
+                <pre>
+FUNCTION UpdateRange(Node, StartTime, EndTime, RangeToUpdate, Value):
+    // Standard Segment Tree Range Update with Lazy Propagation
+    IF Node.Range is entirely within RangeToUpdate:
+        Node.Count += Value
+        IF NOT Leaf: Node.Lazy += Value
+        RETURN
+
+    Propagate Lazy Value Down
+    UpdateRange(Node.Left, ...)
+    UpdateRange(Node.Right, ...)
+    Node.Count = Node.Left.Count + Node.Right.Count
+
+FUNCTION QueryPoint(Node, TimePoint):
+    // Find the total count for a specific minute/slot
+    // Traverse down, accumulating lazy/actual counts
+</pre>
+                <h4>C++ Pseudo-Code Implementation (Conceptual Segment Tree Structure)</h4>
+                <pre class="cpp-code">
+// Assuming N is the max time point (e.g., 1440 minutes for a day)
+const int N = 1440; 
+int tree[4 * N]; // Segment Tree array (4N size)
+int lazy[4 * N]; // Lazy Propagation array
+
+void push(int node, int start, int end) {
+    if (lazy[node] != 0) {
+        tree[node] += lazy[node] * (end - start + 1); // Apply lazy value
+        if (start != end) {
+            lazy[2 * node] += lazy[node]; // Propagate to children
+            lazy[2 * node + 1] += lazy[node];
+        }
+        lazy[node] = 0; // Reset lazy value
+    }
+}
+
+void update_range(int node, int start, int end, int l, int r, int val) {
+    push(node, start, end);
+    if (start > end || start > r || end < l) return; // Out of range
+    if (l <= start && end <= r) { // Current segment completely within range
+        lazy[node] += val;
+        push(node, start, end);
+        return;
+    }
+    int mid = (start + end) / 2;
+    update_range(2 * node, start, mid, l, r, val);
+    update_range(2 * node + 1, mid + 1, end, l, r, val);
+    tree[node] = tree[2 * node] + tree[2 * node + 1];
+}
+</pre>
+                <h4>Data Set (Input/Output Example)</h4>
+                <table>
+                    <thead><tr><th>Time Slot</th><th>Action</th><th>Rooms</th><th>SDG Alignment</th></tr></thead>
+                    <tbody>
+                        <tr><td>2:00 PM - 3:00 PM</td><td>Book</td><td>Room 1</td><td rowspan="2">SDG 3 promotes well-being for all ages by ensuring streamlined access to health and wellness services through efficient scheduling.</td></tr>
+                        <tr><td>Query 2:30 PM</td><td>Check</td><td>-</td></tr>
+                    </tbody>
+                </table>
+                <span class="efficiency-badge">Efficiency: $O(\log N)$ (for Range Update and Range/Point Query)</span>
+            </div>
+
+            <li class="initiative-title health-title" onclick="toggleDetails('details_4_2')">
+                <strong>13. Mental Health & Rehabilitation Hub</strong>: <span class="data-structure-tag">K-Means Clustering</span>
+                <span class="sdg-tag">SDG 3: Good Health & Well-being</span>
+            </li>
+            <div id="details_4_2" class="detail-card">
+                <h3>Problem Statement</h3>
+                Group patients into compatible therapy clusters (groups) based on their profiles, needs, and recovery stage, optimizing group therapy effectiveness.
+                <h4>Solution Approach</h4>
+                The **K-Means Clustering Algorithm** is an unsupervised machine learning method that partitions the patient dataset into *K* distinct clusters.  This mathematical approach minimizes the variance (distance) within each cluster, ensuring that patients grouped together have the highest degree of similarity in their therapeutic needs, leading to optimized peer support and more effective group therapy outcomes.
+                <h4>Pseudo Code (K-Means)</h4>
+                <pre>
+FUNCTION KMeans(DataPoints, K):
+    Initialize K Centroids (randomly or smartly)
+    
+    REPEAT:
+        // Assignment Step
+        FOR each DataPoint P:
+            Assign P to the nearest Centroid (Cluster)
+        
+        // Update Step
+        FOR each Cluster C:
+            New Centroid = Mean of all Points in C
+            
+    UNTIL Centroids do not change significantly
+    RETURN Final Clusters
+</pre>
+                <h4>C++ Pseudo-Code Implementation (Conceptual Step)</h4>
+                <pre class="cpp-code">
+struct Patient { double features[D]; int cluster_id; };
+struct Centroid { double position[D]; };
+
+// Function to calculate Euclidean distance in D dimensions
+double euclidean_distance(const Patient& p, const Centroid& c, int D) {
+    double sum = 0.0;
+    for (int i = 0; i < D; ++i) {
+        sum += std::pow(p.features[i] - c.position[i], 2);
+    }
+    return std::sqrt(sum);
+}
+
+void assignment_step(std::vector&lt;Patient&gt;& patients, 
+                     const std::vector&lt;Centroid&gt;& centroids, int K, int D) {
+    for (auto& p : patients) {
+        double min_dist = std::numeric_limits&lt;double&gt;::max();
+        for (int k = 0; k < K; ++k) {
+            double dist = euclidean_distance(p, centroids[k], D);
+            if (dist < min_dist) {
+                min_dist = dist;
+                p.cluster_id = k;
+            }
+        }
+    }
+}
+// Update step involves computing the mean of all patients in a cluster
+</pre>
+                <h4>Data Set (Input/Output Example)</h4>
+                <table>
+                    <thead><tr><th>Patient Feature</th><th>Value (Normalized)</th><th>SDG Alignment</th></tr></thead>
+                    <tbody>
+                        <tr><td>Symptom Score (x)</td><td>0.8</td><td rowspan="2">SDG 3 aims to promote mental health and well-being by facilitating evidence-based, targeted group therapy sessions based on patient needs.</td></tr>
+                        <tr><td>Support Score (y)</td><td>0.2</td></tr>
+                    </tbody>
+                </table>
+                <span class="efficiency-badge">Efficiency: $O(T \cdot K \cdot N \cdot D)$ (T=iterations, K=clusters, N=patients, D=dimensions)</span>
+            </div>
+
+            <li class="initiative-title health-title" onclick="toggleDetails('details_4_3')">
+                <strong>14. Marine Equipment Manufacturing Unit</strong>: <span class="data-structure-tag">Greedy Job Sequencing</span>
+                <span class="sdg-tag">SDG 9: Industry, Innovation & Infrastructure</span>
+            </li>
+            <div id="details_4_3" class="detail-card">
+                <h3>Problem Statement</h3>
+                Schedule the execution of various machine jobs (tasks) to maximize production (value/profit) and minimize idle time, where each job has a deadline and an associated profit.
+                <h4>Solution Approach</h4>
+                The problem is a maximization problem solved by the **Greedy Job Sequencing Algorithm with Deadlines**. The algorithm's greedy choice is to **sort all jobs by profit in descending order**. It then schedules the highest-profit job into the latest possible time slot before its deadline.  This strategy is proven to yield the globally maximum possible profit, efficiently maximizing production output.
+                <h4>Pseudo Code (Conceptual)</h4>
+                <pre>
+FUNCTION JobSequencing(Jobs):
+    Jobs = SORT(Jobs, by_Profit_Descending) // Greedy choice
+    MaxDeadline = max(Jobs.Deadline)
+    TimeSlots = Array[1..MaxDeadline] initialized to False
+    
+    ScheduledJobs = Empty
+    FOR each Job J in Sorted Jobs:
+        // Find latest free slot before J's deadline
+        FOR t = min(J.Deadline, MaxDeadline) DOWNTO 1:
+            IF TimeSlots[t] is FREE:
+                Schedule J at Time t
+                TimeSlots[t] = TRUE
+                Add J to ScheduledJobs
+                BREAK
+                
+    RETURN TotalProfit(ScheduledJobs)
+</pre>
+                <h4>C++ Pseudo-Code Implementation</h4>
+                <pre class="cpp-code">
+struct Job { int id; int deadline; int profit; };
+
+// Custom comparator to sort jobs by profit in descending order
+bool compareJobs(const Job& a, const Job& b) {
+    return a.profit > b.profit;
+}
+
+int job_sequencing_greedy(std::vector&lt;Job&gt;& jobs, int max_deadline) {
+    std::sort(jobs.begin(), jobs.end(), compareJobs);
+
+    std::vector&lt;bool&gt; time_slots(max_deadline + 1, false);
+    int total_profit = 0;
+
+    for (const auto& J : jobs) {
+        // Find the latest free slot before or at the deadline
+        for (int t = std::min(max_deadline, J.deadline); t >= 1; --t) {
+            if (!time_slots[t]) {
+                time_slots[t] = true; // Schedule the job
+                total_profit += J.profit;
+                break;
+            }
+        }
+    }
+    return total_profit;
+}
+</pre>
+                <h4>Data Set (Input/Output Example)</h4>
+                <table>
+                    <thead><tr><th>Job ID</th><th>Deadline</th><th>Profit</th><th>SDG Alignment</th></tr></thead>
+                    <tbody>
+                        <tr><td>J-A</td><td>2 days</td><td>100</td><td rowspan="2">SDG 9 emphasizes sustainable industrialization and innovation by maximizing production output from limited machine time (non-renewable resource).</td></tr>
+                        <tr><td>J-B</td><td>1 day</td><td>200</td></tr>
+                    </tbody>
+                </table>
+                <span class="efficiency-badge">Efficiency: $O(N \log N + N \cdot M)$ (N=jobs, M=max deadline)</span>
+            </div>
+
+        </ul>
+        
+        <h2 class="category-heading">🌸 Gen-Z Lifestyle & Wellness Brands</h2>
+        <ul class="initiative-list">
+
+            <li class="initiative-title lifestyle-title" onclick="toggleDetails('details_5_1')">
+                <strong>15. TopFitness Club - Trainer/Slot Scheduling</strong>: <span class="data-structure-tag">Greedy + Priority Queues</span>
+                <span class="sdg-tag">SDG 3: Good Health & Well-being</span>
+            </li>
+            <div id="details_5_1" class="detail-card">
+                <h3>Problem Statement</h3>
+                Schedule trainers and workout slots to maximize customer satisfaction/revenue, using a priority queue to manage available resources (trainers).
+                <h4>Solution Approach</h4>
+                A combination of **Greedy** choice (sort high-value sessions first) and a **Min-Heap Priority Queue** for resource allocation is used. The Min-Heap stores the earliest time a trainer becomes free.  By assigning the session to the trainer who is free earliest, we ensure optimal trainer utilization and maximize the number of sessions that can be held throughout the day, thus maximizing revenue and service availability.
+                <h4>Pseudo Code (Min-Heap for Trainer Availability)</h4>
+                <pre>
+FUNCTION ScheduleTrainers(Sessions, Trainers):
+    Sessions = SORT(Sessions, by_Value_Descending) // Greedy
+    PQ = Min-Heap of {Trainer Finish Time}
+    
+    FOR each Trainer T:
+        PQ.Insert(T.CurrentFinishTime) // Initialize to 0
+        
+    FOR each Session S in Sorted Sessions:
+        EarliestFreeTime = PQ.ExtractMin()
+        IF S.StartTime >= EarliestFreeTime:
+            // Assign session to this trainer
+            NewFinishTime = S.FinishTime
+            PQ.Insert(NewFinishTime)
+        ELSE:
+            // Trainer not free, re-insert original time and skip session
+            PQ.Insert(EarliestFreeTime)
+</pre>
+                <h4>C++ Pseudo-Code Implementation</h4>
+                <pre class="cpp-code">
+struct Session { int start; int end; int value; };
+// Custom comparator for greedy choice
+bool compareSessions(const Session& a, const Session& b) {
+    return a.value > b.value;
+}
+
+// Min-Heap stores the time when the trainer becomes free
+std::priority_queue&lt;int, std::vector&lt;int&gt;, std::greater&lt;int&gt;&gt; trainer_free_time_pq; 
+
+void initialize_trainers(int num_trainers) {
+    for (int i = 0; i < num_trainers; ++i) {
+        trainer_free_time_pq.push(0); // All trainers free at time 0
+    }
+}
+
+void schedule_session(const std::vector&lt;Session&gt;& sessions) {
+    std::vector&lt;Session&gt; sorted_sessions = sessions;
+    std::sort(sorted_sessions.begin(), sorted_sessions.end(), compareSessions);
+
+    for (const auto& S : sorted_sessions) {
+        int earliest_free = trainer_free_time_pq.top();
+        trainer_free_time_pq.pop();
+
+        if (S.start >= earliest_free) {
+            // Trainer is free in time for the session
+            trainer_free_time_pq.push(S.end); 
+        } else {
+            // Cannot assign, put the trainer's original free time back
+            trainer_free_time_pq.push(earliest_free); 
+        }
+    }
+    // Final PQ state holds the finish times for all trainers.
+}
+</pre>
+                <h4>Data Set (Input/Output Example)</h4>
+                <table>
+                    <thead><tr><th>Session ID</th><th>Start/End</th><th>Value/Demand</th><th>SDG Alignment</th></tr></thead>
+                    <tbody>
+                        <tr><td>S-Yoga</td><td>9:00-10:00</td><td>150 (High)</td><td rowspan="2">SDG 3 promotes healthy lives and well-being by maximizing access to fitness services through efficient scheduling of limited trainers.</td></tr>
+                        <tr><td>S-Spin</td><td>9:30-10:30</td><td>80 (Medium)</td></tr>
+                    </tbody>
+                </table>
+                <span class="efficiency-badge">Efficiency: $O(N \log N)$ (N=sessions, due to sorting and PQ operations)</span>
+            </div>
+
+            <li class="initiative-title lifestyle-title" onclick="toggleDetails('details_5_2')">
+                <strong>16. Glow Beauty & Nail Art Studio</strong>: <span class="data-structure-tag">Interval Scheduling</span>
+                <span class="sdg-tag">SDG 5: Gender Equality</span>
+            </li>
+            <div id="details_5_2" class="detail-card">
+                <h3>Problem Statement</h3>
+                Efficiently manage the schedules of multiple beauty artists (resources) and various services (jobs) to maximize the total number of appointments and revenue without overlaps.
+                <h4>Solution Approach</h4>
+                This is the multi-resource version of the **Interval Scheduling Problem**. By sorting all services by their **earliest finish time**, we greedily select the service and assign it to the first available artist of the required type.  This strategy ensures that artist time is never wasted, maximizing the number of clients served, which is vital for the small business economy and staff utilization.
+                <h4>Pseudo Code (Multi-Resource Interval Scheduling)</h4>
+                <pre>
+FUNCTION ScheduleStudio(Services, Artists):
+    Services = SORT(Services, by_Finish_Time)
+    
+    ArtistFinishTime = Map {ArtistID: LastFinishTime}
+    FOR each Service S in Sorted Services:
+        Find Artist A who is free earliest, where S.StartTime >= A.LastFinishTime
+        
+        IF Artist A is Found:
+            Schedule S to A
+            ArtistFinishTime[A] = S.FinishTime
+            
+    RETURN TotalScheduledServices
+</pre>
+                <h4>C++ Pseudo-Code Implementation (Conceptual)</h4>
+                <pre class="cpp-code">
+struct Service { int start; int end; std::string artist_type; };
+
+// Custom comparator to sort services by end time
+bool compareServices(const Service& a, const Service& b) {
+    return a.end < b.end;
+}
+
+// Map stores the finish time for each artist of a specific type
+std::unordered_map&lt;std::string, std::vector&lt;int&gt;&gt; artist_free_times; 
+
+void multi_resource_scheduling(std::vector&lt;Service&gt;& services) {
+    std::sort(services.begin(), services.end(), compareServices);
+
+    for (const auto& S : services) {
+        if (artist_free_times.find(S.artist_type) == artist_free_times.end()) {
+            // Initialize artist type pool if not present (simple case)
+            artist_free_times[S.artist_type].push_back(0); 
+        }
+        
+        // Find the artist of the required type who is free earliest
+        int best_artist_index = -1;
+        int earliest_free_time = std::numeric_limits&lt;int&gt;::max();
+
+        for(size_t i = 0; i < artist_free_times[S.artist_type].size(); ++i) {
+            if (artist_free_times[S.artist_type][i] < earliest_free_time) {
+                earliest_free_time = artist_free_times[S.artist_type][i];
+                best_artist_index = i;
+            }
+        }
+        
+        // Assign if feasible
+        if (S.start >= earliest_free_time && best_artist_index != -1) {
+            artist_free_times[S.artist_type][best_artist_index] = S.end;
+        }
+    }
+}
+</pre>
+                <h4>Data Set (Input/Output Example)</h4>
+                <table>
+                    <thead><tr><th>Service</th><th>Start/End</th><th>Artist Type</th><th>SDG Alignment</th></tr></thead>
+                    <tbody>
+                        <tr><td>Nail Art</td><td>11:00-12:00</td><td>Nail Artist</td><td rowspan="2">SDG 5 promotes gender equality by supporting female-dominated service businesses to optimize their efficiency and economic viability.</td></tr>
+                        <tr><td>Massage</td><td>11:30-12:30</td><td>Masseuse</td></tr>
+                    </tbody>
+                </table>
+                <span class="efficiency-badge">Efficiency: $O(N \log N + N \cdot M)$ (N=services, M=artists)</span>
+            </div>
+
+            <li class="initiative-title lifestyle-title" onclick="toggleDetails('details_5_3')">
+                <strong>17. Sip & Sculpt Café</strong>: <span class="data-structure-tag">Greedy + Queue-Based Order Management</span>
+                <span class="sdg-tag">SDG 12: Responsible Consumption & Production</span>
+            </li>
+            <div id="details_5_3" class="detail-card">
+                <h3>Problem Statement</h3>
+                Control the flow of healthy café orders, prioritizing those that require the quickest preparation (Greedy choice) to maximize throughput during peak hours, while still managing the main customer flow (Queue).
+                <h4>Solution Approach</h4>
+                This system applies the **Shortest Job First (SJF) Greedy** heuristic to the queue of prepared orders.  By prioritizing the orders with the minimum preparation time, the total waiting time for all customers is minimized (proven optimal for minimizing average waiting time). This maximizes the throughput of the kitchen staff and reduces the chance of food waste due to long queues or delayed service.
+                <h4>Pseudo Code (Greedy Shortest Job First)</h4>
+                <pre>
+FUNCTION DispatchNextOrder(OrderQueue):
+    IF OrderQueue is EMPTY: RETURN NULL
+    
+    // Greedy choice: Find order with Minimum Preparation Time
+    ShortestTime = Infinity
+    BestOrder = NULL
+    
+    FOR each Order O in OrderQueue:
+        IF O.PreparationTime < ShortestTime:
+            ShortestTime = O.PreparationTime
+            BestOrder = O
+            
+    Remove BestOrder from Queue
+    RETURN BestOrder
+</pre>
+                <h4>C++ Pseudo-Code Implementation</h4>
+                <pre class="cpp-code">
+struct Order { int id; int prep_time; };
+
+Order dispatch_next_order_sjf(std::vector&lt;Order&gt;& orderQueue) {
+    if (orderQueue.empty()) {
+        return {-1, 0}; // NULL order
+    }
+
+    auto best_it = orderQueue.begin();
+    int shortest_time = best_it->prep_time;
+
+    for (auto it = orderQueue.begin(); it != orderQueue.end(); ++it) {
+        if (it->prep_time < shortest_time) {
+            shortest_time = it->prep_time;
+            best_it = it;
+        }
+    }
+
+    Order best_order = *best_it;
+    orderQueue.erase(best_it); // Remove the selected order
+    return best_order;
+}
+</pre>
+                <h4>Data Set (Input/Output Example)</h4>
+                <table>
+                    <thead><tr><th>Order ID</th><th>Prep Time (mins)</th><th>Customer Arrived</th><th>SDG Alignment</th></tr></thead>
+                    <tbody>
+                        <tr><td>O-Latte</td><td>2</td><td>1st</td><td rowspan="2">SDG 12 emphasizes sustainable consumption by reducing wait times and minimizing operational waste through efficient, high-throughput service.</td></tr>
+                        <tr><td>O-Bowl</td><td>10</td><td>2nd</td></tr>
+                    </tbody>
+                </table>
+                <span class="efficiency-badge">Efficiency: $O(N)$ (N=orders in queue, for searching the shortest job)</span>
+            </div>
+
+        </ul>
+        
+        <div class="reflection-block">
+            <h2>📝 Course Reflection: Design and Analysis of Algorithms</h2>
+            <p>The study of the Design and Analysis of Algorithms has provided a robust framework for structured problem-solving, moving beyond functional code to focus on efficiency and scalability. The core learnings can be summarized as follows:</p>
+            
             <ul>
-                <li><b>Optimal Substructure:</b> Optimal path to station j includes optimal path to station j-1</li>
-                <li><b>Overlapping Subproblems:</b> Same subproblems solved multiple times</li>
-                <li><b>Guaranteed Optimality:</b> Finds globally optimal solution, not just local minimum</li>
-                <li><b>Efficient:</b> O(n) time vs O(2^n) brute force for n stations</li>
-                <li><b>Handles Complex Constraints:</b> Transfer costs, parallel lines, sequential dependencies</li>
+                <li><strong>Systematic Problem Modeling:</strong> The course provided the critical skill to abstract real-world business challenges (like routing, scheduling, and resource allocation) into classical, solvable computational models (like TSP, Interval Scheduling, and VRP).</li>
+                <li><strong>Mastery of Efficiency Metrics:</strong> A deep understanding of Big $O$ notation transformed solution evaluation. This allows for pragmatic choices between computationally expensive, optimal solutions (Dynamic Programming, TSP exact) and efficient, acceptable approximations (Greedy Heuristics, Clark-Wright) based on input size and business constraints.</li>
+                <li><strong>The Paradigm Toolkit:</strong> Gaining proficiency in key algorithmic paradigms—**Greedy** (for optimal local choices), **Dynamic Programming** (for overlapping subproblems), and **Graph Algorithms** (for connectivity/paths)—provides a comprehensive toolkit for designing truly performant software systems.</li>
+                <li><strong>Data Structure Selection as the Foundation:</strong> Recognizing that the right data structure is the key to algorithmic performance (e.g., $O(1)$ lookup with Hash Tables, $O(\log N)$ range query with Segment Trees) is the most valuable takeaway, allowing for the construction of highly responsive and scalable architectures.</li>
             </ul>
         </div>
 
-        <button class="btn" onclick="toggleCode('algo1')">Show Pseudocode</button>
-        <button class="btn" onclick="toggleCode('cpp1')">Show C++ Code</button>
-
-        <div id="algo1" class="code-box">
-ALGORITHM AssemblyLineScheduling(a, t, e, x, n)
-INPUT:
-    a[2][n] = processing times (a[i][j] = time at station j on line i)
-    t[2][n] = transfer costs (t[i][j] = cost to switch from line i after station j)
-    e[2] = entry times for line 1 and line 2
-    x[2] = exit times for line 1 and line 2
-    n = number of stations
-OUTPUT:
-    Minimum completion time and optimal path
-
-BEGIN
-    // Arrays to store minimum times and line choices
-    f[2][n]  // f[i][j] = min time to reach station j on line i
-    l[2][n]  // l[i][j] = which line was used before station j on line i
-    
-    // Base case: First station
-    f[1][1] = e[1] + a[1][1]
-    f[2][1] = e[2] + a[2][1]
-    
-    // Fill the DP table station by station
-    FOR j = 2 TO n DO
-        // Line 1, station j
-        // Option 1: Stay on line 1
-        stayOnLine1 = f[1][j-1] + a[1][j]
-        // Option 2: Transfer from line 2
-        transferFromLine2 = f[2][j-1] + t[2][j-1] + a[1][j]
-        
-        IF stayOnLine1 <= transferFromLine2 THEN
-            f[1][j] = stayOnLine1
-            l[1][j] = 1  // Came from line 1
-        ELSE
-            f[1][j] = transferFromLine2
-            l[1][j] = 2  // Came from line 2
-        END IF
-        
-        // Line 2, station j
-        // Option 1: Stay on line 2
-        stayOnLine2 = f[2][j-1] + a[2][j]
-        // Option 2: Transfer from line 1
-        transferFromLine1 = f[1][j-1] + t[1][j-1] + a[2][j]
-        
-        IF stayOnLine2 <= transferFromLine1 THEN
-            f[2][j] = stayOnLine2
-            l[2][j] = 2  // Came from line 2
-        ELSE
-            f[2][j] = transferFromLine1
-            l[2][j] = 1  // Came from line 1
-        END IF
-    END FOR
-    
-    // Find minimum exit time
-    exitTime1 = f[1][n] + x[1]
-    exitTime2 = f[2][n] + x[2]
-    
-    IF exitTime1 <= exitTime2 THEN
-        minTime = exitTime1
-        finalLine = 1
-    ELSE
-        minTime = exitTime2
-        finalLine = 2
-    END IF
-    
-    // Reconstruct optimal path
-    path = []
-    currentLine = finalLine
-    
-    FOR j = n DOWN TO 1 DO
-        path.prepend(currentLine)
-        IF j > 1 THEN
-            currentLine = l[currentLine][j]
-        END IF
-    END FOR
-    
-    RETURN {
-        minimumTime: minTime,
-        optimalPath: path,
-        stationTimes: f
-    }
-END
-        </div>
-
-        <div id="cpp1" class="cpp-code">
-<span class="comment">// C++ Implementation - Assembly-Line Scheduling for Ship Repair</span>
-
-<span class="keyword">#include</span> <span class="string">&lt;iostream&gt;</span>
-<span class="keyword">#include</span> <span class="string">&lt;vector&gt;</span>
-<span class="keyword">#include</span> <span class="string">&lt;algorithm&gt;</span>
-<span class="keyword">#include</span> <span class="string">&lt;climits&gt;</span>
-<span class="keyword">using namespace</span> std;
-
-<span class="keyword">struct</span> <span class="function">ScheduleResult</span> {
-    <span class="keyword">int</span> minimumTime;
-    vector&lt;<span class="keyword">int</span>&gt; optimalPath;
-    vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; stationTimes;
-};
-
-<span class="keyword">class</span> <span class="function">AssemblyLineScheduler</span> {
-<span class="keyword">private</span>:
-    <span class="keyword">int</span> numStations;
-    vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; processingTime;  <span class="comment">// a[i][j]</span>
-    vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; transferCost;    <span class="comment">// t[i][j]</span>
-    vector&lt;<span class="keyword">int</span>&gt; entryTime;            <span class="comment">// e[i]</span>
-    vector&lt;<span class="keyword">int</span>&gt; exitTime;             <span class="comment">// x[i]</span>
-    
-<span class="keyword">public</span>:
-    AssemblyLineScheduler(<span class="keyword">int</span> n, 
-                          vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;& a,
-                          vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;& t,
-                          vector&lt;<span class="keyword">int</span>&gt;& e,
-                          vector&lt;<span class="keyword">int</span>&gt;& x)
-        : numStations(n), processingTime(a), transferCost(t),
-          entryTime(e), exitTime(x) {}
-    
-    ScheduleResult <span class="function">optimize</span>() {
-        <span class="comment">// DP tables</span>
-        vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; f(2, vector&lt;<span class="keyword">int</span>&gt;(numStations));
-        vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; l(2, vector&lt;<span class="keyword">int</span>&gt;(numStations));
-        
-        <span class="comment">// Base case: First station (index 0)</span>
-        f[0][0] = entryTime[0] + processingTime[0][0];
-        f[1][0] = entryTime[1] + processingTime[1][0];
-        
-        <span class="comment">// Fill DP table for remaining stations</span>
-        <span class="keyword">for</span> (<span class="keyword">int</span> j = 1; j < numStations; j++) {
-            <span class="comment">// Line 1 (index 0)</span>
-            <span class="keyword">int</span> stayOnLine1 = f[0][j-1] + processingTime[0][j];
-            <span class="keyword">int</span> transferFromLine2 = f[1][j-1] + 
-                                      transferCost[1][j-1] + 
-                                      processingTime[0][j];
-            
-            <span class="keyword">if</span> (stayOnLine1 <= transferFromLine2) {
-                f[0][j] = stayOnLine1;
-                l[0][j] = 0;  <span class="comment">// Came from line 1</span>
-            } <span class="keyword">else</span> {
-                f[0][j] = transferFromLine2;
-                l[0][j] = 1;  <span class="comment">// Came from line 2</span>
-            }
-            
-            <span class="comment">// Line 2 (index 1)</span>
-            <span class="keyword">int</span> stayOnLine2 = f[1][j-1] + processingTime[1][j];
-            <span class="keyword">int</span> transferFromLine1 = f[0][j-1] + 
-                                      transferCost[0][j-1] + 
-                                      processingTime[1][j];
-            
-            <span class="keyword">if</span> (stayOnLine2 <= transferFromLine1) {
-                f[1][j] = stayOnLine2;
-                l[1][j] = 1;  <span class="comment">// Came from line 2</span>
-
-            } <span class="keyword">el\
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<title>Civic Queue Manager — Fair & Prioritized Government Office Queues</title>
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<style>
-/* Visual style inspired by your templates — professional and clean */
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg,#f0f6ff 0%, #ffffff 100%);
-  padding:24px;color:#0b2545;line-height:1.5;
-}
-.container{max-width:1200px;margin:0 auto;background:white;padding:34px;border-radius:12px;box-shadow:0 18px 40px rgba(2,6,23,0.06)}
-.header{text-align:center;padding-bottom:18px;border-bottom:3px solid #eef4ff;margin-bottom:20px}
-h1{color:#07223a;font-size:2rem;margin-bottom:6px}
-.tagline{color:#334155;font-style:italic}
-
-/* Controls area */
-.controls{display:flex;gap:12px;flex-wrap:wrap;align-items:end;margin-top:14px}
-.control-card{background:#f8fafc;padding:12px;border-radius:8px;border:1px solid #eef7ff}
-.input{padding:8px;border-radius:8px;border:1px solid #dbeafe;width:150px}
-.select{padding:8px;border-radius:8px;border:1px solid #dbeafe;background:white}
-
-/* Buttons */
-.btn{background:linear-gradient(90deg,#0b2545,#0f4c81);color:white;border:none;padding:10px 14px;border-radius:8px;cursor:pointer}
-.btn.secondary{background:#fff;border:1px solid #cfe0ff;color:#0b2545}
-.btn.warn{background:linear-gradient(90deg,#b45309,#f59e0b)}
-
-/* Metrics */
-.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:16px}
-.metric{background:#f8fafc;padding:12px;border-radius:8px;border-left:4px solid #0b2545;text-align:center}
-.metric .v{font-size:1.4rem;font-weight:700;color:#0b2545}
-.small{font-size:0.9rem;color:#475569}
-
-/* Main grid */
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
-.panel{background:#fff;padding:14px;border-radius:8px;border:1px solid #eef2ff;min-height:220px}
-.queues{display:flex;gap:12px}
-.queue{flex:1;background:#fbfdff;padding:10px;border-radius:8px;border:1px solid #eef7ff;min-height:150px;overflow:auto}
-.queue h3{font-size:1rem;color:#0b2545;margin-bottom:8px}
-.customer{background:linear-gradient(90deg,#ffffff,#f1f5ff);padding:8px;border-radius:6px;margin-bottom:8px;border-left:4px solid #c7d2fe;font-size:0.95rem}
-.serversRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.serverCard{background:#f8fafc;padding:8px;border-radius:8px;border:1px solid #eef7ff;min-width:140px}
-
-/* log */
-.log{height:170px;overflow:auto;background:#0b1220;color:#d4d4d4;padding:10px;border-radius:6px;font-family:monospace;font-size:0.9rem}
-
-/* Conclusion box */
-.conclusion {
-  margin-top:12px;
-  background: linear-gradient(135deg,#eef6ff 0%, #f8fbff 100%);
-  border-left: 6px solid #0f4c81;
-  padding:12px;
-  border-radius:8px;
-  color:#0b2545;
-}
-.conclusion h3 { margin-bottom:8px; color:#07223a; }
-.conclusion ul { margin-left:18px; }
-
-/* code box */
-.code-box{display:none;background:#0b1220;color:#d4d4d4;padding:14px;border-radius:8px;margin-top:12px;font-family:monospace;white-space:pre;overflow:auto}
-
-/* responsive */
-@media (max-width:960px){
-  .grid{grid-template-columns:1fr}
-  .controls{flex-direction:column;align-items:flex-start}
-  .input{width:100%}
-}
-</style>
-</head>
-<body>
-<div class="container">
-  <div class="header">
-    <h1>🏛️ Civic Queue Manager — Government Office Queue System</h1>
-    <div class="tagline">Maintain fairness and responsiveness while prioritizing emergency and urgent cases</div>
-  </div>
-
-  <!-- Controls -->
-  <div class="controls">
-    <div class="control-card">
-      <label class="small">Servers (counters)</label><br/>
-      <input id="servers" class="input" type="number" min="1" value="3" />
     </div>
 
-    <div class="control-card">
-      <label class="small">Quantum (seconds)</label><br/>
-      <input id="quantum" class="input" type="number" min="1" value="30" />
-    </div>
-
-    <div class="control-card">
-      <label class="small">Default Service Time (s)</label><br/>
-      <input id="defaultTime" class="input" type="number" min="5" value="90" />
-    </div>
-
-    <div class="control-card">
-      <label class="small">Customer Type</label><br/>
-      <select id="custType" class="select">
-        <option value="normal">Normal</option>
-        <option value="priority">Priority</option>
-        <option value="emergency">Emergency</option>
-      </select>
-    </div>
-
-    <div class="control-card">
-      <label class="small">Service Time (s)</label><br/>
-      <input id="custTime" class="input" type="number" min="5" value="90" />
-    </div>
-
-    <div>
-      <button class="btn" id="enqueueBtn">Enqueue</button>
-    </div>
-
-    <div style="margin-left:auto;display:flex;gap:8px">
-      <button class="btn secondary" id="stepBtn">Step</button>
-      <button class="btn secondary" id="startPauseBtn">Start</button>
-      <button class="btn secondary" id="resetBtn">Reset</button>
-    </div>
-  </div>
-
-  <!-- Metrics -->
-  <div class="metrics">
-    <div class="metric"><div class="v" id="totalIn">0</div><div class="small">Total Arrivals</div></div>
-    <div class="metric"><div class="v" id="served">0</div><div class="small">Served</div></div>
-    <div class="metric"><div class="v" id="avgWait">0 s</div><div class="small">Avg Wait</div></div>
-    <div class="metric"><div class="v" id="queueLen">0</div><div class="small">Total in Queues</div></div>
-  </div>
-
-  <div style="margin-top:12px" class="small">
-    <label><input type="checkbox" id="preemptEmergency" checked /> Enable immediate preemption for arriving emergencies (interrupt normal/priority in service)</label>
-  </div>
-
-  <div class="grid">
-    <div class="panel">
-      <h3>Queues & Servers</h3>
-      <div class="queues" style="margin-top:12px">
-        <div class="queue" id="emQueue"><h3>🚨 Emergency (FIFO)</h3><div id="emList"></div></div>
-        <div class="queue" id="prQueue"><h3>⭐ Priority (Round-Robin)</h3><div id="prList"></div></div>
-        <div class="queue" id="noQueue"><h3>👥 Normal (Round-Robin)</h3><div id="noList"></div></div>
-      </div>
-
-      <h3 style="margin-top:12px">Servers</h3>
-      <div id="serversPanel" class="serversRow"></div>
-
-      <!-- Conclusion block added here -->
-      <div class="conclusion" id="conclusionBox">
-        <h3>Conclusion & Practical Recommendations</h3>
-        <ul>
-          <li><b>Fairness + Priority:</b> Multi-level queues (Emergency → Priority → Normal) keep essential fairness while ensuring urgent cases are handled quickly.</li>
-          <li><b>Round-Robin fairness:</b> RR for Priority/Normal prevents long tasks from starving others — tune quantum to balance throughput vs. context switching.</li>
-          <li><b>Preemption policy:</b> Allow emergency preemption when necessary, but choose whether preempted tasks return to head (faster recovery) or tail (fairer) of their queue.</li>
-          <li><b>Operational tips:</b> Monitor average wait and peak queue length; add counters or direct traffic during peak windows; use digital tokens and SMS alerts to reduce physical crowding.</li>
-          <li><b>Scalability:</b> For large centers, partition services by transaction types and use dynamic server allocation (reassign counters to busy services).</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="panel">
-      <h3>Service Log</h3>
-      <div id="logArea" class="log"></div>
-
-      <div style="margin-top:12px">
-        <button class="btn" onclick="toggleCode('pseudo')">Show Pseudocode</button>
-        <button class="btn" onclick="toggleCode('cpp')">Show C++ Sketch</button>
-      </div>
-
-      <div id="pseudo" class="code-box">
-// Pseudocode (multi-level RR)
-INIT servers S[1..m] idle
-INIT queues: Emergency (FIFO), Priority (RR), Normal (RR)
-quantum = Q
-
-FUNCTION arrival(customer):
-  IF customer.type == Emergency:
-    IF preemptEnabled:
-      optionally interrupt one non-emergency server if all servers busy and push its customer back to its queue
-    Emergency.enqueue(customer)
-  ELSE enqueue into corresponding queue
-
-FUNCTION schedule():
-  FOR each idle server s:
-    IF Emergency not empty:
-      assign s <- Emergency.dequeue()
-    ELSE IF Priority not empty:
-      assign s <- Priority.dequeue()
-    ELSE IF Normal not empty:
-      assign s <- Normal.dequeue()
-
-FUNCTION tick(dt=1s):
-  FOR each server s busy:
-    decrement s.cust.remaining by dt
-    s.quantumUsed += dt (if not emergency)
-    IF s.cust.remaining <= 0:
-      record completion; s becomes idle
-    ELSE IF not emergency AND s.quantumUsed >= quantum:
-      push customer back to tail of its queue with remaining time
-      s becomes idle
-  schedule() // fill freed servers
-      </div>
-
-      <div id="cpp" class="code-box">
-// C++ Sketch (conceptual)
-// Use deque for queues; vector for servers. On quantum expiry push back with updated remaining.
-// Preemption: pop a non-emergency server, push its customer back to front or tail depending on design.
-
-#include <deque>
-struct Customer { int id; int type; int remaining; int arrivalTs; };
-std::deque<Customer> emergency, priorityQ, normalQ;
-struct Server { bool busy; Customer cur; int usedQuantum; };
-std::vector<Server> servers;
-int quantum = 30;
-
-void tick() {
-  // update servers: decrement, handle quantum, requeue on slice expiry, complete service
-}
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-// Simulation logic implementing multi-level RR with emergency prioritization
-
-// State variables
-let nextId = 1;
-let totalArrivals = 0;
-let totalServed = 0;
-let totalWaitTime = 0;
-
-// Queues: arrays used as deques
-const emergencyQ = [];
-const priorityQ = [];
-const normalQ = [];
-
-// Servers
-let servers = []; // {id, busy, cust:{...}, usedQuantum}
-
-// Simulation clock
-let currentTime = 0;
-let running = false;
-let tickInterval = null;
-
-// UI elements
-const emList = document.getElementById('emList');
-const prList = document.getElementById('prList');
-const noList = document.getElementById('noList');
-const serversPanel = document.getElementById('serversPanel');
-const logArea = document.getElementById('logArea');
-const totalInEl = document.getElementById('totalIn');
-const servedEl = document.getElementById('served');
-const avgWaitEl = document.getElementById('avgWait');
-const queueLenEl = document.getElementById('queueLen');
-
-function cfg(){
-  return {
-    m: Math.max(1, parseInt(document.getElementById('servers').value || '3',10)),
-    quantum: Math.max(1, parseInt(document.getElementById('quantum').value || '30',10)),
-    defaultTime: Math.max(5, parseInt(document.getElementById('defaultTime').value || '90',10)),
-    preempt: document.getElementById('preemptEmergency').checked
-  };
-}
-
-function makeCustomer(type, serviceTime){
-  return {
-    id: nextId++,
-    type, // "emergency" | "priority" | "normal"
-    serviceTime,
-    remaining: serviceTime,
-    enqueuedAt: currentTime,
-    startedAt: null
-  };
-}
-
-function resetSimulation(){
-  currentTime = 0; running = false;
-  clearInterval(tickInterval);
-  emergencyQ.length = 0; priorityQ.length = 0; normalQ.length = 0;
-  servers = [];
-  nextId = 1; totalArrivals = 0; totalServed = 0; totalWaitTime = 0;
-  logArea.innerHTML = '';
-  buildServers();
-  refreshUI();
-}
-
-function buildServers(){
-  serversPanel.innerHTML = '';
-  const m = cfg().m;
-  servers = [];
-  for(let i=0;i<m;i++){
-    servers.push({id:i+1,busy:false,cust:null,usedQuantum:0});
-    const el = document.createElement('div');
-    el.className = 'serverCard';
-    el.id = 'server_'+(i+1);
-    el.innerHTML = `<div style="font-weight:700">Counter ${i+1}</div><div id="srv_${i+1}" class="small">Idle</div>`;
-    serversPanel.appendChild(el);
-  }
-}
-
-function log(msg){
-  const t = formatTime(currentTime);
-  logArea.innerHTML = `[${t}] ${msg}\n` + logArea.innerHTML;
-}
-
-function formatTime(s){
-  const mm = Math.floor(s/60).toString().padStart(2,'0'), ss = (s%60).toString().padStart(2,'0');
-  return `${mm}:${ss}`;
-}
-
-function refreshQueuesUI(){
-  emList.innerHTML = ''; prList.innerHTML=''; noList.innerHTML='';
-  emergencyQ.forEach(c => { const el = document.createElement('div'); el.className='customer'; el.innerText=`#${c.id} (${c.remaining}s)`; emList.appendChild(el); });
-  priorityQ.forEach(c => { const el = document.createElement('div'); el.className='customer'; el.innerText=`#${c.id} (${c.remaining}s)`; prList.appendChild(el); });
-  normalQ.forEach(c => { const el = document.createElement('div'); el.className='customer'; el.innerText=`#${c.id} (${c.remaining}s)`; noList.appendChild(el); });
-  queueLenEl.innerText = emergencyQ.length + priorityQ.length + normalQ.length;
-}
-
-function refreshServersUI(){
-  servers.forEach(s => {
-    const srvEl = document.getElementById('srv_'+s.id);
-    if(!srvEl) return;
-    if(s.busy && s.cust){
-      srvEl.innerText = `#${s.cust.id} | ${s.cust.type} | rem ${s.cust.remaining}s | slice ${s.usedQuantum}s`;
-    } else srvEl.innerText = 'Idle';
-  });
-}
-
-function refreshUI(){
-  totalInEl.innerText = totalArrivals;
-  servedEl.innerText = totalServed;
-  avgWaitEl.innerText = totalServed ? Math.round(totalWaitTime/totalServed) + ' s' : '0 s';
-  refreshQueuesUI();
-  refreshServersUI();
-}
-
-// Enqueue handler
-document.getElementById('enqueueBtn').addEventListener('click', ()=>{
-  const type = document.getElementById('custType').value;
-  const svc = Math.max(5, parseInt(document.getElementById('custTime').value || '90',10));
-  const c = makeCustomer(type, svc);
-  totalArrivals++;
-  arrival(c);
-  log(`Arrived #${c.id} (${c.type}) svc ${c.serviceTime}s`);
-  refreshUI();
-  schedule();
-});
-
-// Arrival processing, includes optional emergency preemption
-function arrival(customer){
-  const conf = cfg();
-  if(customer.type === 'emergency'){
-    // if preempt enabled and all servers busy and there's any non-emergency running, preempt one
-    if(conf.preempt){
-      const nonEmergServerIdx = servers.findIndex(s => s.busy && s.cust && s.cust.type !== 'emergency');
-      if(nonEmergServerIdx !== -1){
-        // choose a server to preempt (simple: earliest started non-emergency)
-        const s = servers[nonEmergServerIdx];
-        // push its current customer back to head of its queue (so it gets served soon)
-        const victim = s.cust;
-        victim.startedAt = null;
-        victim.enqueuedAt = currentTime; // update enqueue time for fairness
-        if(victim.type === 'priority') priorityQ.unshift(victim);
-        else normalQ.unshift(victim);
-        log(`Preempted server ${s.id} (moved #${victim.id} back to queue) for emergency`);
-        s.busy = false; s.cust = null; s.usedQuantum = 0;
-      }
-    }
-    emergencyQ.push(customer);
-  } else if(customer.type === 'priority'){
-    priorityQ.push(customer);
-  } else {
-    normalQ.push(customer);
-  }
-}
-
-// Scheduling: assign idle servers following priority order
-function schedule(){
-  servers.forEach(s => {
-    if(s.busy) return;
-    // check emergency first
-    if(emergencyQ.length > 0){
-      const c = emergencyQ.shift();
-      assignToServer(s,c);
-    } else if(priorityQ.length > 0){
-      const c = priorityQ.shift();
-      assignToServer(s,c);
-    } else if(normalQ.length > 0){
-      const c = normalQ.shift();
-      assignToServer(s,c);
-    }
-  });
-  refreshUI();
-}
-
-function assignToServer(server, cust){
-  server.busy = true;
-  server.cust = cust;
-  server.usedQuantum = 0;
-  if(cust.startedAt === null) cust.startedAt = currentTime;
-  log(`Server ${server.id} started #${cust.id} (${cust.type}) rem ${cust.remaining}s`);
-}
-
-// Tick: simulate 1 second
-function tick(){
-  const confObj = cfg();
-  const Q = confObj.quantum;
-  // iterate servers
-  servers.forEach(s => {
-    if(!s.busy || !s.cust) return;
-    const isEmergency = s.cust.type === 'emergency';
-    // for emergency, we don't count quantum (serve to completion once started)
-    s.cust.remaining -= 1;
-    if(!isEmergency) s.usedQuantum += 1;
-
-    if(s.cust.remaining <= 0){
-      // completion
-      const wait = (s.cust.startedAt !== null) ? (s.cust.startedAt - s.cust.enqueuedAt) : 0;
-      totalServed++;
-      totalWaitTime += (currentTime - s.cust.enqueuedAt);
-      log(`Server ${s.id} finished #${s.cust.id} (${s.cust.type})`);
-      s.busy = false; s.cust = null; s.usedQuantum = 0;
-    } else if(!isEmergency && s.usedQuantum >= Q){
-      // quantum exhausted; preempt and push to tail of same priority queue
-      const c = s.cust;
-      s.busy = false; s.cust = null; s.usedQuantum = 0;
-      if(c.type === 'priority') priorityQ.push(c);
-      else normalQ.push(c);
-      log(`Quantum expired on Server ${s.id} for #${c.id}; requeued (${c.type}) rem ${c.remaining}s`);
-    }
-  });
-
-  // After servers update, schedule idle ones
-  schedule();
-  currentTime++;
-  refreshUI();
-}
-
-// Controls handlers
-document.getElementById('startPauseBtn').addEventListener('click', ()=>{
-  if(running){
-    running = false; clearInterval(tickInterval); document.getElementById('startPauseBtn').innerText = 'Start';
-  } else {
-    running = true; document.getElementById('startPauseBtn').innerText = 'Pause';
-    if(servers.length === 0) buildServers();
-    tickInterval = setInterval(tick, 200); // 200 ms ~ 1 simulated sec; tweak for speed
-  }
-});
-document.getElementById('stepBtn').addEventListener('click', ()=>{ tick(); });
-document.getElementById('resetBtn').addEventListener('click', ()=>{ resetSimulation(); });
-
-// initial setup
-resetSimulation();
-
-// UI interactions for changing server count: rebuild servers preserving busy customers where possible
-document.getElementById('servers').addEventListener('change', ()=>{
-  const prevServers = servers.slice();
-  const newM = Math.max(1, parseInt(document.getElementById('servers').value || '3',10));
-  // keep existing busy customers into first slots, then create new servers
-  const newServers = [];
-  for(let i=0;i<newM;i++){
-    if(i < prevServers.length) newServers.push(prevServers[i]);
-    else newServers.push({id:i+1,busy:false,cust:null,usedQuantum:0});
-  }
-  servers = newServers;
-  buildServers(); // rebuild UI
-  // re-render cust status into UI
-  servers.forEach((s, idx) => {
-    const el = document.getElementById('srv_'+(idx+1));
-    if(el){
-      if(s.busy && s.cust) el.innerText = `#${s.cust.id} | ${s.cust.type} | rem ${s.cust.remaining}s`;
-      else el.innerText = 'Idle';
-    }
-  });
-  refreshUI();
-});
-
-// helper to toggle code boxes
-function toggleCode(id){
-  const el = document.getElementById(id);
-  if(!el) return;
-  el.style.display = el.style.display === 'block' ? 'none' : 'block';
-}
-</script>
 </body>
 </html>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<title>Coastal Massage — Spa & Appointment Booking</title>
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<style>
-/* Base layout (matches previous aesthetic but spa-themed) */
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg,#f6fbf7 0%, #e8f7f0 100%);
-  padding:24px;
-  color:#0b2545;
-  line-height:1.5;
-}
-.container{
-  max-width:1200px;margin:0 auto;background:white;padding:36px;border-radius:12px;
-  box-shadow:0 20px 50px rgba(2,48,34,0.08);
-}
-.header{text-align:center;padding-bottom:22px;border-bottom:3px solid #e0f3ea;margin-bottom:28px}
-h1{color:#064c3a;font-size:2.2rem;margin-bottom:8px}
-.tagline{color:#2f6f59;font-style:italic}
-.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin:18px 0}
-.metric-card{background:linear-gradient(90deg,#e8f7f0,#dff3ea);padding:14px;border-radius:10px;text-align:center;border-left:6px solid #0b6b4a}
-.metric-value{font-size:1.6rem;font-weight:700;color:#063c2e}
-.metric-label{color:#166a4f;font-size:0.95rem;margin-top:6px}
-
-/* Sections */
-.section{background:#fff;padding:18px;border-radius:10px;margin:18px 0;border-left:6px solid #bfead0}
-.algo-section{background:#fbfffb;padding:20px;border:2px solid #cfeee0;border-radius:10px;margin:20px 0}
-.btn{background:linear-gradient(90deg,#0b6b4a,#0a4c37);color:white;border:none;padding:10px 14px;border-radius:8px;cursor:pointer;margin-right:8px}
-.btn:active{transform:translateY(1px)}
-.small{font-size:0.9rem;color:#245b44}
-
-/* Calendar heatmap */
-.calendar{
-  display:grid;
-  grid-template-columns: repeat(24, 1fr);
-  gap:3px;
-  margin-top:12px;
-}
-.hour{
-  background:#f2fff6;padding:6px;border-radius:6px;text-align:center;border:1px solid #e5f6ea;font-size:0.75rem;color:#0f3d2a;
-  min-height:48px;display:flex;flex-direction:column;justify-content:center;
-}
-.hour .count{font-weight:700;font-size:0.95rem}
-.legend{display:flex;gap:8px;align-items:center;margin-top:10px}
-.legend .sw{width:18px;height:14px;border-radius:4px;display:inline-block}
-
-/* code boxes */
-.code-box{display:none;background:#0b1220;color:#d4d4d4;padding:16px;border-radius:8px;margin-top:12px;font-family:monospace;white-space:pre;overflow:auto}
-.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
-
-/* form */
-.input{padding:10px;border-radius:8px;border:1px solid #d7efe0;width:180px}
-label.small{display:block;margin-bottom:6px;color:#225d43}
-
-/* responsive */
-@media (max-width:840px){
-  .metrics-grid{grid-template-columns:repeat(2,1fr)}
-  .calendar{grid-template-columns:repeat(12,1fr)}
-}
-</style>
-</head>
-<body>
-<div class="container">
-  <div class="header">
-    <h1>🌊 Coastal Massage — Spa & Appointment Booking</h1>
-    <div class="tagline">Handle overlapping appointments efficiently using Segment Trees & Interval Queries</div>
-  </div>
-
-  <div class="metrics-grid" aria-hidden="true">
-    <div class="metric-card"><div class="metric-value" id="totalBooked">0</div><div class="metric-label">Active Bookings</div></div>
-    <div class="metric-card"><div class="metric-value" id="maxConcurrent">0</div><div class="metric-label">Peak Concurrent</div></div>
-    <div class="metric-card"><div class="metric-value" id="rejections">0</div><div class="metric-label">Rejected (Overlap)</div></div>
-    <div class="metric-card"><div class="metric-value" id="capacity">1</div><div class="metric-label">Rooms / Therapists</div></div>
-  </div>
-
-  <div class="section">
-    <h2>📋 Overview</h2>
-    <p class="small">
-      This booking engine models a single day into minutes (0–1439). It uses a lazy-propagation segment tree to track
-      how many concurrent bookings exist at any minute. A new appointment [start, end) is accepted only when the maximum
-      concurrent bookings in that interval is less than the available capacity (number of rooms/therapists). If accepted,
-      we increment the interval by +1 (reserve). Cancellation decrements the interval by −1.
-    </p>
-  </div>
-
-  <div class="algo-section">
-    <h2>⚙ Algorithm — Segment Tree (Lazy) for Interval Add & Max Query</h2>
-    <ol class="small">
-      <li>Build segment tree covering minutes 0..1439; each node stores <b>max</b> in its range and a lazy addition value.</li>
-      <li>To check overlap for [l,r): query max(l, r-1). If max &lt; capacity → accept; else reject.</li>
-      <li>To book: rangeAdd(l, r-1, +1). To cancel: rangeAdd(l, r-1, −1).</li>
-    </ol>
-
-    <div class="controls" style="margin-top:12px">
-      <div>
-        <label class="small">Rooms / Therapists</label>
-        <input id="capInput" class="input" type="number" min="1" value="1" />
-      </div>
-
-      <div>
-        <label class="small">Start Time (HH:MM)</label>
-        <input id="startInput" class="input" type="time" value="09:00" />
-      </div>
-
-      <div>
-        <label class="small">End Time (HH:MM)</label>
-        <input id="endInput" class="input" type="time" value="10:00" />
-      </div>
-
-      <button class="btn" id="bookBtn">Book Appointment</button>
-      <button class="btn" id="cancelBtn">Cancel (use same interval)</button>
-
-      <button class="btn" onclick="toggleCode('pseudo')">Show Pseudocode</button>
-      <button class="btn" onclick="toggleCode('cpp')">Show C++</button>
-    </div>
-
-    <div id="pseudo" class="code-box">
-// Pseudocode: Interval booking using lazy segment tree
-BUILD tree for range [0...1439], init values = 0
-
-FUNCTION canBook(l, r, cap):
-    mx = tree.queryMax(l, r-1)
-    RETURN mx < cap
-
-FUNCTION book(l, r):
-    IF canBook(l, r, capacity):
-        tree.rangeAdd(l, r-1, +1)
-        return true
-    ELSE
-        return false
-
-FUNCTION cancel(l, r):
-    tree.rangeAdd(l, r-1, -1)
-    return true
-    </div>
-
-    <div id="cpp" class="code-box">
-// C++ sketch (conceptual)
-// Segment tree with lazy addition storing max per node
-struct SegTree {
-  int n; vector<int> mx, lazy;
-  SegTree(int N):n(N),mx(4*N,0),lazy(4*N,0){}
-  void push(int v){ if(lazy[v]){ mx[v*2]+=lazy[v]; lazy[v*2]+=lazy[v]; mx[v*2+1]+=lazy[v]; lazy[v*2+1]+=lazy[v]; lazy[v]=0; } }
-  void rangeAdd(int v,int tl,int tr,int l,int r,int val){
-    if(l>r) return;
-    if(l<=tl && tr<=r){ mx[v]+=val; lazy[v]+=val; return;}
-    push(v); int tm=(tl+tr)/2;
-    rangeAdd(v*2,tl,tm,l,min(r,tm),val);
-    rangeAdd(v*2+1,tm+1,tr,max(l,tm+1),r,val);
-    mx[v]=max(mx[v*2],mx[v*2+1]);
-  }
-  int queryMax(int v,int tl,int tr,int l,int r){
-    if(l>r) return 0;
-    if(l<=tl && tr<=r) return mx[v];
-    push(v); int tm=(tl+tr)/2;
-    return max(queryMax(v*2,tl,tm,l,min(r,tm)),
-               queryMax(v*2+1,tm+1,tr,max(l,tm+1),r));
-  }
-};
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>📅 Daily Calendar (hourly view)</h2>
-    <div class="small">Each hour block shows the <b>maximum concurrent bookings</b> within that hour (0–59 minutes).</div>
-
-    <div id="calendar" class="calendar" aria-hidden="true">
-      <!-- 24 hour boxes will be injected by JS -->
-    </div>
-
-    <div class="legend">
-      <div style="font-size:0.9rem;color:#225d43">Legend:</div>
-      <div class="sw" style="background:#e8f7f0;border:1px solid #dff3ea"></div><div class="small">0</div>
-      <div class="sw" style="background:#d1f0df;border:1px solid #bfead0"></div><div class="small">1</div>
-      <div class="sw" style="background:#a9e7c1;border:1px solid #87d7a3"></div><div class="small">2</div>
-      <div class="sw" style="background:#5fd08a;border:1px solid #3fc86b"></div><div class="small">3+</div>
-    </div>
-  </div>
-
-</div>
-
-<script>
-/*
-Segment Tree (lazy) over day minutes 0..1439
-Supports rangeAdd(l,r,val) and rangeMax(l,r)
-*/
-class SegmentTree {
-  constructor(n){
-    this.n = n;
-    this.mx = new Int32Array(4*n);
-    this.lazy = new Int32Array(4*n);
-  }
-  _push(v){
-    const l = v<<1, r = l|1;
-    if(this.lazy[v] !== 0){
-      const val = this.lazy[v];
-      this.mx[l] += val; this.lazy[l] += val;
-      this.mx[r] += val; this.lazy[r] += val;
-      this.lazy[v] = 0;
-    }
-  }
-  _add(v, tl, tr, l, r, val){
-    if(l>r) return;
-    if(l<=tl && tr<=r){
-      this.mx[v]+=val; this.lazy[v]+=val; return;
-    }
-    this._push(v);
-    const tm = (tl+tr)>>1;
-    if(l<=tm) this._add(v<<1, tl, tm, l, Math.min(r,tm), val);
-    if(r>tm) this._add(v<<1|1, tm+1, tr, Math.max(l,tm+1), r, val);
-    this.mx[v] = Math.max(this.mx[v<<1], this.mx[v<<1|1]);
-  }
-  rangeAdd(l,r,val){ this._add(1,0,this.n-1,l,r,val); }
-  _query(v,tl,tr,l,r){
-    if(l>r) return 0;
-    if(l<=tl && tr<=r) return this.mx[v];
-    this._push(v);
-    const tm=(tl+tr)>>1;
-    let res=0;
-    if(l<=tm) res = Math.max(res, this._query(v<<1,tl,tm,l,Math.min(r,tm)));
-    if(r>tm) res = Math.max(res, this._query(v<<1|1,tm+1,tr,Math.max(l,tm+1),r));
-    return res;
-  }
-  rangeMax(l,r){ return this._query(1,0,this.n-1,l,r); }
-}
-
-/* Helpers: time conversions */
-function timeToMin(t){ // "HH:MM" -> minutes
-  if(!t) return 0;
-  const parts = t.split(':').map(Number);
-  return parts[0]*60 + parts[1];
-}
-function minToTime(m){
-  const H = Math.floor(m/60), M = m%60;
-  return String(H).padStart(2,'0') + ':' + String(M).padStart(2,'0');
-}
-
-/* App state */
-const DAY_MIN = 1440;
-const seg = new SegmentTree(DAY_MIN);
-let bookings = []; // store booked intervals for UI & cancellation tracking
-let rejectedCount = 0;
-let capacity = parseInt(document.getElementById('capInput').value || '1',10);
-
-/* UI references */
-const totalBookedEl = document.getElementById('totalBooked');
-const maxConcurrentEl = document.getElementById('maxConcurrent');
-const rejectionsEl = document.getElementById('rejections');
-const capEl = document.getElementById('capacity');
-const calendarEl = document.getElementById('calendar');
-
-function buildCalendar(){
-  calendarEl.innerHTML = '';
-  for(let h=0; h<24; h++){
-    const box = document.createElement('div');
-    box.className = 'hour';
-    box.dataset.hour = h;
-    const label = document.createElement('div');
-    label.innerText = h + ':00';
-    const count = document.createElement('div');
-    count.className = 'count';
-    count.innerText = '0';
-    box.appendChild(label);
-    box.appendChild(count);
-    calendarEl.appendChild(box);
-  }
-}
-function refreshMetrics(){
-  // total booked = number of stored intervals
-  totalBookedEl.innerText = bookings.length;
-  // global peak concurrent = query full-day max
-  const globalMax = seg.rangeMax(0, DAY_MIN-1);
-  maxConcurrentEl.innerText = globalMax;
-  rejectionsEl.innerText = rejectedCount;
-  capEl.innerText = capacity;
-  // update calendar hourly: show max value in each hour
-  for(let h=0; h<24; h++){
-    const l = h*60, r = h*60+59;
-    const v = seg.rangeMax(l, r);
-    const hourBox = calendarEl.children[h];
-    hourBox.querySelector('.count').innerText = v;
-    // color shade
-    if(v<=0) hourBox.style.background = '#f2fff6';
-    else if(v===1) hourBox.style.background = '#d1f0df';
-    else if(v===2) hourBox.style.background = '#a9e7c1';
-    else hourBox.style.background = '#5fd08a';
-  }
-}
-
-/* Booking logic */
-function canBook(l, r){
-  if(l>=r) return false;
-  const mx = seg.rangeMax(l, r-1); // r is exclusive
-  return mx < capacity;
-}
-function bookInterval(l, r){
-  if(l>=r) return false;
-  if(canBook(l,r)){
-    seg.rangeAdd(l,r-1,1);
-    bookings.push({l,r});
-    return true;
-  } else {
-    rejectedCount++;
-    return false;
-  }
-}
-function cancelInterval(l, r){
-  // naive cancellation: find matching booking and remove one
-  for(let i=0;i<bookings.length;i++){
-    if(bookings[i].l===l && bookings[i].r===r){
-      bookings.splice(i,1);
-      seg.rangeAdd(l,r-1,-1);
-      return true;
-    }
-  }
-  return false;
-}
-
-/* UI events */
-document.getElementById('capInput').addEventListener('change', (e)=>{
-  capacity = Math.max(1, parseInt(e.target.value || '1',10));
-  capEl.innerText = capacity;
-  refreshMetrics();
-});
-document.getElementById('bookBtn').addEventListener('click', ()=>{
-  const s = document.getElementById('startInput').value;
-  const e = document.getElementById('endInput').value;
-  const l = timeToMin(s), r = timeToMin(e);
-  if(l>=r){ alert('Start must be before End'); return; }
-  const ok = bookInterval(l,r);
-  if(ok) {
-    alert('✅ Booked ' + minToTime(l) + ' → ' + minToTime(r));
-  } else {
-    alert('❌ Overlap: booking rejected');
-  }
-  refreshMetrics();
-});
-document.getElementById('cancelBtn').addEventListener('click', ()=>{
-  const s = document.getElementById('startInput').value;
-  const e = document.getElementById('endInput').value;
-  const l = timeToMin(s), r = timeToMin(e);
-  const ok = cancelInterval(l,r);
-  if(ok) alert('🗑️ Cancelled ' + minToTime(l) + ' → ' + minToTime(r));
-  else alert('No matching booking found to cancel');
-  refreshMetrics();
-});
-
-function toggleCode(id){
-  const el = document.getElementById(id);
-  if(!el) return;
-  el.style.display = (el.style.display==='block')? 'none':'block';
-}
-
-/* initial setup */
-buildCalendar();
-refreshMetrics();
-
-/* Example: pre-seed some bookings for demo */
-(function seedDemo(){
-  // Book 09:00-10:30, 09:30-10:00 etc.
-  bookInterval(timeToMin('09:00'), timeToMin('10:30')); // ok
-  bookInterval(timeToMin('09:30'), timeToMin('10:00')); // depending on cap may reject
-  bookInterval(timeToMin('11:00'), timeToMin('11:45'));
-  refreshMetrics();
-})();
-</script>
-</body>
-</html>
-
-        
-                
-
-                
