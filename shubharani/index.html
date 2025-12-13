@@ -600,4 +600,868 @@ END
             <span class="keyword">if</span> (stayOnLine2 <= transferFromLine1) {
                 f[1][j] = stayOnLine2;
                 l[1][j] = 1;  <span class="comment">// Came from line 2</span>
-            } <span class="keyword">el
+
+            } <span class="keyword">el\
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Civic Queue Manager — Fair & Prioritized Government Office Queues</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<style>
+/* Visual style inspired by your templates — professional and clean */
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg,#f0f6ff 0%, #ffffff 100%);
+  padding:24px;color:#0b2545;line-height:1.5;
+}
+.container{max-width:1200px;margin:0 auto;background:white;padding:34px;border-radius:12px;box-shadow:0 18px 40px rgba(2,6,23,0.06)}
+.header{text-align:center;padding-bottom:18px;border-bottom:3px solid #eef4ff;margin-bottom:20px}
+h1{color:#07223a;font-size:2rem;margin-bottom:6px}
+.tagline{color:#334155;font-style:italic}
+
+/* Controls area */
+.controls{display:flex;gap:12px;flex-wrap:wrap;align-items:end;margin-top:14px}
+.control-card{background:#f8fafc;padding:12px;border-radius:8px;border:1px solid #eef7ff}
+.input{padding:8px;border-radius:8px;border:1px solid #dbeafe;width:150px}
+.select{padding:8px;border-radius:8px;border:1px solid #dbeafe;background:white}
+
+/* Buttons */
+.btn{background:linear-gradient(90deg,#0b2545,#0f4c81);color:white;border:none;padding:10px 14px;border-radius:8px;cursor:pointer}
+.btn.secondary{background:#fff;border:1px solid #cfe0ff;color:#0b2545}
+.btn.warn{background:linear-gradient(90deg,#b45309,#f59e0b)}
+
+/* Metrics */
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:16px}
+.metric{background:#f8fafc;padding:12px;border-radius:8px;border-left:4px solid #0b2545;text-align:center}
+.metric .v{font-size:1.4rem;font-weight:700;color:#0b2545}
+.small{font-size:0.9rem;color:#475569}
+
+/* Main grid */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+.panel{background:#fff;padding:14px;border-radius:8px;border:1px solid #eef2ff;min-height:220px}
+.queues{display:flex;gap:12px}
+.queue{flex:1;background:#fbfdff;padding:10px;border-radius:8px;border:1px solid #eef7ff;min-height:150px;overflow:auto}
+.queue h3{font-size:1rem;color:#0b2545;margin-bottom:8px}
+.customer{background:linear-gradient(90deg,#ffffff,#f1f5ff);padding:8px;border-radius:6px;margin-bottom:8px;border-left:4px solid #c7d2fe;font-size:0.95rem}
+.serversRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.serverCard{background:#f8fafc;padding:8px;border-radius:8px;border:1px solid #eef7ff;min-width:140px}
+
+/* log */
+.log{height:170px;overflow:auto;background:#0b1220;color:#d4d4d4;padding:10px;border-radius:6px;font-family:monospace;font-size:0.9rem}
+
+/* Conclusion box */
+.conclusion {
+  margin-top:12px;
+  background: linear-gradient(135deg,#eef6ff 0%, #f8fbff 100%);
+  border-left: 6px solid #0f4c81;
+  padding:12px;
+  border-radius:8px;
+  color:#0b2545;
+}
+.conclusion h3 { margin-bottom:8px; color:#07223a; }
+.conclusion ul { margin-left:18px; }
+
+/* code box */
+.code-box{display:none;background:#0b1220;color:#d4d4d4;padding:14px;border-radius:8px;margin-top:12px;font-family:monospace;white-space:pre;overflow:auto}
+
+/* responsive */
+@media (max-width:960px){
+  .grid{grid-template-columns:1fr}
+  .controls{flex-direction:column;align-items:flex-start}
+  .input{width:100%}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>🏛️ Civic Queue Manager — Government Office Queue System</h1>
+    <div class="tagline">Maintain fairness and responsiveness while prioritizing emergency and urgent cases</div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <div class="control-card">
+      <label class="small">Servers (counters)</label><br/>
+      <input id="servers" class="input" type="number" min="1" value="3" />
+    </div>
+
+    <div class="control-card">
+      <label class="small">Quantum (seconds)</label><br/>
+      <input id="quantum" class="input" type="number" min="1" value="30" />
+    </div>
+
+    <div class="control-card">
+      <label class="small">Default Service Time (s)</label><br/>
+      <input id="defaultTime" class="input" type="number" min="5" value="90" />
+    </div>
+
+    <div class="control-card">
+      <label class="small">Customer Type</label><br/>
+      <select id="custType" class="select">
+        <option value="normal">Normal</option>
+        <option value="priority">Priority</option>
+        <option value="emergency">Emergency</option>
+      </select>
+    </div>
+
+    <div class="control-card">
+      <label class="small">Service Time (s)</label><br/>
+      <input id="custTime" class="input" type="number" min="5" value="90" />
+    </div>
+
+    <div>
+      <button class="btn" id="enqueueBtn">Enqueue</button>
+    </div>
+
+    <div style="margin-left:auto;display:flex;gap:8px">
+      <button class="btn secondary" id="stepBtn">Step</button>
+      <button class="btn secondary" id="startPauseBtn">Start</button>
+      <button class="btn secondary" id="resetBtn">Reset</button>
+    </div>
+  </div>
+
+  <!-- Metrics -->
+  <div class="metrics">
+    <div class="metric"><div class="v" id="totalIn">0</div><div class="small">Total Arrivals</div></div>
+    <div class="metric"><div class="v" id="served">0</div><div class="small">Served</div></div>
+    <div class="metric"><div class="v" id="avgWait">0 s</div><div class="small">Avg Wait</div></div>
+    <div class="metric"><div class="v" id="queueLen">0</div><div class="small">Total in Queues</div></div>
+  </div>
+
+  <div style="margin-top:12px" class="small">
+    <label><input type="checkbox" id="preemptEmergency" checked /> Enable immediate preemption for arriving emergencies (interrupt normal/priority in service)</label>
+  </div>
+
+  <div class="grid">
+    <div class="panel">
+      <h3>Queues & Servers</h3>
+      <div class="queues" style="margin-top:12px">
+        <div class="queue" id="emQueue"><h3>🚨 Emergency (FIFO)</h3><div id="emList"></div></div>
+        <div class="queue" id="prQueue"><h3>⭐ Priority (Round-Robin)</h3><div id="prList"></div></div>
+        <div class="queue" id="noQueue"><h3>👥 Normal (Round-Robin)</h3><div id="noList"></div></div>
+      </div>
+
+      <h3 style="margin-top:12px">Servers</h3>
+      <div id="serversPanel" class="serversRow"></div>
+
+      <!-- Conclusion block added here -->
+      <div class="conclusion" id="conclusionBox">
+        <h3>Conclusion & Practical Recommendations</h3>
+        <ul>
+          <li><b>Fairness + Priority:</b> Multi-level queues (Emergency → Priority → Normal) keep essential fairness while ensuring urgent cases are handled quickly.</li>
+          <li><b>Round-Robin fairness:</b> RR for Priority/Normal prevents long tasks from starving others — tune quantum to balance throughput vs. context switching.</li>
+          <li><b>Preemption policy:</b> Allow emergency preemption when necessary, but choose whether preempted tasks return to head (faster recovery) or tail (fairer) of their queue.</li>
+          <li><b>Operational tips:</b> Monitor average wait and peak queue length; add counters or direct traffic during peak windows; use digital tokens and SMS alerts to reduce physical crowding.</li>
+          <li><b>Scalability:</b> For large centers, partition services by transaction types and use dynamic server allocation (reassign counters to busy services).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>Service Log</h3>
+      <div id="logArea" class="log"></div>
+
+      <div style="margin-top:12px">
+        <button class="btn" onclick="toggleCode('pseudo')">Show Pseudocode</button>
+        <button class="btn" onclick="toggleCode('cpp')">Show C++ Sketch</button>
+      </div>
+
+      <div id="pseudo" class="code-box">
+// Pseudocode (multi-level RR)
+INIT servers S[1..m] idle
+INIT queues: Emergency (FIFO), Priority (RR), Normal (RR)
+quantum = Q
+
+FUNCTION arrival(customer):
+  IF customer.type == Emergency:
+    IF preemptEnabled:
+      optionally interrupt one non-emergency server if all servers busy and push its customer back to its queue
+    Emergency.enqueue(customer)
+  ELSE enqueue into corresponding queue
+
+FUNCTION schedule():
+  FOR each idle server s:
+    IF Emergency not empty:
+      assign s <- Emergency.dequeue()
+    ELSE IF Priority not empty:
+      assign s <- Priority.dequeue()
+    ELSE IF Normal not empty:
+      assign s <- Normal.dequeue()
+
+FUNCTION tick(dt=1s):
+  FOR each server s busy:
+    decrement s.cust.remaining by dt
+    s.quantumUsed += dt (if not emergency)
+    IF s.cust.remaining <= 0:
+      record completion; s becomes idle
+    ELSE IF not emergency AND s.quantumUsed >= quantum:
+      push customer back to tail of its queue with remaining time
+      s becomes idle
+  schedule() // fill freed servers
+      </div>
+
+      <div id="cpp" class="code-box">
+// C++ Sketch (conceptual)
+// Use deque for queues; vector for servers. On quantum expiry push back with updated remaining.
+// Preemption: pop a non-emergency server, push its customer back to front or tail depending on design.
+
+#include <deque>
+struct Customer { int id; int type; int remaining; int arrivalTs; };
+std::deque<Customer> emergency, priorityQ, normalQ;
+struct Server { bool busy; Customer cur; int usedQuantum; };
+std::vector<Server> servers;
+int quantum = 30;
+
+void tick() {
+  // update servers: decrement, handle quantum, requeue on slice expiry, complete service
+}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Simulation logic implementing multi-level RR with emergency prioritization
+
+// State variables
+let nextId = 1;
+let totalArrivals = 0;
+let totalServed = 0;
+let totalWaitTime = 0;
+
+// Queues: arrays used as deques
+const emergencyQ = [];
+const priorityQ = [];
+const normalQ = [];
+
+// Servers
+let servers = []; // {id, busy, cust:{...}, usedQuantum}
+
+// Simulation clock
+let currentTime = 0;
+let running = false;
+let tickInterval = null;
+
+// UI elements
+const emList = document.getElementById('emList');
+const prList = document.getElementById('prList');
+const noList = document.getElementById('noList');
+const serversPanel = document.getElementById('serversPanel');
+const logArea = document.getElementById('logArea');
+const totalInEl = document.getElementById('totalIn');
+const servedEl = document.getElementById('served');
+const avgWaitEl = document.getElementById('avgWait');
+const queueLenEl = document.getElementById('queueLen');
+
+function cfg(){
+  return {
+    m: Math.max(1, parseInt(document.getElementById('servers').value || '3',10)),
+    quantum: Math.max(1, parseInt(document.getElementById('quantum').value || '30',10)),
+    defaultTime: Math.max(5, parseInt(document.getElementById('defaultTime').value || '90',10)),
+    preempt: document.getElementById('preemptEmergency').checked
+  };
+}
+
+function makeCustomer(type, serviceTime){
+  return {
+    id: nextId++,
+    type, // "emergency" | "priority" | "normal"
+    serviceTime,
+    remaining: serviceTime,
+    enqueuedAt: currentTime,
+    startedAt: null
+  };
+}
+
+function resetSimulation(){
+  currentTime = 0; running = false;
+  clearInterval(tickInterval);
+  emergencyQ.length = 0; priorityQ.length = 0; normalQ.length = 0;
+  servers = [];
+  nextId = 1; totalArrivals = 0; totalServed = 0; totalWaitTime = 0;
+  logArea.innerHTML = '';
+  buildServers();
+  refreshUI();
+}
+
+function buildServers(){
+  serversPanel.innerHTML = '';
+  const m = cfg().m;
+  servers = [];
+  for(let i=0;i<m;i++){
+    servers.push({id:i+1,busy:false,cust:null,usedQuantum:0});
+    const el = document.createElement('div');
+    el.className = 'serverCard';
+    el.id = 'server_'+(i+1);
+    el.innerHTML = `<div style="font-weight:700">Counter ${i+1}</div><div id="srv_${i+1}" class="small">Idle</div>`;
+    serversPanel.appendChild(el);
+  }
+}
+
+function log(msg){
+  const t = formatTime(currentTime);
+  logArea.innerHTML = `[${t}] ${msg}\n` + logArea.innerHTML;
+}
+
+function formatTime(s){
+  const mm = Math.floor(s/60).toString().padStart(2,'0'), ss = (s%60).toString().padStart(2,'0');
+  return `${mm}:${ss}`;
+}
+
+function refreshQueuesUI(){
+  emList.innerHTML = ''; prList.innerHTML=''; noList.innerHTML='';
+  emergencyQ.forEach(c => { const el = document.createElement('div'); el.className='customer'; el.innerText=`#${c.id} (${c.remaining}s)`; emList.appendChild(el); });
+  priorityQ.forEach(c => { const el = document.createElement('div'); el.className='customer'; el.innerText=`#${c.id} (${c.remaining}s)`; prList.appendChild(el); });
+  normalQ.forEach(c => { const el = document.createElement('div'); el.className='customer'; el.innerText=`#${c.id} (${c.remaining}s)`; noList.appendChild(el); });
+  queueLenEl.innerText = emergencyQ.length + priorityQ.length + normalQ.length;
+}
+
+function refreshServersUI(){
+  servers.forEach(s => {
+    const srvEl = document.getElementById('srv_'+s.id);
+    if(!srvEl) return;
+    if(s.busy && s.cust){
+      srvEl.innerText = `#${s.cust.id} | ${s.cust.type} | rem ${s.cust.remaining}s | slice ${s.usedQuantum}s`;
+    } else srvEl.innerText = 'Idle';
+  });
+}
+
+function refreshUI(){
+  totalInEl.innerText = totalArrivals;
+  servedEl.innerText = totalServed;
+  avgWaitEl.innerText = totalServed ? Math.round(totalWaitTime/totalServed) + ' s' : '0 s';
+  refreshQueuesUI();
+  refreshServersUI();
+}
+
+// Enqueue handler
+document.getElementById('enqueueBtn').addEventListener('click', ()=>{
+  const type = document.getElementById('custType').value;
+  const svc = Math.max(5, parseInt(document.getElementById('custTime').value || '90',10));
+  const c = makeCustomer(type, svc);
+  totalArrivals++;
+  arrival(c);
+  log(`Arrived #${c.id} (${c.type}) svc ${c.serviceTime}s`);
+  refreshUI();
+  schedule();
+});
+
+// Arrival processing, includes optional emergency preemption
+function arrival(customer){
+  const conf = cfg();
+  if(customer.type === 'emergency'){
+    // if preempt enabled and all servers busy and there's any non-emergency running, preempt one
+    if(conf.preempt){
+      const nonEmergServerIdx = servers.findIndex(s => s.busy && s.cust && s.cust.type !== 'emergency');
+      if(nonEmergServerIdx !== -1){
+        // choose a server to preempt (simple: earliest started non-emergency)
+        const s = servers[nonEmergServerIdx];
+        // push its current customer back to head of its queue (so it gets served soon)
+        const victim = s.cust;
+        victim.startedAt = null;
+        victim.enqueuedAt = currentTime; // update enqueue time for fairness
+        if(victim.type === 'priority') priorityQ.unshift(victim);
+        else normalQ.unshift(victim);
+        log(`Preempted server ${s.id} (moved #${victim.id} back to queue) for emergency`);
+        s.busy = false; s.cust = null; s.usedQuantum = 0;
+      }
+    }
+    emergencyQ.push(customer);
+  } else if(customer.type === 'priority'){
+    priorityQ.push(customer);
+  } else {
+    normalQ.push(customer);
+  }
+}
+
+// Scheduling: assign idle servers following priority order
+function schedule(){
+  servers.forEach(s => {
+    if(s.busy) return;
+    // check emergency first
+    if(emergencyQ.length > 0){
+      const c = emergencyQ.shift();
+      assignToServer(s,c);
+    } else if(priorityQ.length > 0){
+      const c = priorityQ.shift();
+      assignToServer(s,c);
+    } else if(normalQ.length > 0){
+      const c = normalQ.shift();
+      assignToServer(s,c);
+    }
+  });
+  refreshUI();
+}
+
+function assignToServer(server, cust){
+  server.busy = true;
+  server.cust = cust;
+  server.usedQuantum = 0;
+  if(cust.startedAt === null) cust.startedAt = currentTime;
+  log(`Server ${server.id} started #${cust.id} (${cust.type}) rem ${cust.remaining}s`);
+}
+
+// Tick: simulate 1 second
+function tick(){
+  const confObj = cfg();
+  const Q = confObj.quantum;
+  // iterate servers
+  servers.forEach(s => {
+    if(!s.busy || !s.cust) return;
+    const isEmergency = s.cust.type === 'emergency';
+    // for emergency, we don't count quantum (serve to completion once started)
+    s.cust.remaining -= 1;
+    if(!isEmergency) s.usedQuantum += 1;
+
+    if(s.cust.remaining <= 0){
+      // completion
+      const wait = (s.cust.startedAt !== null) ? (s.cust.startedAt - s.cust.enqueuedAt) : 0;
+      totalServed++;
+      totalWaitTime += (currentTime - s.cust.enqueuedAt);
+      log(`Server ${s.id} finished #${s.cust.id} (${s.cust.type})`);
+      s.busy = false; s.cust = null; s.usedQuantum = 0;
+    } else if(!isEmergency && s.usedQuantum >= Q){
+      // quantum exhausted; preempt and push to tail of same priority queue
+      const c = s.cust;
+      s.busy = false; s.cust = null; s.usedQuantum = 0;
+      if(c.type === 'priority') priorityQ.push(c);
+      else normalQ.push(c);
+      log(`Quantum expired on Server ${s.id} for #${c.id}; requeued (${c.type}) rem ${c.remaining}s`);
+    }
+  });
+
+  // After servers update, schedule idle ones
+  schedule();
+  currentTime++;
+  refreshUI();
+}
+
+// Controls handlers
+document.getElementById('startPauseBtn').addEventListener('click', ()=>{
+  if(running){
+    running = false; clearInterval(tickInterval); document.getElementById('startPauseBtn').innerText = 'Start';
+  } else {
+    running = true; document.getElementById('startPauseBtn').innerText = 'Pause';
+    if(servers.length === 0) buildServers();
+    tickInterval = setInterval(tick, 200); // 200 ms ~ 1 simulated sec; tweak for speed
+  }
+});
+document.getElementById('stepBtn').addEventListener('click', ()=>{ tick(); });
+document.getElementById('resetBtn').addEventListener('click', ()=>{ resetSimulation(); });
+
+// initial setup
+resetSimulation();
+
+// UI interactions for changing server count: rebuild servers preserving busy customers where possible
+document.getElementById('servers').addEventListener('change', ()=>{
+  const prevServers = servers.slice();
+  const newM = Math.max(1, parseInt(document.getElementById('servers').value || '3',10));
+  // keep existing busy customers into first slots, then create new servers
+  const newServers = [];
+  for(let i=0;i<newM;i++){
+    if(i < prevServers.length) newServers.push(prevServers[i]);
+    else newServers.push({id:i+1,busy:false,cust:null,usedQuantum:0});
+  }
+  servers = newServers;
+  buildServers(); // rebuild UI
+  // re-render cust status into UI
+  servers.forEach((s, idx) => {
+    const el = document.getElementById('srv_'+(idx+1));
+    if(el){
+      if(s.busy && s.cust) el.innerText = `#${s.cust.id} | ${s.cust.type} | rem ${s.cust.remaining}s`;
+      else el.innerText = 'Idle';
+    }
+  });
+  refreshUI();
+});
+
+// helper to toggle code boxes
+function toggleCode(id){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.style.display = el.style.display === 'block' ? 'none' : 'block';
+}
+</script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Coastal Massage — Spa & Appointment Booking</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<style>
+/* Base layout (matches previous aesthetic but spa-themed) */
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg,#f6fbf7 0%, #e8f7f0 100%);
+  padding:24px;
+  color:#0b2545;
+  line-height:1.5;
+}
+.container{
+  max-width:1200px;margin:0 auto;background:white;padding:36px;border-radius:12px;
+  box-shadow:0 20px 50px rgba(2,48,34,0.08);
+}
+.header{text-align:center;padding-bottom:22px;border-bottom:3px solid #e0f3ea;margin-bottom:28px}
+h1{color:#064c3a;font-size:2.2rem;margin-bottom:8px}
+.tagline{color:#2f6f59;font-style:italic}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin:18px 0}
+.metric-card{background:linear-gradient(90deg,#e8f7f0,#dff3ea);padding:14px;border-radius:10px;text-align:center;border-left:6px solid #0b6b4a}
+.metric-value{font-size:1.6rem;font-weight:700;color:#063c2e}
+.metric-label{color:#166a4f;font-size:0.95rem;margin-top:6px}
+
+/* Sections */
+.section{background:#fff;padding:18px;border-radius:10px;margin:18px 0;border-left:6px solid #bfead0}
+.algo-section{background:#fbfffb;padding:20px;border:2px solid #cfeee0;border-radius:10px;margin:20px 0}
+.btn{background:linear-gradient(90deg,#0b6b4a,#0a4c37);color:white;border:none;padding:10px 14px;border-radius:8px;cursor:pointer;margin-right:8px}
+.btn:active{transform:translateY(1px)}
+.small{font-size:0.9rem;color:#245b44}
+
+/* Calendar heatmap */
+.calendar{
+  display:grid;
+  grid-template-columns: repeat(24, 1fr);
+  gap:3px;
+  margin-top:12px;
+}
+.hour{
+  background:#f2fff6;padding:6px;border-radius:6px;text-align:center;border:1px solid #e5f6ea;font-size:0.75rem;color:#0f3d2a;
+  min-height:48px;display:flex;flex-direction:column;justify-content:center;
+}
+.hour .count{font-weight:700;font-size:0.95rem}
+.legend{display:flex;gap:8px;align-items:center;margin-top:10px}
+.legend .sw{width:18px;height:14px;border-radius:4px;display:inline-block}
+
+/* code boxes */
+.code-box{display:none;background:#0b1220;color:#d4d4d4;padding:16px;border-radius:8px;margin-top:12px;font-family:monospace;white-space:pre;overflow:auto}
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+
+/* form */
+.input{padding:10px;border-radius:8px;border:1px solid #d7efe0;width:180px}
+label.small{display:block;margin-bottom:6px;color:#225d43}
+
+/* responsive */
+@media (max-width:840px){
+  .metrics-grid{grid-template-columns:repeat(2,1fr)}
+  .calendar{grid-template-columns:repeat(12,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>🌊 Coastal Massage — Spa & Appointment Booking</h1>
+    <div class="tagline">Handle overlapping appointments efficiently using Segment Trees & Interval Queries</div>
+  </div>
+
+  <div class="metrics-grid" aria-hidden="true">
+    <div class="metric-card"><div class="metric-value" id="totalBooked">0</div><div class="metric-label">Active Bookings</div></div>
+    <div class="metric-card"><div class="metric-value" id="maxConcurrent">0</div><div class="metric-label">Peak Concurrent</div></div>
+    <div class="metric-card"><div class="metric-value" id="rejections">0</div><div class="metric-label">Rejected (Overlap)</div></div>
+    <div class="metric-card"><div class="metric-value" id="capacity">1</div><div class="metric-label">Rooms / Therapists</div></div>
+  </div>
+
+  <div class="section">
+    <h2>📋 Overview</h2>
+    <p class="small">
+      This booking engine models a single day into minutes (0–1439). It uses a lazy-propagation segment tree to track
+      how many concurrent bookings exist at any minute. A new appointment [start, end) is accepted only when the maximum
+      concurrent bookings in that interval is less than the available capacity (number of rooms/therapists). If accepted,
+      we increment the interval by +1 (reserve). Cancellation decrements the interval by −1.
+    </p>
+  </div>
+
+  <div class="algo-section">
+    <h2>⚙ Algorithm — Segment Tree (Lazy) for Interval Add & Max Query</h2>
+    <ol class="small">
+      <li>Build segment tree covering minutes 0..1439; each node stores <b>max</b> in its range and a lazy addition value.</li>
+      <li>To check overlap for [l,r): query max(l, r-1). If max &lt; capacity → accept; else reject.</li>
+      <li>To book: rangeAdd(l, r-1, +1). To cancel: rangeAdd(l, r-1, −1).</li>
+    </ol>
+
+    <div class="controls" style="margin-top:12px">
+      <div>
+        <label class="small">Rooms / Therapists</label>
+        <input id="capInput" class="input" type="number" min="1" value="1" />
+      </div>
+
+      <div>
+        <label class="small">Start Time (HH:MM)</label>
+        <input id="startInput" class="input" type="time" value="09:00" />
+      </div>
+
+      <div>
+        <label class="small">End Time (HH:MM)</label>
+        <input id="endInput" class="input" type="time" value="10:00" />
+      </div>
+
+      <button class="btn" id="bookBtn">Book Appointment</button>
+      <button class="btn" id="cancelBtn">Cancel (use same interval)</button>
+
+      <button class="btn" onclick="toggleCode('pseudo')">Show Pseudocode</button>
+      <button class="btn" onclick="toggleCode('cpp')">Show C++</button>
+    </div>
+
+    <div id="pseudo" class="code-box">
+// Pseudocode: Interval booking using lazy segment tree
+BUILD tree for range [0...1439], init values = 0
+
+FUNCTION canBook(l, r, cap):
+    mx = tree.queryMax(l, r-1)
+    RETURN mx < cap
+
+FUNCTION book(l, r):
+    IF canBook(l, r, capacity):
+        tree.rangeAdd(l, r-1, +1)
+        return true
+    ELSE
+        return false
+
+FUNCTION cancel(l, r):
+    tree.rangeAdd(l, r-1, -1)
+    return true
+    </div>
+
+    <div id="cpp" class="code-box">
+// C++ sketch (conceptual)
+// Segment tree with lazy addition storing max per node
+struct SegTree {
+  int n; vector<int> mx, lazy;
+  SegTree(int N):n(N),mx(4*N,0),lazy(4*N,0){}
+  void push(int v){ if(lazy[v]){ mx[v*2]+=lazy[v]; lazy[v*2]+=lazy[v]; mx[v*2+1]+=lazy[v]; lazy[v*2+1]+=lazy[v]; lazy[v]=0; } }
+  void rangeAdd(int v,int tl,int tr,int l,int r,int val){
+    if(l>r) return;
+    if(l<=tl && tr<=r){ mx[v]+=val; lazy[v]+=val; return;}
+    push(v); int tm=(tl+tr)/2;
+    rangeAdd(v*2,tl,tm,l,min(r,tm),val);
+    rangeAdd(v*2+1,tm+1,tr,max(l,tm+1),r,val);
+    mx[v]=max(mx[v*2],mx[v*2+1]);
+  }
+  int queryMax(int v,int tl,int tr,int l,int r){
+    if(l>r) return 0;
+    if(l<=tl && tr<=r) return mx[v];
+    push(v); int tm=(tl+tr)/2;
+    return max(queryMax(v*2,tl,tm,l,min(r,tm)),
+               queryMax(v*2+1,tm+1,tr,max(l,tm+1),r));
+  }
+};
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>📅 Daily Calendar (hourly view)</h2>
+    <div class="small">Each hour block shows the <b>maximum concurrent bookings</b> within that hour (0–59 minutes).</div>
+
+    <div id="calendar" class="calendar" aria-hidden="true">
+      <!-- 24 hour boxes will be injected by JS -->
+    </div>
+
+    <div class="legend">
+      <div style="font-size:0.9rem;color:#225d43">Legend:</div>
+      <div class="sw" style="background:#e8f7f0;border:1px solid #dff3ea"></div><div class="small">0</div>
+      <div class="sw" style="background:#d1f0df;border:1px solid #bfead0"></div><div class="small">1</div>
+      <div class="sw" style="background:#a9e7c1;border:1px solid #87d7a3"></div><div class="small">2</div>
+      <div class="sw" style="background:#5fd08a;border:1px solid #3fc86b"></div><div class="small">3+</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/*
+Segment Tree (lazy) over day minutes 0..1439
+Supports rangeAdd(l,r,val) and rangeMax(l,r)
+*/
+class SegmentTree {
+  constructor(n){
+    this.n = n;
+    this.mx = new Int32Array(4*n);
+    this.lazy = new Int32Array(4*n);
+  }
+  _push(v){
+    const l = v<<1, r = l|1;
+    if(this.lazy[v] !== 0){
+      const val = this.lazy[v];
+      this.mx[l] += val; this.lazy[l] += val;
+      this.mx[r] += val; this.lazy[r] += val;
+      this.lazy[v] = 0;
+    }
+  }
+  _add(v, tl, tr, l, r, val){
+    if(l>r) return;
+    if(l<=tl && tr<=r){
+      this.mx[v]+=val; this.lazy[v]+=val; return;
+    }
+    this._push(v);
+    const tm = (tl+tr)>>1;
+    if(l<=tm) this._add(v<<1, tl, tm, l, Math.min(r,tm), val);
+    if(r>tm) this._add(v<<1|1, tm+1, tr, Math.max(l,tm+1), r, val);
+    this.mx[v] = Math.max(this.mx[v<<1], this.mx[v<<1|1]);
+  }
+  rangeAdd(l,r,val){ this._add(1,0,this.n-1,l,r,val); }
+  _query(v,tl,tr,l,r){
+    if(l>r) return 0;
+    if(l<=tl && tr<=r) return this.mx[v];
+    this._push(v);
+    const tm=(tl+tr)>>1;
+    let res=0;
+    if(l<=tm) res = Math.max(res, this._query(v<<1,tl,tm,l,Math.min(r,tm)));
+    if(r>tm) res = Math.max(res, this._query(v<<1|1,tm+1,tr,Math.max(l,tm+1),r));
+    return res;
+  }
+  rangeMax(l,r){ return this._query(1,0,this.n-1,l,r); }
+}
+
+/* Helpers: time conversions */
+function timeToMin(t){ // "HH:MM" -> minutes
+  if(!t) return 0;
+  const parts = t.split(':').map(Number);
+  return parts[0]*60 + parts[1];
+}
+function minToTime(m){
+  const H = Math.floor(m/60), M = m%60;
+  return String(H).padStart(2,'0') + ':' + String(M).padStart(2,'0');
+}
+
+/* App state */
+const DAY_MIN = 1440;
+const seg = new SegmentTree(DAY_MIN);
+let bookings = []; // store booked intervals for UI & cancellation tracking
+let rejectedCount = 0;
+let capacity = parseInt(document.getElementById('capInput').value || '1',10);
+
+/* UI references */
+const totalBookedEl = document.getElementById('totalBooked');
+const maxConcurrentEl = document.getElementById('maxConcurrent');
+const rejectionsEl = document.getElementById('rejections');
+const capEl = document.getElementById('capacity');
+const calendarEl = document.getElementById('calendar');
+
+function buildCalendar(){
+  calendarEl.innerHTML = '';
+  for(let h=0; h<24; h++){
+    const box = document.createElement('div');
+    box.className = 'hour';
+    box.dataset.hour = h;
+    const label = document.createElement('div');
+    label.innerText = h + ':00';
+    const count = document.createElement('div');
+    count.className = 'count';
+    count.innerText = '0';
+    box.appendChild(label);
+    box.appendChild(count);
+    calendarEl.appendChild(box);
+  }
+}
+function refreshMetrics(){
+  // total booked = number of stored intervals
+  totalBookedEl.innerText = bookings.length;
+  // global peak concurrent = query full-day max
+  const globalMax = seg.rangeMax(0, DAY_MIN-1);
+  maxConcurrentEl.innerText = globalMax;
+  rejectionsEl.innerText = rejectedCount;
+  capEl.innerText = capacity;
+  // update calendar hourly: show max value in each hour
+  for(let h=0; h<24; h++){
+    const l = h*60, r = h*60+59;
+    const v = seg.rangeMax(l, r);
+    const hourBox = calendarEl.children[h];
+    hourBox.querySelector('.count').innerText = v;
+    // color shade
+    if(v<=0) hourBox.style.background = '#f2fff6';
+    else if(v===1) hourBox.style.background = '#d1f0df';
+    else if(v===2) hourBox.style.background = '#a9e7c1';
+    else hourBox.style.background = '#5fd08a';
+  }
+}
+
+/* Booking logic */
+function canBook(l, r){
+  if(l>=r) return false;
+  const mx = seg.rangeMax(l, r-1); // r is exclusive
+  return mx < capacity;
+}
+function bookInterval(l, r){
+  if(l>=r) return false;
+  if(canBook(l,r)){
+    seg.rangeAdd(l,r-1,1);
+    bookings.push({l,r});
+    return true;
+  } else {
+    rejectedCount++;
+    return false;
+  }
+}
+function cancelInterval(l, r){
+  // naive cancellation: find matching booking and remove one
+  for(let i=0;i<bookings.length;i++){
+    if(bookings[i].l===l && bookings[i].r===r){
+      bookings.splice(i,1);
+      seg.rangeAdd(l,r-1,-1);
+      return true;
+    }
+  }
+  return false;
+}
+
+/* UI events */
+document.getElementById('capInput').addEventListener('change', (e)=>{
+  capacity = Math.max(1, parseInt(e.target.value || '1',10));
+  capEl.innerText = capacity;
+  refreshMetrics();
+});
+document.getElementById('bookBtn').addEventListener('click', ()=>{
+  const s = document.getElementById('startInput').value;
+  const e = document.getElementById('endInput').value;
+  const l = timeToMin(s), r = timeToMin(e);
+  if(l>=r){ alert('Start must be before End'); return; }
+  const ok = bookInterval(l,r);
+  if(ok) {
+    alert('✅ Booked ' + minToTime(l) + ' → ' + minToTime(r));
+  } else {
+    alert('❌ Overlap: booking rejected');
+  }
+  refreshMetrics();
+});
+document.getElementById('cancelBtn').addEventListener('click', ()=>{
+  const s = document.getElementById('startInput').value;
+  const e = document.getElementById('endInput').value;
+  const l = timeToMin(s), r = timeToMin(e);
+  const ok = cancelInterval(l,r);
+  if(ok) alert('🗑️ Cancelled ' + minToTime(l) + ' → ' + minToTime(r));
+  else alert('No matching booking found to cancel');
+  refreshMetrics();
+});
+
+function toggleCode(id){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.style.display = (el.style.display==='block')? 'none':'block';
+}
+
+/* initial setup */
+buildCalendar();
+refreshMetrics();
+
+/* Example: pre-seed some bookings for demo */
+(function seedDemo(){
+  // Book 09:00-10:30, 09:30-10:00 etc.
+  bookInterval(timeToMin('09:00'), timeToMin('10:30')); // ok
+  bookInterval(timeToMin('09:30'), timeToMin('10:00')); // depending on cap may reject
+  bookInterval(timeToMin('11:00'), timeToMin('11:45'));
+  refreshMetrics();
+})();
+</script>
+</body>
+</html>
+
+        
+                
+
+                
