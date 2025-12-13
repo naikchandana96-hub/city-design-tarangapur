@@ -1,0 +1,8 @@
+{
+  "eco_locations": [
+    { "name": "Forest Trail", "rank": 1 },
+    { "name": "Lake View", "rank": 2 },
+    { "name": "Waterfall Point", "rank": 3 },
+    { "name": "Hilltop Park", "rank": 4 }
+  ]
+}
