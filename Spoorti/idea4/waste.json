@@ -1,0 +1,7 @@
+{
+  "waste": [
+    {"zone": "A1", "amount": 50},
+    {"zone": "B3", "amount": 80},
+    {"zone": "C2", "amount": 30}
+  ]
+}
