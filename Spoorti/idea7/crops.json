@@ -1,0 +1,9 @@
+{
+  "crops": [
+    {"name": "Wheat", "demand": 75},
+    {"name": "Rice", "demand": 90},
+    {"name": "Corn", "demand": 60},
+    {"name": "Soybean", "demand": 50},
+    {"name": "Cotton", "demand": 80}
+  ]
+}
