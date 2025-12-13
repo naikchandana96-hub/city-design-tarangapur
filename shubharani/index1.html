@@ -1,295 +1,432 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Smart Business Ideas – Port, Coastal & Digital Systems</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Business Cases & Algorithms Portfolio</title>
+    <style>
+        /* CSS STYLES */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
 
-<style>
-:root{
-  --green: #00ff6a;
-  --sky:   #00c2ff;
-  --vio:   #b94dff;
-  --accent-border: rgba(185,77,255,0.18);
-  --card-bg: linear-gradient(135deg, #d0ffd6, #d7f1ff, #ecd4ff);
-}
+        /* Header Block */
+        .header-container {
+            background-color: #007bff;
+            color: white;
+            padding: 40px 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
 
-* { box-sizing: border-box; }
+        .header-container h1 {
+            font-size: 2.8rem;
+            margin-bottom: 5px;
+        }
 
-body{
-  margin:0;
-  font-family: Inter, "Segoe UI", Arial, sans-serif;
-  background: linear-gradient(135deg,#e6faff 0%, #f7fff8 100%);
-  color: #123;
-  padding: 28px 16px;
-}
+        .header-container p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
 
-.container{
-  max-width: 960px;
-  margin: 0 auto;
-  background: #fff;
-  border-radius: 14px;
-  padding: 28px;
-  border: 4px solid var(--accent-border);
-  box-shadow: 0 8px 30px rgba(12,20,40,0.08);
-}
+        /* Main Content Container */
+        .main-content {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
 
-.fancy-title{
-  font-size: 34px;
-  font-weight: 800;
-  text-align: center;
-  margin-bottom: 22px;
-  color: var(--vio);
-}
+        /* Summary Grid */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
 
-.algo-section{
-  background: var(--card-bg);
-  border-left: 6px solid var(--green);
-  padding: 18px;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(10,20,40,0.08);
-  margin-top: 22px;
-  transition: transform .25s ease, box-shadow .25s ease;
-}
+        .initiative-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 5px solid #007bff;
+            transition: all 0.3s;
+        }
 
-.algo-section:hover{
-  transform: translateY(-6px);
-  box-shadow: 0 14px 30px rgba(18,30,70,0.18);
-}
+        .initiative-card:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+            border-left: 5px solid #28a745;
+        }
 
-.algo-section h2{
-  margin: 0 0 8px 0;
-  color: #3b2163;
-}
+        .initiative-card h3 {
+            margin-top: 0;
+            color: #007bff;
+            font-size: 1.2rem;
+        }
 
-.algo-section p{
-  color: #2b2b2b;
-  line-height: 1.7;
-  margin: 6px 0;
-}
+        .initiative-card p {
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
 
-.sdg{
-  margin-top: 8px;
-  font-weight: bold;
-  color: #0a7d3b;
-}
+        /* Detailed Section */
+        .detailed-section {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
 
-@media (max-width:720px){
-  .fancy-title{ font-size: 26px; }
-  .container{ padding: 18px; }
-}
-</style>
+        .detailed-section h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 1.8rem;
+        }
+
+        .detailed-section .algo-section {
+            border: 1px solid #e1e1e1;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 6px;
+        }
+
+        .algo-section h3 {
+            color: #28a745;
+            margin-top: 0;
+        }
+
+        .algo-section ul {
+            list-style: disc;
+            margin-left: 20px;
+            padding-left: 0;
+        }
+
+        .btn {
+            background-color: #ffc107;
+            color: #333;
+            border: none;
+            padding: 8px 15px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: #e0a800;
+        }
+
+        .code-box {
+            display: none;
+            background-color: #282c34;
+            color: #61dafb;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            margin-top: 15px;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+    </style>
 </head>
-
 <body>
-<div class="container">
 
-<h1 class="fancy-title">Smart Business Ideas & Algorithmic Systems</h1>
+    <div class="header-container">
+        <h1>Comprehensive Algorithm Portfolio</h1>
+        <p>A Mapping of 17 Business Cases to Advanced Computer Science Algorithms.</p>
+    </div>
 
-<div class="algo-section">
-<h2>1. Multilingual BPO & IT Services Hub</h2>
-<p>
-Optimizes call handling and task distribution among multilingual agents to ensure fast,
-fair, and balanced customer service across global clients while reducing agent overload.
-</p>
-<div class="sdg">
-Algorithm: Round-Robin Scheduling <br>
-SDG 8, SDG 9, SDG 10
-</div>
-</div>
+    <div class="main-content">
+        <h2>8 Key Business Categories</h2>
+        <div class="summary-grid">
+            <div class="initiative-card" onclick="document.getElementById('details_port').scrollIntoView()">
+                <h3>🚢 Port Operations & Logistics</h3>
+                <p>Optimizing routing, scheduling, and resource allocation for critical maritime infrastructure.</p>
+                <button class="btn">View Detailed Code</button>
+            </div>
+            <div class="initiative-card" onclick="document.getElementById('details_coastal').scrollIntoView()">
+                <h3>🏖 Coastal Tourism & Events</h3>
+                <p>Conflict-free scheduling, resource tracking, and route optimization for hospitality services.</p>
+                <button class="btn">View Detailed Code</button>
+            </div>
+            <div class="initiative-card" onclick="document.getElementById('details_public').scrollIntoView()">
+                <h3>🏦 Public Services & IT</h3>
+                <p>Fast lookup, fair queuing, and multi-priority task management for high-volume service centers.</p>
+                <button class="btn">View Detailed Code</button>
+            </div>
+            <div class="initiative-card" onclick="document.getElementById('details_wellness').scrollIntoView()">
+                <h3>🧘 Wellness & Manufacturing</h3>
+                <p>Job sequencing, therapy clustering, and scheduling to maximize production and patient care.</p>
+                <button class="btn">View Detailed Code</button>
+            </div>
+            <div class="initiative-card">
+                <h3>🌸 Gen-Z Brands</h3>
+                <p>Demand-based scheduling, queue management, and inventory flow control for fitness and beauty.</p>
+                <button class="btn" onclick="document.getElementById('details_genz').scrollIntoView()">View Detailed Code</button>
+            </div>
+        </div>
 
-<div class="algo-section">
-<h2>2. Smart Port Security, Surveillance & Resource Allocation</h2>
-<p>
-Assigns patrol units and emergency responders to incidents with minimum response time,
-ensuring efficient security coverage and rapid crisis handling inside port zones.
-</p>
-<div class="sdg">
-Algorithm: Dijkstra + Stable Matching <br>
-SDG 9, SDG 11, SDG 16
-</div>
-</div>
+        <h2 id="detailed_initiatives">Detailed Initiatives & Algorithm Analysis</h2>
+        
+        <div class="detailed-section" id="details_port">
+            <h2>🚢 Port-Based Ship Repair & Maintenance Hub</h2>
+            <div class="algo-section">
+                <h3>Algorithm: Assembly-Line Scheduling (Dynamic Programming)</h3>
+                <p>This dynamic programming approach minimizes total completion time by finding the fastest path through a series of multi-stage repair workstations (e.g., Hull, Engine, Paint), accounting for time taken to transfer between lines.</p>
+                <ul>
+                    <li>**Time Complexity:** $O(N)$ (where N is the number of stations)</li>
+                    <li>**Use Case:** Scheduling multi-stage repair tasks across workstations to minimize total completion time.</li>
+                </ul>
+                <button class="btn" onclick="toggleCode('code_port_1')">Click for Analysis & Code</button>
+                <div id="code_port_1" class="code-box">
+// C++ Code for Assembly Line Scheduling (Dynamic Programming)
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
 
-<div class="algo-section">
-<h2>3. Port-Based Ship Repair & Maintenance Hub</h2>
-<p>
-Schedules multi-stage ship repair tasks across workstations to minimize total completion
-time and improve turnaround efficiency at port maintenance facilities.
-</p>
-<div class="sdg">
-Algorithm: Assembly Line Scheduling (Dynamic Programming) <br>
-SDG 9, SDG 8
-</div>
-</div>
+// Calculates minimum time to complete repair across 2 assembly lines
+int carAssembly(int a[][4], int t[][4], int e[], int x[]) {
+    int n = 4; // 4 stations (N)
+    int T1[4], T2[4];
 
-<div class="algo-section">
-<h2>4. Harbor Logistics Truck Parking & Cargo Processing</h2>
-<p>
-Controls truck arrival, parking allocation, cargo scanning, and weighing processes to
-prevent congestion and ensure smooth cargo flow inside ports.
-</p>
-<div class="sdg">
-Algorithm: FIFO + Greedy + Simulation <br>
-SDG 9, SDG 11
-</div>
-</div>
+    // Entry time to first station
+    T1[0] = e[0] + a[0][0];
+    T2[0] = e[1] + a[1][0];
 
-<div class="algo-section">
-<h2>5. Port Infrastructure, Cold Storage & Industrial Facility Optimization</h2>
-<p>
-Determines optimal placement of cold storage facilities and delivery routes to minimize
-logistics cost, reduce spoilage, and enhance port-based industrial efficiency.
-</p>
-<div class="sdg">
-Algorithm: Dynamic Programming + Greedy + TSP <br>
-SDG 9, SDG 12, SDG 13
-</div>
-</div>
+    // Fill tables using DP recurrence
+    for (int i = 1; i &lt; n; ++i) {
+        T1[i] = min(T1[i - 1] + a[0][i], 
+                    T2[i - 1] + t[1][i] + a[0][i]);
+        T2[i] = min(T2[i - 1] + a[1][i], 
+                    T1[i - 1] + t[0][i] + a[1][i]);
+    }
 
-<div class="algo-section">
-<h2>6. Beach Wedding & Events Management Hub</h2>
-<p>
-Manages venue booking, décor, staff allocation, and event schedules without conflicts,
-ensuring smooth execution of large-scale coastal events.
-</p>
-<div class="sdg">
-Algorithm: Job Scheduling + Resource Allocation <br>
-SDG 8, SDG 11
-</div>
-</div>
+    // Exit times
+    return min(T1[n - 1] + x[0], T2[n - 1] + x[1]);
+}
 
-<div class="algo-section">
-<h2>7. EV Bike & Water Sports Rental Management</h2>
-<p>
-Tracks rental availability, charging priorities, and equipment usage to maximize asset
-utilization and customer satisfaction at coastal tourism hubs.
-</p>
-<div class="sdg">
-Algorithm: Hash Tables + Priority Queues <br>
-SDG 7, SDG 9, SDG 13
-</div>
-</div>
+int main() {
+    int a[2][4] = {{4, 5, 3, 2}, {2, 10, 1, 4}}; // Station processing times
+    int t[2][4] = {{0, 7, 4, 5}, {0, 9, 2, 8}}; // Transfer times
+    int e[2] = {10, 12}; // Entry times
+    int x[2] = {18, 7};  // Exit times
 
-<div class="algo-section">
-<h2>8. Coastal Food Truck Fleet Management</h2>
-<p>
-Optimizes food-truck routing and inventory distribution across coastal zones to meet demand
-while minimizing food waste and logistics cost.
-</p>
-<div class="sdg">
-Algorithm: Multiple Knapsack + Bin Packing <br>
-SDG 8, SDG 12
-</div>
-</div>
+    cout &lt;&lt; "Minimum Repair Time: " &lt;&lt; carAssembly(a, t, e, x) &lt;&lt; " hours" &lt;&lt; endl;
+    return 0;
+}
+                </div>
+            </div>
+            <div class="algo-section">
+                <h3>Other Port Initiatives</h3>
+                <ul>
+                    <li>**Multilingual BPO:** Round-Robin (for fairness)</li>
+                    <li>**Smart Port Security:** Dijkstra + Stable Matching  (for shortest path + optimal responder assignment)</li>
+                    <li>**Harbor Logistics:** FIFO + Greedy + Simulation (for congestion control)</li>
+                    <li>**Cold Storage Optimization:** Dynamic Programming + Greedy + TSP  (for location + routing)</li>
+                </ul>
+            </div>
+        </div>
 
-<div class="algo-section">
-<h2>9. Customer & Public Service Queue Management System</h2>
-<p>
-Maintains fair queues in banks and government offices while prioritizing emergency cases
-to improve citizen experience and service transparency.
-</p>
-<div class="sdg">
-Algorithm: Round-Robin + Multi-Level Priority Queues <br>
-SDG 10, SDG 16
-</div>
-</div>
+        <div class="detailed-section" id="details_coastal">
+            <h2>🏖 Coastal Food Truck Fleet Management</h2>
+            <div class="algo-section">
+                <h3>Algorithm: Multiple Knapsack + Bin Packing (Dynamic Programming / Greedy)</h3>
+                <p>This is a variation of the knapsack problem, where we determine the optimal set of inventory items (value/profit) to pack into multiple trucks (capacity/weight) going to different zones. It maximizes potential revenue based on space limits.</p>
+                <ul>
+                    <li>**Time Complexity:** $O(N \cdot W)$ (for DP on a single knapsack, extended for multiple)</li>
+                    <li>**Use Case:** Optimizes food-truck routes and inventory distribution across coastal zones.</li>
+                </ul>
+                <button class="btn" onclick="toggleCode('code_coastal_1')">Click for Analysis & Code (0/1 Knapsack Example)</button>
+                <div id="code_coastal_1" class="code-box">
+// C++ Code for 0/1 Knapsack (Core logic for inventory loading)
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
 
-<div class="algo-section">
-<h2>10. Fast Facility Lookup & Navigation System</h2>
-<p>
-Provides instant prefix-based search for rooms, counters, and offices inside large
-facilities such as ports, hospitals, and government buildings.
-</p>
-<div class="sdg">
-Algorithm: Trie <br>
-SDG 9, SDG 11
-</div>
-</div>
+// Returns max value that can be put in knapsack of capacity W
+int knapSack(int W, int wt[], int val[], int n) {
+    int i, w;
+    // K[i][w] stores the maximum value with 'i' items and capacity 'w'
+    vector&lt;vector&lt;int&gt;&gt; K(n + 1, vector&lt;int&gt;(W + 1)); 
 
-<div class="algo-section">
-<h2>11. Digital Advertising & Events Scheduling Hub</h2>
-<p>
-Schedules advertisements and digital events without time overlap while satisfying
-multiple constraints such as budget, duration, and audience reach.
-</p>
-<div class="sdg">
-Algorithm: Interval Scheduling + Constraint Satisfaction <br>
-SDG 9, SDG 8
-</div>
-</div>
+    for (i = 0; i &lt;= n; i++) {
+        for (w = 0; w &lt;= W; w++) {
+            if (i == 0 || w == 0)
+                K[i][w] = 0;
+            else if (wt[i - 1] &lt;= w)
+                // Take item or leave item (Dynamic Programming choice)
+                K[i][w] = max(val[i - 1] + K[i - 1][w - wt[i - 1]], K[i - 1][w]);
+            else
+                K[i][w] = K[i - 1][w]; // Item is too heavy
+        }
+    }
+    return K[n][W];
+}
 
-<div class="algo-section">
-<h2>12. Coastal Massage, Spa & Appointment Booking System</h2>
-<p>
-Handles overlapping spa appointments efficiently, ensuring optimal therapist utilization
-and reduced customer waiting time.
-</p>
-<div class="sdg">
-Algorithm: Segment Trees + Interval Queries <br>
-SDG 3, SDG 8
-</div>
-</div>
+int main() {
+    int val[] = {60, 100, 120}; // Sales value of items (Profit)
+    int wt[] = {10, 20, 30};    // Weight/Space of items (Capacity)
+    int W = 50;                 // Single Truck Capacity
+    int n = sizeof(val) / sizeof(val[0]);
+    
+    cout &lt;&lt; "Max Inventory Value for Truck: " &lt;&lt; knapSack(W, wt, val, n) &lt;&lt; endl;
+    return 0;
+}
+                </div>
+            </div>
+            <div class="algo-section">
+                <h3>Other Coastal Initiatives</h3>
+                <ul>
+                    <li>**Beach Wedding Hub:** Job Scheduling + Resource Allocation (for conflict-free booking)</li>
+                    <li>**EV Bike Rental:** Hash Tables + Priority Queues  (for fast lookup + charge prioritization)</li>
+                </ul>
+            </div>
+        </div>
 
-<div class="algo-section">
-<h2>13. Mental Health & Rehabilitation Hub (Shuvansh)</h2>
-<p>
-Groups patients into compatible therapy clusters to improve treatment effectiveness and
-optimize therapist workload.
-</p>
-<div class="sdg">
-Algorithm: K-Means Clustering <br>
-SDG 3, SDG 10
-</div>
-</div>
+        <div class="detailed-section" id="details_public">
+            <h2>🏦 Customer Service & Public Service Queue Management</h2>
+            <div class="algo-section">
+                <h3>Algorithm: Round-Robin + Multi-Level Priority Queues</h3>
+                <p>This hybrid system ensures fairness for the general public (Round-Robin) while immediately escalating and processing emergency cases (Priority Queue), preventing system collapse during critical demand peaks.</p>
+                <ul>
+                    <li>**Time Complexity:** $O(\log N)$ (for heap operations on the priority queues)</li>
+                    <li>**Use Case:** Maintains fair queues while prioritizing emergency cases (e.g., bank, government office).</li>
+                </ul>
+                <button class="btn" onclick="toggleCode('code_public_1')">Click for Analysis & Code</button>
+                <div id="code_public_1" class="code-box">
+// C++ Code for Multi-Level Priority Queue (Simulating Emergency Dispatch)
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
 
-<div class="algo-section">
-<h2>14. Marine Equipment Manufacturing Unit</h2>
-<p>
-Schedules machine jobs to maximize production output while minimizing idle time and
-operational delays in manufacturing plants.
-</p>
-<div class="sdg">
-Algorithm: Greedy Job Sequencing <br>
-SDG 9, SDG 8
-</div>
-</div>
+// Pair stores {Priority, TicketID}
+void processQueues(priority_queue&lt;pair&lt;int, string&gt;&gt;&amp; emergency, 
+                   queue&lt;string&gt;&amp; standard) {
+    
+    cout &lt;&lt; "--- Processing Queue ---\n";
 
-<div class="algo-section">
-<h2>15. GlowFit Club – Gen-Z Fitness Studio</h2>
-<p>
-Schedules trainers and workout slots dynamically based on real-time demand to maximize
-studio utilization and member satisfaction.
-</p>
-<div class="sdg">
-Algorithm: Greedy + Priority Queues <br>
-SDG 3, SDG 8
-</div>
-</div>
+    // 1. Process all high-priority cases first
+    while (!emergency.empty()) {
+        auto task = emergency.top();
+        emergency.pop();
+        cout &lt;&lt; "EMERGENCY (P" &lt;&lt; task.first &lt;&lt; "): " &lt;&lt; task.second &lt;&lt; " handled.\n";
+    }
 
-<div class="algo-section">
-<h2>16. Beauty & Self-Grooming Studio Management</h2>
-<p>
-Manages multiple beauty services and artist schedules efficiently, avoiding overlaps and
-reducing customer wait times.
-</p>
-<div class="sdg">
-Algorithm: Interval Scheduling <br>
-SDG 8, SDG 10
-</div>
-</div>
+    // 2. Process standard queue (Round-Robin logic can be layered here)
+    int count = 0;
+    while (!standard.empty() &amp;&amp; count &lt; 3) { // Process 3 standard tasks before checking again
+        cout &lt;&lt; "Standard: " &lt;&lt; standard.front() &lt;&lt; " handled.\n";
+        standard.pop();
+        count++;
+    }
+    
+    if(!standard.empty()) cout &lt;&lt; "Remaining standard tasks in queue...\n";
+}
 
-<div class="algo-section">
-<h2>17. Sip & Sculpt Café</h2>
-<p>
-Controls healthy café order flow and ingredient usage smoothly to reduce waste, improve
-service speed, and enhance customer experience.
-</p>
-<div class="sdg">
-Algorithm: Greedy + Queue-Based Order Management <br>
-SDG 12, SDG 8
-</div>
-</div>
+int main() {
+    // Max-Heap for Emergency/High Priority (Higher number = Higher priority)
+    priority_queue&lt;pair&lt;int, string&gt;&gt; emergency_q; 
+    // FIFO Queue for Standard Service
+    queue&lt;string&gt; standard_q; 
 
-</div>
+    // Add tasks
+    standard_q.push("Ticket-A");
+    emergency_q.push({10, "Crisis-101"}); // High priority
+    standard_q.push("Ticket-B");
+    emergency_q.push({5, "Urgent-202"});  // Medium priority
+    standard_q.push("Ticket-C");
+    standard_q.push("Ticket-D");
+
+    processQueues(emergency_q, standard_q);
+    return 0;
+}
+                </div>
+            </div>
+            <div class="algo-section">
+                <h3>Other Public Initiatives</h3>
+                <ul>
+                    <li>**Fast Facility Lookup:** Trie (Prefix Tree)  (for instant autocomplete)</li>
+                    <li>**Digital Advertising Hub:** Interval Scheduling + Constraint Satisfaction (for non-overlapping ad placement)</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="detailed-section" id="details_wellness">
+            <h2>🧘 Mental Health & Rehabilitation Hub</h2>
+            <div class="algo-section">
+                <h3>Algorithm: K-Means Clustering</h3>
+                <p>An unsupervised learning algorithm that groups patients into compatible therapy clusters based on shared attributes (e.g., condition, age, social preference), maximizing the effectiveness of group therapy sessions.</p>
+                <ul>
+                    <li>**Time Complexity:** $O(k \cdot I \cdot N \cdot D)$ ($k$ clusters, $I$ iterations, $N$ patients, $D$ dimensions)</li>
+                    <li>**Use Case:** Groups patients into compatible therapy clusters.</li>
+                </ul>
+                <button class="btn" onclick="toggleCode('code_wellness_1')">Click for Analysis & Code (Conceptual)</button>
+                <div id="code_wellness_1" class="code-box">
+// Python Conceptual Code for K-Means Clustering (Data Grouping)
+// (C++ equivalent is complex, Python is standard for ML/Clustering demonstration)
+
+# Sample Patient Data: [Age, Anxiety_Score, Social_Openness]
+data = [
+    [25, 8.5, 9.1], # A
+    [27, 8.8, 9.0], # B
+    [65, 3.2, 4.5], # C
+    [68, 3.0, 4.2], # D
+    [45, 6.0, 7.0], # E
+]
+
+// K-Means Steps:
+// 1. Initialize K centroids (e.g., K=2: Young Group vs. Senior Group)
+// 2. For each patient, calculate distance to each centroid.
+// 3. Assign patient to the closest cluster.
+// 4. Recalculate the centroid (mean) of each new cluster.
+// 5. Repeat steps 2-4 until centroids stabilize.
+
+from sklearn.cluster import KMeans
+import numpy as np
+
+X = np.array(data)
+kmeans = KMeans(n_clusters=2, random_state=0, n_init=10).fit(X)
+
+print("Cluster Labels for Patients (0 or 1):", kmeans.labels_)
+print("Centroids (Mean Profile of each Cluster):\n", kmeans.cluster_centers_)
+// Patients A, B likely Cluster 0 (Young, High Score)
+// Patients C, D likely Cluster 1 (Senior, Low Score)
+// Patient E is mid-range, assigned to closest cluster
+                </div>
+            </div>
+            <div class="algo-section" id="details_genz">
+                <h3>Other Wellness & Gen-Z Initiatives</h3>
+                <ul>
+                    <li>**Marine Equipment Mfg:** Greedy Job Sequencing (to maximize production)</li>
+                    <li>**Coastal Massage/Spa:** Segment Trees + Interval Queries (for efficient overlapping appointment checks)</li>
+                    <li>**TopFitness Club:** Greedy + Priority Queues (for high-demand scheduling)</li>
+                    <li>**Glow Beauty Studio:** Interval Scheduling (for conflict-free artist bookings)</li>
+                    <li>**Sip & Sculpt Café:** Greedy + Queue-Based Order Management (for smooth order flow)</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function toggleCode(id) {
+            var x = document.getElementById(id);
+            if (x.style.display === "none" || x.style.display === "") {
+                x.style.display = "block";
+                // Optionally change button text to 'Hide Code'
+            } else {
+                x.style.display = "none";
+                // Optionally change button text back
+            }
+        }
+    </script>
+
 </body>
 </html>
