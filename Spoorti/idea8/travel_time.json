@@ -1,0 +1,11 @@
+{
+  "waterPoints": ["Dock A", "Dock B", "Dock C", "Dock D", "Dock E"],
+  "edges": [
+    {"from": 0, "to": 1, "time": 10},
+    {"from": 0, "to": 3, "time": 20},
+    {"from": 1, "to": 2, "time": 15},
+    {"from": 2, "to": 3, "time": 5},
+    {"from": 3, "to": 4, "time": 8}
+  ]
+}
+

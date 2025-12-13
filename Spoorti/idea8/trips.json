@@ -1,0 +1,9 @@
+{
+  "trips": [
+    {"routeName": "Dock A → Dock B", "waitTime": 5},
+    {"routeName": "Dock B → Dock C", "waitTime": 3},
+    {"routeName": "Dock C → Dock D", "waitTime": 7},
+    {"routeName": "Dock D → Dock E", "waitTime": 2},
+    {"routeName": "Dock A → Dock D", "waitTime": 6}
+  ]
+}

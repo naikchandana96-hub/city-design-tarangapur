@@ -1,0 +1,14 @@
+{
+  "waterPoints": ["Dock A", "Dock B", "Dock C", "Dock D"],
+  "edges": [
+    {"from": 0, "to": 1, "time": 10},
+    {"from": 1, "to": 2, "time": 15},
+    {"from": 0, "to": 3, "time": 20},
+    {"from": 2, "to": 3, "time": 5}
+  ],
+  "trips": [
+    {"routeName": "Dock A → Dock B", "waitTime": 5},
+    {"routeName": "Dock B → Dock C", "waitTime": 3},
+    {"routeName": "Dock C → Dock D", "waitTime": 7}
+  ]
+}
