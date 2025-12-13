@@ -1,1 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Port-Based Ship Repair & Maintenance Hub</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+}
+
+.header {
+    text-align: center;
+    padding-bottom: 30px;
+    border-bottom: 4px solid #0f2027;
+    margin-bottom: 40px;
+}
+
+h1 {
+    color: #0f2027;
+    font-size: 2.2em;
+    margin-bottom: 15px;
+}
+
+.tagline {
+    color: #555;
+    font-size: 1.1em;
+    font-style: italic;
+}
+
+h2 {
+    color: #203a43;
+    margin-top: 35px;
+    margin-bottom: 20px;
+    font-size: 1.7em;
+    border-left: 6px solid #0f2027;
+    padding-left: 15px;
+}
+
+h3 {
+    color: #0f2027;
+    margin: 20px 0 12px 0;
+    font-size: 1.3em;
+}
+
+h4 {
+    color: #203a43;
+    margin: 15px 0 10px 0;
+    font-size: 1.1em;
+}
+
+p {
+    margin-bottom: 15px;
+    text-align: justify;
+    color: #333;
+    font-size: 1.02em;
+}
+
+/* UPDATED DESCRIPTION BOX GRADIENT */
+.description-box {
+    background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 50%, #ffd89b 100%);
+    color: white;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 30px 0;
+}
+
+.description-box h2 {
+    color: white;
+    border-left: 6px solid rgba(255,255,255,0.9);
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin: 25px 0;
+}
+
+.metric-card {
+    background: rgba(255,255,255,0.15);
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid white;
+    text-align: center;
+}
+
+.metric-value {
+    font-size: 2em;
+    font-weight: bold;
+    color: white;
+    margin: 10px 0;
+}
+
+.metric-label {
+    color: #f0f0f0;
+    font-size: 0.95em;
+}
+
+.sdg-box {
+    background: #e3f2fd;
+    padding: 25px;
+    border-radius: 8px;
+    border-left: 5px solid #1976d2;
+    margin: 25px 0;
+}
+
+.sdg-box h3 {
+    color: #1565c0;
+    margin-bottom: 15px;
+}
+
+.section-box {
+    background: white;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    border-left: 5px solid #2c5364;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.algo-section {
+    background: #f8f9fa;
+    padding: 30px;
+    margin: 30px 0;
+    border-radius: 10px;
+    border: 2px solid #0f2027;
+}
+
+.problem-box {
+    background: #fff3cd;
+    border-left: 5px solid #ffc107;
+}
+
+.solution-box {
+    background: #d1ecf1;
+    border-left: 5px solid #17a2b8;
+}
+
+.datastructure-box {
+    background: #d4edda;
+    border-left: 5px solid #28a745;
+}
+
+.complexity-box {
+    background: #f8d7da;
+    border-left: 5px solid #dc3545;
+}
+
+.conclusion-box {
+    background: #e7e7ff;
+    border-left: 5px solid #6f42c1;
+}
+
+ul {
+    margin-left: 30px;
+    margin-bottom: 15px;
+}
+
+li {
+    margin: 8px 0;
+    color: #444;
+}
+
+b {
+    color: #0f2027;
+}
+
+.btn {
+    background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 15px 5px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(15, 32, 39, 0.4);
+}
+
+.code-box, .cpp-code {
+    display: none;
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+    font-family: 'Courier New', monospace;
+    white-space: pre;
+    overflow-x: auto;
+    line-height: 1.6;
+    font-size: 0.92em;
+}
+
+.keyword { color: #569cd6; }
+.function { color: #dcdcaa; }
+.comment { color: #6a9955; }
+.string { color: #ce9178; }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background: white;
+}
+
+table th {
+    background: #0f2027;
+    color: white;
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+}
+
+table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+table tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.tech-badge {
+    background: #0f2027;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9em;
+}
+
+.investment-box {
+    background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+    color: white;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 30px 0;
+}
+
+.investment-box h3 {
+    color: white;
+    border-bottom: 2px solid white;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>⚓ Port-Based Ship Repair & Maintenance Hub</h1>
+        <p class="tagline">Multi-Stage Repair Optimization Using Dynamic Programming</p>
+    </div>
+
+    <!-- DESCRIPTION -->
+    <div class="description-box">
+        <h2>📋 Description</h2>
+        <p>
+            A comprehensive ship repair and maintenance facility that optimizes multi-stage repair 
+            workflows across specialized workstations. Using assembly-line scheduling algorithms 
+            powered by dynamic programming, the hub minimizes total completion time while maximizing 
+            resource utilization across hull repair, engine overhaul, electrical systems, painting, 
+            and quality inspection stations.
+        </p>
+        <p>
+            <b>Core Capabilities:</b> Intelligent task sequencing across 8 specialized workstations, 
+            parallel processing optimization, dynamic resource allocation, real-time schedule 
+            adjustments for urgent repairs, and predictive maintenance analytics to prevent vessel 
+            downtime.
+        </p>
+        
+        <div class="metrics-grid" style="margin-top: 25px;">
+            <div class="metric-card">
+                <div class="metric-value">12 days</div>
+                <div class="metric-label">Avg Repair Time</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">85%</div>
+                <div class="metric-label">Station Utilization</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">180+</div>
+                <div class="metric-label">Ships/Year</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">₹420 Cr</div>
+                <div class="metric-label">Annual Revenue</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SDG ALIGNMENT -->
+    <div class="sdg-box">
+        <h3>🌍 UN SDG Alignment</h3>
+        <p><b>Primary Impact:</b> SDG 8 (Decent Work), SDG 9 (Industry & Infrastructure), SDG 12 (Responsible Production)</p>
+        
+        <table style="margin-top: 15px;">
+            <tr>
+                <th>SDG Target</th>
+                <th>Our Solution</th>
+                <th>Impact Achieved</th>
+            </tr>
+            <tr>
+                <td><b>SDG 8.2:</b> Economic productivity through technology</td>
+                <td>Dynamic programming reduces repair time by 35%</td>
+                <td>850+ skilled jobs, ₹420 Cr annual output</td>
+            </tr>
+            <tr>
+                <td><b>SDG 9.1:</b> Develop quality infrastructure</td>
+                <td>Optimized assembly-line scheduling maximizes capacity</td>
+                <td>85% utilization vs 58% industry average</td>
+            </tr>
+            <tr>
+                <td><b>SDG 12.2:</b> Sustainable resource management</td>
+                <td>Minimize material waste through efficient sequencing</td>
+                <td>42% reduction in rework and material waste</td>
+            </tr>
+            <tr>
+                <td><b>SDG 14.1:</b> Prevent marine pollution</td>
+                <td>Proper maintenance reduces at-sea breakdowns/spills</td>
+                <td>95% of ships pass environmental compliance</td>
+            </tr>
+        </table>
+        
+        <p style="margin-top: 15px;">
+            <b>Economic Impact:</b> Supporting ₹2,800 Cr maritime trade through reliable ship 
+            maintenance. Employing 850+ skilled technicians with 18% higher wages than industry average.
+        </p>
+    </div>
+
+    <!-- BUSINESS MODEL -->
+    <h2>💼 Business Model & Market</h2>
+    
+    <div class="section-box">
+        <h3>📊 Key Business Metrics</h3>
+        <div class="metrics-grid">
+            <div class="metric-card" style="background: #f5f5f5; border-left: 4px solid #2c5364;">
+                <div class="metric-value" style="color: #0f2027;">₹420 Cr</div>
+                <div class="metric-label" style="color: #666;">Annual Revenue</div>
+            </div>
+            <div class="metric-card" style="background: #f5f5f5; border-left: 4px solid #2c5364;">
+                <div class="metric-value" style="color: #0f2027;">38%</div>
+                <div class="metric-label" style="color: #666;">EBITDA Margin</div>
+            </div>
+            <div class="metric-card" style="background: #f5f5f5; border-left: 4px solid #2c5364;">
+                <div class="metric-value" style="color: #0f2027;">180</div>
+                <div class="metric-label" style="color: #666;">Ships Serviced/Year</div>
+            </div>
+            <div class="metric-card" style="background: #f5f5f5; border-left: 4px solid #2c5364;">
+                <div class="metric-value" style="color: #0f2027;">92%</div>
+                <div class="metric-label" style="color: #666;">Client Retention</div>
+            </div>
+        </div>
+
+        <h3>💰 Revenue Streams</h3>
+        <ul>
+            <li><b>Major Overhauls:</b> ₹180 Cr/year – Complete ship refurbishment (₹1-3 Cr per vessel)</li>
+            <li><b>Routine Maintenance:</b> ₹120 Cr/year – Scheduled inspections and repairs</li>
+            <li><b>Emergency Repairs:</b> ₹85 Cr/year – Premium pricing for urgent fixes</li>
+            <li><b>Parts & Materials:</b> ₹35 Cr/year – Markup on components and supplies</li>
+        </ul>
+        
+        <h3>📈 Market Opportunity</h3>
+        <p>
+            India's shipping industry operates 1,400+ commercial vessels. Global ship repair market: 
+            $28 billion, growing at 4.2% CAGR. Indian market: ₹15,000 Cr with 15% going overseas due 
+            to capacity constraints. Target: Capture additional 8% of domestic market = ₹1,200 Cr 
+            revenue potential (3x current).
+        </p>
+    </div>
+
+    <!-- TECHNOLOGY STACK -->
+    <h2>⚙️ Technology Stack</h2>
+    <div class="tech-stack">
+        <span class="tech-badge">C++ Optimization Engine</span>
+        <span class="tech-badge">Python Analytics</span>
+        <span class="tech-badge">Dynamic Programming</span>
+        <span class="tech-badge">PostgreSQL Database</span>
+        <span class="tech-badge">Redis Queue</span>
+        <span class="tech-badge">React Scheduling UI</span>
+        <span class="tech-badge">IoT Sensors</span>
+        <span class="tech-badge">3D Modeling CAD</span>
+        <span class="tech-badge">Azure Cloud</span>
+    </div>
+
+    <!-- ALGORITHM: Assembly-Line Scheduling -->
+    <div class="algo-section">
+        <h2>Algorithm: Assembly-Line Scheduling (Dynamic Programming)</h2>
+
+        <div class="section-box problem-box">
+            <h3>🎯 Problem Statement</h3>
+            <p>
+                A ship passes through n repair stations (S1, S2, ..., Sn) arranged in two parallel 
+                assembly lines (Line 1 and Line 2). Each station performs specific tasks with different 
+                processing times. Ships can switch between lines between stations with a transfer cost. 
+                Determine the optimal path through stations to minimize total completion time.
+            </p>
+            <p><b>Input:</b> Processing times a[i][j] for station j on line i, Transfer costs t[i][j] to switch lines after station j, Entry/exit times e[i] and x[i]</p>
+            <p><b>Output:</b> Minimum time path and which line to use at each station</p>
+            <p><b>Constraints:</b> Must complete all stations in sequence, can only switch between adjacent stations</p>
+        </div>
+
+        <div class="section-box solution-box">
+            <h3>💡 Solution Approach</h3>
+            <p>
+                Use <b>Dynamic Programming</b> to build optimal solution bottom-up. Define f[i][j] = 
+                minimum time to reach station j on line i. At each station, choose minimum between: 
+                (1) staying on same line, or (2) transferring from other line. Track decisions to 
+                reconstruct optimal path.
+            </p>
+            <p><b>Why Dynamic Programming?</b></p>
+            <ul>
+                <li><b>Optimal Substructure:</b> Optimal path to station j includes optimal path to station j-1</li>
+                <li><b>Overlapping Subproblems:</b> Same subproblems solved multiple times</li>
+                <li><b>Guaranteed Optimality:</b> Finds globally optimal solution, not just local minimum</li>
+                <li><b>Efficient:</b> O(n) time vs O(2^n) brute force for n stations</li>
+                <li><b>Handles Complex Constraints:</b> Transfer costs, parallel lines, sequential dependencies</li>
+            </ul>
+        </div>
+
+        <button class="btn" onclick="toggleCode('algo1')">Show Pseudocode</button>
+        <button class="btn" onclick="toggleCode('cpp1')">Show C++ Code</button>
+
+        <div id="algo1" class="code-box">
+ALGORITHM AssemblyLineScheduling(a, t, e, x, n)
+INPUT:
+    a[2][n] = processing times (a[i][j] = time at station j on line i)
+    t[2][n] = transfer costs (t[i][j] = cost to switch from line i after station j)
+    e[2] = entry times for line 1 and line 2
+    x[2] = exit times for line 1 and line 2
+    n = number of stations
+OUTPUT:
+    Minimum completion time and optimal path
+
+BEGIN
+    // Arrays to store minimum times and line choices
+    f[2][n]  // f[i][j] = min time to reach station j on line i
+    l[2][n]  // l[i][j] = which line was used before station j on line i
+    
+    // Base case: First station
+    f[1][1] = e[1] + a[1][1]
+    f[2][1] = e[2] + a[2][1]
+    
+    // Fill the DP table station by station
+    FOR j = 2 TO n DO
+        // Line 1, station j
+        // Option 1: Stay on line 1
+        stayOnLine1 = f[1][j-1] + a[1][j]
+        // Option 2: Transfer from line 2
+        transferFromLine2 = f[2][j-1] + t[2][j-1] + a[1][j]
+        
+        IF stayOnLine1 <= transferFromLine2 THEN
+            f[1][j] = stayOnLine1
+            l[1][j] = 1  // Came from line 1
+        ELSE
+            f[1][j] = transferFromLine2
+            l[1][j] = 2  // Came from line 2
+        END IF
+        
+        // Line 2, station j
+        // Option 1: Stay on line 2
+        stayOnLine2 = f[2][j-1] + a[2][j]
+        // Option 2: Transfer from line 1
+        transferFromLine1 = f[1][j-1] + t[1][j-1] + a[2][j]
+        
+        IF stayOnLine2 <= transferFromLine1 THEN
+            f[2][j] = stayOnLine2
+            l[2][j] = 2  // Came from line 2
+        ELSE
+            f[2][j] = transferFromLine1
+            l[2][j] = 1  // Came from line 1
+        END IF
+    END FOR
+    
+    // Find minimum exit time
+    exitTime1 = f[1][n] + x[1]
+    exitTime2 = f[2][n] + x[2]
+    
+    IF exitTime1 <= exitTime2 THEN
+        minTime = exitTime1
+        finalLine = 1
+    ELSE
+        minTime = exitTime2
+        finalLine = 2
+    END IF
+    
+    // Reconstruct optimal path
+    path = []
+    currentLine = finalLine
+    
+    FOR j = n DOWN TO 1 DO
+        path.prepend(currentLine)
+        IF j > 1 THEN
+            currentLine = l[currentLine][j]
+        END IF
+    END FOR
+    
+    RETURN {
+        minimumTime: minTime,
+        optimalPath: path,
+        stationTimes: f
+    }
+END
+        </div>
+
+        <div id="cpp1" class="cpp-code">
+<span class="comment">// C++ Implementation - Assembly-Line Scheduling for Ship Repair</span>
+
+<span class="keyword">#include</span> <span class="string">&lt;iostream&gt;</span>
+<span class="keyword">#include</span> <span class="string">&lt;vector&gt;</span>
+<span class="keyword">#include</span> <span class="string">&lt;algorithm&gt;</span>
+<span class="keyword">#include</span> <span class="string">&lt;climits&gt;</span>
+<span class="keyword">using namespace</span> std;
+
+<span class="keyword">struct</span> <span class="function">ScheduleResult</span> {
+    <span class="keyword">int</span> minimumTime;
+    vector&lt;<span class="keyword">int</span>&gt; optimalPath;
+    vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; stationTimes;
+};
+
+<span class="keyword">class</span> <span class="function">AssemblyLineScheduler</span> {
+<span class="keyword">private</span>:
+    <span class="keyword">int</span> numStations;
+    vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; processingTime;  <span class="comment">// a[i][j]</span>
+    vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; transferCost;    <span class="comment">// t[i][j]</span>
+    vector&lt;<span class="keyword">int</span>&gt; entryTime;            <span class="comment">// e[i]</span>
+    vector&lt;<span class="keyword">int</span>&gt; exitTime;             <span class="comment">// x[i]</span>
+    
+<span class="keyword">public</span>:
+    AssemblyLineScheduler(<span class="keyword">int</span> n, 
+                          vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;& a,
+                          vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;& t,
+                          vector&lt;<span class="keyword">int</span>&gt;& e,
+                          vector&lt;<span class="keyword">int</span>&gt;& x)
+        : numStations(n), processingTime(a), transferCost(t),
+          entryTime(e), exitTime(x) {}
+    
+    ScheduleResult <span class="function">optimize</span>() {
+        <span class="comment">// DP tables</span>
+        vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; f(2, vector&lt;<span class="keyword">int</span>&gt;(numStations));
+        vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; l(2, vector&lt;<span class="keyword">int</span>&gt;(numStations));
+        
+        <span class="comment">// Base case: First station (index 0)</span>
+        f[0][0] = entryTime[0] + processingTime[0][0];
+        f[1][0] = entryTime[1] + processingTime[1][0];
+        
+        <span class="comment">// Fill DP table for remaining stations</span>
+        <span class="keyword">for</span> (<span class="keyword">int</span> j = 1; j < numStations; j++) {
+            <span class="comment">// Line 1 (index 0)</span>
+            <span class="keyword">int</span> stayOnLine1 = f[0][j-1] + processingTime[0][j];
+            <span class="keyword">int</span> transferFromLine2 = f[1][j-1] + 
+                                      transferCost[1][j-1] + 
+                                      processingTime[0][j];
+            
+            <span class="keyword">if</span> (stayOnLine1 <= transferFromLine2) {
+                f[0][j] = stayOnLine1;
+                l[0][j] = 0;  <span class="comment">// Came from line 1</span>
+            } <span class="keyword">else</span> {
+                f[0][j] = transferFromLine2;
+                l[0][j] = 1;  <span class="comment">// Came from line 2</span>
+            }
+            
+            <span class="comment">// Line 2 (index 1)</span>
+            <span class="keyword">int</span> stayOnLine2 = f[1][j-1] + processingTime[1][j];
+            <span class="keyword">int</span> transferFromLine1 = f[0][j-1] + 
+                                      transferCost[0][j-1] + 
+                                      processingTime[1][j];
+            
+            <span class="keyword">if</span> (stayOnLine2 <= transferFromLine1) {
+                f[1][j] = stayOnLine2;
+                l[1][j] = 1;  <span class="comment">// Came from line 2</span>
+            } <span class="keyword">el
