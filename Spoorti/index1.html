@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>10 Business Ideas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* ---------- base ---------- */
+:root{
+  --green: #00ff6a;
+  --sky:   #00c2ff;
+  --vio:   #b94dff;
+  --accent-border: rgba(185,77,255,0.18);
+  --card-bg: linear-gradient(135deg, #d0ffd6, #d7f1ff, #ecd4ff);
+}
+
+* { box-sizing: border-box; }
+
+body{
+  margin:0;
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(135deg,#e6faff 0%, #f7fff8 100%);
+  color: #123;
+  padding: 28px 16px;
+}
+
+/* container */
+.container{
+  max-width: 960px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 14px;
+  padding: 28px;
+  border: 4px solid var(--accent-border);
+  box-shadow: 0 8px 30px rgba(12,20,40,0.08);
+}
+
+/* animated gradient title */
+.fancy-title{
+  font-size: 34px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 22px;
+  color: var(--vio);   /* solid purple */
+}
+
+/* cards */
+.algo-section{
+  background: var(--card-bg);
+  border-left: 6px solid var(--green);
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(10,20,40,0.08);
+  margin-top: 22px;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.algo-section:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(18,30,70,0.18);
+}
+
+/* headings */
+.algo-section h2{
+  margin: 0 0 8px 0;
+  color: #3b2163;
+}
+
+/* text */
+.algo-section p{
+  color: #2b2b2b;
+  line-height: 1.7;
+  margin: 6px 0;
+}
+
+.sdg{
+  margin-top: 8px;
+  font-weight: bold;
+  color: #0a7d3b;
+}
+
+/* responsive */
+@media (max-width:720px){
+  .fancy-title{ font-size: 26px; }
+  .container{ padding: 18px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1 class="fancy-title">10 Business Ideas</h1>
+
+<div class="algo-section">
+  <h2>1. Smart Fish Market Auction Platform</h2>
+  <p>
+    The Smart Fish Market Auction Platform is a digital system that connects fishermen
+    and buyers through real-time online bidding. Fishermen upload their daily catch with
+    base prices, and buyers place bids from anywhere. The platform automatically selects
+    the highest bidder for each fish lot, ensuring transparent and fair pricing. By reducing
+    middlemen and speeding up the selling process, this system helps fishermen earn more
+    and allows buyers to access fresh seafood quickly and efficiently.
+  </p>
+  <div class="sdg">SDG 8 – Decent Work and Economic Growth</div>
+</div>
+
+<div class="algo-section">
+  <h2>2. Eco-Tourism Route Optimization App</h2>
+  <p>
+    The Eco-Tourism Route Optimization App helps tourists explore the best attractions
+    through smart, personalized route planning. Users select their interests such as
+    beaches, waterfalls, temples, or nature trails, and the app calculates the most
+    efficient travel path using real-time data. This ensures a smooth and time-saving
+    travel experience while promoting sustainable and well-managed tourism.
+  </p>
+  <div class="sdg">SDG 11 – Sustainable Cities and Communities</div>
+</div>
+
+<div class="algo-section">
+  <h2>3. Smart Irrigation & Paddy Water Distribution System</h2>
+  <p>
+    The Smart Irrigation and Paddy Water Distribution system helps farmers manage water
+    efficiently using sensor data and intelligent allocation algorithms. It continuously
+    monitors soil moisture, weather conditions, and crop growth stages, and automatically
+    adjusts irrigation schedules to save water and improve crop productivity.
+  </p>
+  <div class="sdg">SDG 12 – Responsible Consumption and Production</div>
+</div>
+
+<div class="algo-section">
+  <h2>4. Autonomous Beach Cleaning Robots</h2>
+  <p>
+    Autonomous robots patrol beaches to detect waste using sensors and collect it
+    efficiently through smart path-planning algorithms. These robots reduce the need
+    for manual labor, maintain cleaner beaches, and support sustainable coastal and
+    marine ecosystem management.
+  </p>
+  <div class="sdg">SDG 14 – Life Below Water</div>
+</div>
+
+<div class="algo-section">
+  <h2>5. Micro Solar Energy Trading Platform</h2>
+  <p>
+    The micro solar energy trading platform enables households to buy and sell surplus
+    solar power. Smart matching and pricing algorithms efficiently connect buyers and
+    sellers, helping reduce energy costs, increase renewable energy usage, and promote
+    sustainable energy adoption.
+  </p>
+  <div class="sdg">SDG 7 – Affordable and Clean Energy</div>
+</div>
+
+<div class="algo-section">
+  <h2>6. Fishery Fuel Optimization System</h2>
+  <p>
+    The fishery fuel optimization system identifies efficient routes for fishing boats
+    using path-finding algorithms and historical catch pattern data. It minimizes fuel
+    consumption, increases profits for fishermen, and promotes environmentally
+    responsible and sustainable fishing practices.
+  </p>
+  <div class="sdg">SDG 14 – Life Below Water</div>
+</div>
+
+<div class="algo-section">
+  <h2>7. Smart Farmer Price Forecasting</h2>
+  <p>
+    The smart farmer price forecasting system uses historical market data, seasonal
+    trends, and forecasting algorithms to predict crop prices. It helps farmers choose
+    the best time to sell their produce, reduce losses, and improve income stability.
+  </p>
+  <div class="sdg">SDG 2 – Zero Hunger</div>
+</div>
+
+<div class="algo-section">
+  <h2>8. Water Taxi & Coastal Boat Routing</h2>
+  <p>
+    The water taxi and coastal boat routing system provides fast and efficient water-based
+    transportation across rivers and coastal regions. Smart routing algorithms reduce
+    travel time, fuel costs, and improve connectivity while supporting sustainable urban
+    transport.
+  </p>
+  <div class="sdg">SDG 11 – Sustainable Cities and Communities</div>
+</div>
+
+</div>
+
+</body>
+</html>
