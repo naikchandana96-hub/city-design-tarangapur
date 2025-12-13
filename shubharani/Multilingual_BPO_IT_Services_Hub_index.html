@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Multilingual BPO & IT Services Hub</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+ font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+ line-height:1.6;
+ background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+ padding:20px;
+}
+.container{
+ max-width:1200px;
+ margin:0 auto;
+ background:white;
+ padding:40px;
+ border-radius:12px;
+ box-shadow:0 15px 50px rgba(0,0,0,0.3);
+}
+.header{
+ text-align:center;
+ padding-bottom:30px;
+ border-bottom:4px solid #667eea;
+ margin-bottom:40px;
+}
+h1{color:#1e3c72;font-size:2.3em;margin-bottom:12px}
+.tagline{color:#555;font-style:italic}
+h2{
+ color:#2a5298;
+ margin-top:35px;
+ margin-bottom:20px;
+ border-left:6px solid #667eea;
+ padding-left:15px;
+}
+h3{color:#1e3c72;margin:20px 0 12px}
+p{margin-bottom:15px;text-align:justify;color:#333}
+.description-box{
+ background:linear-gradient(135deg,#43cea2 0%,#185a9d 100%);
+ color:white;
+ padding:30px;
+ border-radius:10px;
+ margin:30px 0;
+}
+.description-box h2{color:white;border-left:6px solid white}
+.section-box{
+ background:white;
+ padding:20px;
+ margin:20px 0;
+ border-radius:8px;
+ border-left:5px solid #667eea;
+ box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+.algo-section{
+ background:#f0f4ff;
+ padding:30px;
+ margin:30px 0;
+ border-radius:10px;
+ border:2px solid #667eea;
+}
+.problem-box{background:#fff3cd;border-left:5px solid #ffc107}
+.solution-box{background:#d1ecf1;border-left:5px solid #17a2b8}
+.datastructure-box{background:#d4edda;border-left:5px solid #28a745}
+.complexity-box{background:#f8d7da;border-left:5px solid #dc3545}
+.conclusion-box{background:#e7e7ff;border-left:5px solid #6f42c1}
+ul{margin-left:30px}
+li{margin:8px 0}
+table{
+ width:100%;
+ border-collapse:collapse;
+ margin:20px 0;
+}
+th{
+ background:#667eea;
+ color:white;
+ padding:12px;
+}
+td{
+ padding:12px;
+ border:1px solid #ddd;
+}
+tr:nth-child(even){background:#f9f9f9}
+.btn{
+ background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+ color:white;
+ border:none;
+ padding:12px 25px;
+ border-radius:5px;
+ cursor:pointer;
+ margin:10px 5px;
+}
+.code-box{
+ display:none;
+ background:#1e1e1e;
+ color:#d4d4d4;
+ padding:20px;
+ border-radius:8px;
+ font-family:Courier New,monospace;
+ white-space:pre;
+ overflow-x:auto;
+}
+</style>
+<script>
+function toggleCode(id){
+ var e=document.getElementById(id);
+ e.style.display=(e.style.display==="block")?"none":"block";
+}
+</script>
+</head>
+<body>
+
+<div class="container">
+
+<div class="header">
+<h1>🌐 Multilingual BPO & IT Services Hub</h1>
+<p class="tagline">Fair Call Distribution using Round‑Robin Scheduling</p>
+</div>
+
+<div class="description-box">
+<h2>📋 Description</h2>
+<p>
+A large-scale multilingual BPO and IT services hub providing 24/7 customer support
+across 15+ Indian and global languages. The platform uses algorithmic scheduling
+to fairly distribute calls among skilled agents while minimizing customer wait time.
+</p>
+<p>
+<b>Core Capabilities:</b> Language-based routing, round‑robin fairness, workload balancing,
+real‑time analytics, remote workforce enablement, and SLA monitoring.
+</p>
+</div>
+
+<h2>🌍 UN SDG Alignment</h2>
+<div class="section-box">
+<table>
+<tr>
+<th>SDG</th><th>Contribution</th><th>Impact</th>
+</tr>
+<tr>
+<td>SDG 8</td>
+<td>Decent Work & Economic Growth</td>
+<td>2,500+ jobs, fair workload distribution</td>
+</tr>
+<tr>
+<td>SDG 9</td>
+<td>Industry & Innovation</td>
+<td>Algorithm‑driven service optimization</td>
+</tr>
+<tr>
+<td>SDG 10</td>
+<td>Reduced Inequalities</td>
+<td>No bias in task assignment</td>
+</tr>
+<tr>
+<td>SDG 11</td>
+<td>Sustainable Cities</td>
+<td>Remote work reduces urban migration</td>
+</tr>
+</table>
+</div>
+
+<div class="algo-section">
+<h2>Algorithm: Round‑Robin Scheduling</h2>
+
+<div class="section-box problem-box">
+<h3>🎯 Problem Statement</h3>
+<p>
+Distribute incoming customer calls among multilingual agents such that each agent
+receives tasks fairly, no agent is overloaded, and customer wait time is minimized.
+</p>
+</div>
+
+<div class="section-box solution-box">
+<h3>💡 Solution</h3>
+<p>
+Agents are placed in a circular queue. Each incoming call is assigned to the next
+eligible agent in sequence. After assignment, the agent moves to the back of the queue.
+This guarantees fairness and prevents starvation.
+</p>
+</div>
+
+<div class="section-box datastructure-box">
+<h3>🧠 Data Structures Used</h3>
+<ul>
+<li>Queue – to cycle through agents</li>
+<li>Hash Map – language → eligible agents</li>
+</ul>
+</div>
+
+<div class="section-box complexity-box">
+<h3>⏱ Time & Space Complexity</h3>
+<ul>
+<li>Time: O(1) per call assignment</li>
+<li>Space: O(N) for agent queue</li>
+</ul>
+</div>
+
+<button class="btn" onclick="toggleCode('code1')">Show Pseudocode</button>
+
+<div id="code1" class="code-box">
+Initialize queue Q with all available agents
+
+For each incoming call:
+    For at most size(Q) agents:
+        agent = Q.pop_front()
+        if agent supports required language:
+            assign call to agent
+            Q.push_back(agent)
+            break
+        else:
+            Q.push_back(agent)
+</div>
+
+<div class="section-box conclusion-box">
+<h3>✅ Conclusion</h3>
+<p>
+Round‑Robin scheduling ensures transparent, fair, and scalable operations for a
+multilingual BPO environment. It improves employee satisfaction while maintaining
+high customer service quality.
+</p>
+</div>
+
+</div>
+
+</div>
+</body>
+</html>
