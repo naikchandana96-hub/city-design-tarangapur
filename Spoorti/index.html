@@ -6,11 +6,9 @@
 <link rel="stylesheet" href="style1.css">
 </head>
 <body>
+    
  <!--------------idea1--------->
  <div class="container">
-
-  
-
 
     <img class="main-img" 
     src="img1.png.png"
@@ -28,8 +26,7 @@
 
         <p><b>How this algorithm is helpful?</b></p>
         <ul>
-            <li>Stores fish listings in sorted order
-  (type, weight, freshness, base price).</li>
+            <li>Stores fish listings in sorted order (type, weight, freshness, base price).</li>
             <li>Ensures fast search, insert, delete.</li>
             <li>Prevents duplicate listings and allows quick updates.</li>
         </ul>
@@ -41,9 +38,14 @@
         </ul>
 
         <button class="btn" onclick="toggleCode('code1')">Show Algorithm Code</button>
-
+        <button class="btn" onclick="runAVL()">Run Algorithm</button>
+<div id="output-avl" class="output-card"></div>
         <div id="code1" class="code-box">
-#include <iostream>
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;string&gt;
+#include "json.hpp"
+using json = nlohmann::json;
 using namespace std;
 
 struct Node {
@@ -64,16 +66,12 @@ Node* createNode(string name, int price) {
     return n;
 }
 
-int getBalance(Node* n) {
-    if (!n) return 0;
-    return height(n->left) - height(n->right);
-}
+int getBalance(Node* n) { return (n ? height(n->left) - height(n->right) : 0); }
 
 Node* rightRotate(Node* y) {
     Node* x = y->left;
-    Node* T2 = x->right;
+    y->left = x->right;
     x->right = y;
-    y->left = T2;
 
     y->height = max(height(y->left), height(y->right)) + 1;
     x->height = max(height(x->left), height(x->right)) + 1;
@@ -83,9 +81,8 @@ Node* rightRotate(Node* y) {
 
 Node* leftRotate(Node* x) {
     Node* y = x->right;
-    Node* T2 = y->left;
+    x->right = y->left;
     y->left = x;
-    x->right = T2;
 
     x->height = max(height(x->left), height(x->right)) + 1;
     y->height = max(height(y->left), height(y->right)) + 1;
@@ -101,30 +98,48 @@ Node* insertNode(Node* root, string name, int price) {
     else if (price > root->price)
         root->right = insertNode(root->right, name, price);
     else
-        return root; // duplicate price not allowed
+        return root;
 
     root->height = 1 + max(height(root->left), height(root->right));
 
     int balance = getBalance(root);
 
-    // Rotations
-    if (balance > 1 && price < root->left->price)
-        return rightRotate(root);
-
-    if (balance < -1 && price > root->right->price)
-        return leftRotate(root);
+    if (balance > 1 && price < root->left->price) return rightRotate(root);
+    if (balance < -1 && price > root->right->price) return leftRotate(root);
 
     if (balance > 1 && price > root->left->price) {
         root->left = leftRotate(root->left);
         return rightRotate(root);
     }
-
     if (balance < -1 && price < root->right->price) {
         root->right = rightRotate(root->right);
         return leftRotate(root);
     }
-
     return root;
+}
+
+void inorder(Node* root) {
+    if (!root) return;
+    inorder(root->left);
+    cout << root->fishName << " — Rs." << root->price << endl;
+    inorder(root->right);
+}
+
+int main() {
+    ifstream file("fish_listings.json");
+    json data;
+    file >> data;
+
+    Node* root = nullptr;
+
+    for (auto &f : data["fish_listings"]) {
+        root = insertNode(root, f["name"], f["price"]);
+    }
+
+    cout << "✔ Fish List (AVL Inorder Sorted):\n";
+    inorder(root);
+
+    return 0;
 }
         </div>
     </div>
@@ -135,22 +150,26 @@ Node* insertNode(Node* root, string name, int price) {
 
         <p><b>How this algorithm is helpful?</b></p>
         <ul>
-            <li>Tracks highest bid instantly. </li>
+            <li>Tracks highest bid instantly.</li>
             <li>Used during real-time bidding.</li>
             <li>Ensures buyers always see the highest valid bid.</li>
         </ul>
 
         <p><b>Efficiency:</b></p>
         <ul>
-            <li>Time Complexity: Insert:<b>O(log n)</b><br>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp  &nbspGet Max Bid:<b> O(1)</b></li>
+            <li>Time Complexity: Insert: <b>O(log n)</b>, Get Max: <b>O(1)</b></li>
             <li>Space Complexity: <b>O(n)</b></li>
         </ul>
 
         <button class="btn" onclick="toggleCode('code2')">Show Algorithm Code</button>
-
+        <button class="btn" onclick="runHeap()">Run Algorithm</button>
+<div id="output-heap" class="output-card"></div>
         <div id="code2" class="code-box">
-#include <iostream>
-#include <queue>
+#include &lt;iostream&gt;
+#include &lt;queue&gt;
+#include &lt;fstream&gt;
+#include "json.hpp"
+using json = nlohmann::json;
 using namespace std;
 
 struct Bid {
@@ -158,21 +177,28 @@ struct Bid {
     string buyer;
 };
 
-// Max Heap (largest bid first)
 struct CompareBid {
     bool operator()(Bid const& b1, Bid const& b2) {
         return b1.amount < b2.amount;
     }
 };
 
-priority_queue<Bid, vector<Bid>, CompareBid> bidHeap;
+priority_queue&lt;Bid, vector&lt;Bid&gt;, CompareBid&gt; bidHeap;
 
-void placeBid(string buyer, int amount) {
-    bidHeap.push({amount, buyer});
-}
+int main() {
+    ifstream file("bids.json");
+    json data;
+    file >> data;
 
-Bid getHighestBid() {
-    return bidHeap.top();
+    for (auto &b : data["bids"]) {
+        bidHeap.push({b["amount"], b["buyer"]});
+    }
+
+    cout << "✔ Highest Current Bid:\n";
+    Bid top = bidHeap.top();
+    cout << "Buyer: " << top.buyer << " | Amount: Rs." << top.amount << endl;
+
+    return 0;
 }
         </div>
     </div>
@@ -183,41 +209,73 @@ Bid getHighestBid() {
 
         <p><b>How this algorithm is helpful?</b></p>
         <ul>
-            <li> Automatically selects the highest valid bid. </li>
-            <li> Removes it from heap and declares winner.</li>
+            <li>Automatically selects the highest valid bid.</li>
+            <li>Removes it from heap and declares winner.</li>
             <li>Ensures fair, transparent auction results.</li>
         </ul>
 
         <p><b>Efficiency:</b></p>
         <ul>
             <li>Time Complexity: <b>O(log n)</b></li>
-             <li>Space Complexity: <b>O(n)</b></li>
+            <li>Space Complexity: <b>O(n)</b></li>
         </ul>
 
         <button class="btn" onclick="toggleCode('code3')">Show Algorithm Code</button>
-
+        <button class="btn" onclick="runWinner()">Run Algorithm</button>
+<div id="output-winner" class="output-card"></div>
         <div id="code3" class="code-box">
-#include <iostream>
+#include &lt;iostream&gt;
+#include &lt;queue&gt;
+#include &lt;fstream&gt;
+#include "json.hpp"
+using json = nlohmann::json;
 using namespace std;
 
-void declareWinner() {
+struct Bid {
+    int amount;
+    string buyer;
+};
+
+struct CompareBid {
+    bool operator()(Bid const& b1, Bid const& b2) {
+        return b1.amount < b2.amount;
+    }
+};
+
+priority_queue&lt;Bid, vector&lt;Bid&gt;, CompareBid&gt; bidHeap;
+
+int main() {
+    ifstream file("bids.json");
+    json data;
+    file >> data;
+
+    for (auto &b : data["bids"]) {
+        bidHeap.push({b["amount"], b["buyer"]});
+    }
+
     if (bidHeap.empty()) {
-        cout << "No bids placed.\n";
-        return;
+        cout << "No bids found.\n";
+        return 0;
     }
 
     Bid winner = bidHeap.top();
     bidHeap.pop();
 
-    cout << "Winner: " << winner.buyer 
-         << " | Winning Bid: Rs." << winner.amount << endl;
-}
+    cout << "🏆 WINNER DECLARED 🏆\n";
+    cout << "Buyer: " << winner.buyer << endl;
+    cout << "Winning Bid: Rs." << winner.amount << endl;
 
+    return 0;
+}
         </div>
     </div>
 
- </div>
- </div>
+</div>
+
+
+
+
+
  <!--------------idea2--------->
  <div class="container">
 
@@ -254,11 +312,15 @@ void declareWinner() {
             <li>Space Complexity: <b>O(n)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('code4')">Show Algorithm Code</button>
-
+        <button class="btn" onclick="toggleCode('code4')">Show Algorithm Code</button>&nbsp &nbsp
+  <button class="btn" onclick="runAVL2()">Run Algorithm</button>
+<div id="output-avl2" class="output-card"></div>
         <div id="code4" class="code-box">
 <pre><code>
-#include &lt;iostream&gt;
+#include <iostream>
+#include <fstream>
+#include "json.hpp"
+using json = nlohmann::json;
 using namespace std;
 
 struct Node {
@@ -268,22 +330,18 @@ struct Node {
     int height;
 };
 
-int height(Node* n) { return (n == nullptr ? 0 : n->height); }
+int height(Node* n){ return n ? n->height : 0; }
 
-Node* createNode(string name, int rank) {
-    Node* n = new Node();
-    n->locationName = name;
-    n->ecoRank = rank;
-    n->left = n->right = nullptr;
-    n->height = 1;
+Node* createNode(string name, int rank){
+    Node* n = new Node{name, rank, nullptr, nullptr, 1};
     return n;
 }
 
-int getBalance(Node* n) {
-    return (!n ? 0 : height(n->left) - height(n->right));
+int getBalance(Node* n){
+    return n ? height(n->left) - height(n->right) : 0;
 }
 
-Node* rightRotate(Node* y) {
+Node* rightRotate(Node* y){
     Node* x = y->left;
     Node* T2 = x->right;
 
@@ -296,7 +354,7 @@ Node* rightRotate(Node* y) {
     return x;
 }
 
-Node* leftRotate(Node* x) {
+Node* leftRotate(Node* x){
     Node* y = x->right;
     Node* T2 = y->left;
 
@@ -309,12 +367,12 @@ Node* leftRotate(Node* x) {
     return y;
 }
 
-Node* insertNode(Node* root, string name, int ecoRank) {
-    if (!root) return createNode(name, ecoRank);
+Node* insertNode(Node* root, string name, int ecoRank){
+    if(!root) return createNode(name, ecoRank);
 
-    if (ecoRank &lt; root->ecoRank)
+    if(ecoRank < root->ecoRank)
         root->left = insertNode(root->left, name, ecoRank);
-    else if (ecoRank &gt; root->ecoRank)
+    else if(ecoRank > root->ecoRank)
         root->right = insertNode(root->right, name, ecoRank);
     else
         return root;
@@ -322,24 +380,48 @@ Node* insertNode(Node* root, string name, int ecoRank) {
     root->height = 1 + max(height(root->left), height(root->right));
     int balance = getBalance(root);
 
-    if (balance &gt; 1 && ecoRank &lt; root->left->ecoRank)
+    if(balance > 1 && ecoRank < root->left->ecoRank)
         return rightRotate(root);
 
-    if (balance &lt; -1 && ecoRank &gt; root->right->ecoRank)
+    if(balance < -1 && ecoRank > root->right->ecoRank)
         return leftRotate(root);
 
-    if (balance &gt; 1 && ecoRank &gt; root->left->ecoRank) {
+    if(balance > 1 && ecoRank > root->left->ecoRank){
         root->left = leftRotate(root->left);
         return rightRotate(root);
     }
 
-    if (balance &lt; -1 && ecoRank &lt; root->right->ecoRank) {
+    if(balance < -1 && ecoRank < root->right->ecoRank){
         root->right = rightRotate(root->right);
         return leftRotate(root);
     }
 
     return root;
 }
+
+void inorder(Node* root){
+    if(root){
+        inorder(root->left);
+        cout << root->locationName << " (Rank " << root->ecoRank << ")\n";
+        inorder(root->right);
+    }
+}
+
+int main(){
+    ifstream file("eco_locations.json");
+    json j;
+    file >> j;
+
+    Node* root = nullptr;
+
+    for(auto &loc : j["eco_locations"]){
+        root = insertNode(root, loc["name"], loc["rank"]);
+    }
+
+    cout << "\nAVL Tree (Sorted by Eco Rank):\n";
+    inorder(root);
+}
+
 </code></pre>
         </div>
     </div>
@@ -361,44 +443,71 @@ Node* insertNode(Node* root, string name, int ecoRank) {
             <li>Space Complexity: <b>O(V)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('code5')">Show Algorithm Code</button>
-
+        <button class="btn" onclick="toggleCode('code5')">Show Algorithm Code</button> &nbsp &nbsp
+  <button class="btn" onclick="runDijkstra()">Run Algorithm</button>
+<div id="output-dijkstra" class="output-card"></div>
         <div id="code5" class="code-box">
 <pre><code>
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;queue&gt;
+#include <emscripten.h>
+#include <vector>
+#include <queue>
+#include <string>
+#include <sstream>
+#include "json.hpp"
+
+using json = nlohmann::json;
 using namespace std;
 
-vector&lt;vector&lt;pair&lt;int, int&gt;&gt;&gt; graph;
+extern "C" {
 
-vector&lt;int&gt; dijkstra(int start, int n) {
-    vector&lt;int&gt; dist(n, 1e9);
-    priority_queue&lt;pair&lt;int,int&gt;,
-                   vector&lt;pair&lt;int,int&gt;&gt;,
-                   greater&lt;pair&lt;int,int&gt;&gt;&gt; pq;
+EMSCRIPTEN_KEEPALIVE
+const char* run_dijkstra(const char* jsonStr) {
+    static string result;
+    stringstream ss;
 
-    dist[start] = 0;
-    pq.push({0, start});
+    json j = json::parse(jsonStr);
+    int n = j["nodes"];
+    auto edges = j["edges"];
+
+    vector<vector<pair<int,int>>> graph(n);
+
+    for (auto& e : edges) {
+        graph[e["u"]].push_back({e["v"], e["w"]});
+        graph[e["v"]].push_back({e["u"], e["w"]});
+    }
+
+    vector<int> dist(n, 1e9);
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<>> pq;
+
+    dist[0] = 0;
+    pq.push({0, 0});
 
     while (!pq.empty()) {
-        int cost = pq.top().first;
-        int node = pq.top().second;
+        auto [d, u] = pq.top();
         pq.pop();
 
-        for (auto &edge : graph[node]) {
-            int next = edge.first;
-            int weight = edge.second;
+        for (auto& edge : graph[u]) {
+            int v = edge.first;
+            int w = edge.second;
 
-            if (cost + weight &lt; dist[next]) {
-                dist[next] = cost + weight;
-                pq.push({dist[next], next});
+            if (d + w < dist[v]) {
+                dist[v] = d + w;
+                pq.push({dist[v], v});
             }
         }
     }
 
-    return dist;
+    ss << "Eco-Friendly Shortest Paths from Source:\n";
+    for (int i = 0; i < n; i++) {
+        ss << "Node " << i << " → Cost " << dist[i] << "\n";
+    }
+
+    result = ss.str();
+    return result.c_str();
 }
+
+}
+
 </code></pre>
         </div>
     </div>
@@ -420,20 +529,26 @@ vector&lt;int&gt; dijkstra(int start, int n) {
             <li>Space Complexity: <b>O(E)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('code6')">Show Algorithm Code</button>
-
+        <button class="btn" onclick="toggleCode('code6')">Show Algorithm Code</button>&nbsp &nbsp 
+  <button class="btn" onclick="runKruskal()">Run Algorithm</button>
+<div id="output-kruskal" class="output-card"></div>
         <div id="code6" class="code-box">
 <pre><code>
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;algorithm&gt;
+#include <emscripten.h>
+#include <vector>
+#include <algorithm>
+#include <string>
+#include <sstream>
+#include "json.hpp"
+
+using json = nlohmann::json;
 using namespace std;
 
 struct Edge {
-    int u, v, weight;
+    int u, v, w;
 };
 
-vector&lt;int&gt; parent;
+vector<int> parent;
 
 int findSet(int v) {
     if (v == parent[v]) return v;
@@ -446,23 +561,44 @@ void unionSet(int a, int b) {
     if (a != b) parent[b] = a;
 }
 
-void kruskal(vector&lt;Edge&gt; edges, int n) {
+extern "C" {
+
+EMSCRIPTEN_KEEPALIVE
+const char* run_kruskal(const char* jsonStr) {
+    static string result;
+    stringstream ss;
+
+    json j = json::parse(jsonStr);
+    int n = j["nodes"];
+    vector<Edge> edges;
+
+    for (auto& e : j["edges"]) {
+        edges.push_back({e["u"], e["v"], e["w"]});
+    }
+
     parent.resize(n);
-    for (int i = 0; i &lt; n; i++) parent[i] = i;
+    for (int i = 0; i < n; i++)
+        parent[i] = i;
 
     sort(edges.begin(), edges.end(),
-         [](Edge a, Edge b) { return a.weight &lt; b.weight; });
+         [](Edge a, Edge b) { return a.w < b.w; });
 
-    cout &lt;&lt; "Eco-Friendly Minimal Connectivity Routes:\n";
+    ss << "Eco-Friendly Minimum Spanning Tree:\n";
 
-    for (auto &e : edges) {
+    for (auto& e : edges) {
         if (findSet(e.u) != findSet(e.v)) {
-            cout &lt;&lt; e.u &lt;&lt; " -- " &lt;&lt; e.v
-                 &lt;&lt; "  (cost: " &lt;&lt; e.weight &lt;&lt; ")\n";
+            ss << e.u << " -- " << e.v
+               << " (cost " << e.w << ")\n";
             unionSet(e.u, e.v);
         }
     }
+
+    result = ss.str();
+    return result.c_str();
 }
+
+}
+
 </code></pre>
         </div>
     </div>
@@ -497,57 +633,78 @@ void kruskal(vector&lt;Edge&gt; edges, int n) {
             <li>Space Complexity: <b>O(4n)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('code7')">Show Algorithm Code</button>
-
+        <button class="btn" onclick="toggleCode('code7')">Show Algorithm Code</button> &nbsp &nbsp
+ <button class="btn" onclick="runSegment()">Run Algorithm</button>
+<div id="output-segment" class="output-card"></div>
         <div id="code7" class="code-box">
 <pre><code>
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
+#include <emscripten/emscripten.h>
+#include <string>
+#include <vector>
+#include <sstream>
+#include <algorithm>
+
 using namespace std;
 
-vector&lt;int&gt; segTree;
+vector<int> segTree;
+vector<int> arr;
 
-void buildTree(vector&lt;int&gt;& arr, int idx, int left, int right) {
-    if (left == right) {
-        segTree[idx] = arr[left];
+void build(int idx, int l, int r) {
+    if (l == r) {
+        segTree[idx] = arr[l];
         return;
     }
-
-    int mid = (left + right) / 2;
-    buildTree(arr, idx*2, left, mid);
-    buildTree(arr, idx*2+1, mid+1, right);
-
+    int mid = (l + r) / 2;
+    build(idx*2, l, mid);
+    build(idx*2+1, mid+1, r);
     segTree[idx] = min(segTree[idx*2], segTree[idx*2+1]);
 }
 
-int queryMin(int idx, int left, int right, int ql, int qr) {
-    if (qr < left || ql > right)
-        return 1e9;
-
-    if (ql <= left && right <= qr)
-        return segTree[idx];
-
-    int mid = (left + right) / 2;
+int query(int idx, int l, int r, int ql, int qr) {
+    if (qr < l || ql > r) return 1e9;
+    if (ql <= l && r <= qr) return segTree[idx];
+    int mid = (l + r) / 2;
     return min(
-        queryMin(idx*2, left, mid, ql, qr),
-        queryMin(idx*2+1, mid+1, right, ql, qr)
+        query(idx*2, l, mid, ql, qr),
+        query(idx*2+1, mid+1, r, ql, qr)
     );
 }
 
-void updateTree(int idx, int left, int right, int pos, int newVal) {
-    if (left == right) {
-        segTree[idx] = newVal;
-        return;
+extern "C" {
+
+EMSCRIPTEN_KEEPALIVE
+const char* run_segment_tree(const char* jsonInput) {
+    arr.clear();
+
+    string s(jsonInput);
+    int num = 0;
+    bool reading = false;
+
+    for (char c : s) {
+        if (isdigit(c)) {
+            num = num * 10 + (c - '0');
+            reading = true;
+        } else if (reading) {
+            arr.push_back(num);
+            num = 0;
+            reading = false;
+        }
     }
+    if (reading) arr.push_back(num);
 
-    int mid = (left + right) / 2;
-    if (pos <= mid)
-        updateTree(idx*2, left, mid, pos, newVal);
-    else
-        updateTree(idx*2+1, mid+1, right, pos, newVal);
+    int n = arr.size();
+    segTree.assign(4*n, 0);
+    build(1, 0, n-1);
 
-    segTree[idx] = min(segTree[idx*2], segTree[idx*2+1]);
+    int result = query(1, 0, n-1, 1, 4);
+
+    static string output;
+    output = "Minimum moisture between index 1 and 4 = " + to_string(result);
+    return output.c_str();
 }
+}
+
+
 </code></pre>
         </div>
     </div>
@@ -569,12 +726,16 @@ void updateTree(int idx, int left, int right, int pos, int newVal) {
             <li>Space Complexity: <b>O(n)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('code8')">Show Algorithm Code</button>
-
+        <button class="btn" onclick="toggleCode('code8')">Show Algorithm Code</button>&nbsp &nbsp
+ <button class="btn" onclick="runMinHeap()">Run Algorithm</button>
+<div id="output-minheap" class="output-card"></div>
         <div id="code8" class="code-box">
 <pre><code>
-#include &lt;iostream&gt;
-#include &lt;queue&gt;
+#include <emscripten/emscripten.h>
+#include <queue>
+#include <string>
+#include <vector>
+
 using namespace std;
 
 struct Field {
@@ -582,21 +743,48 @@ struct Field {
     string name;
 };
 
-struct CompareMoisture {
-    bool operator()(Field const& a, Field const& b) {
+struct Compare {
+    bool operator()(Field a, Field b) {
         return a.moisture > b.moisture;
     }
 };
 
-priority_queue&lt;Field, vector&lt;Field&gt;, CompareMoisture&gt; minHeap;
+extern "C" {
 
-void addFieldForIrrigation(string name, int moisture) {
-    minHeap.push({moisture, name});
+EMSCRIPTEN_KEEPALIVE
+const char* run_min_heap(const char* jsonInput) {
+    priority_queue<Field, vector<Field>, Compare> pq;
+
+    string s(jsonInput);
+    string name = "";
+    int moisture = 0;
+    bool readingName = false;
+
+    for (char c : s) {
+        if (c == '"') {
+            readingName = !readingName;
+            if (!readingName && !name.empty() && moisture > 0) {
+                pq.push({moisture, name});
+                name = "";
+                moisture = 0;
+            }
+        } else if (readingName && isalpha(c)) {
+            name += c;
+        } else if (isdigit(c)) {
+            moisture = moisture * 10 + (c - '0');
+        }
+    }
+
+    Field driest = pq.top();
+
+    static string output;
+    output = "Highest priority field: " + driest.name +
+             " (Moisture = " + to_string(driest.moisture) + ")";
+    return output.c_str();
+}
 }
 
-Field getDriestField() {
-    return minHeap.top();
-}
+
 </code></pre>
         </div>
     </div>
@@ -618,74 +806,64 @@ Field getDriestField() {
             <li>Space Complexity: <b>O(V + E)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('code9')">Show Algorithm Code</button>
-
+        <button class="btn" onclick="toggleCode('code9')">Show Algorithm Code</button>&nbsp &nbsp
+<button class="btn" onclick="runIrrigationDijkstra()">Run Algorithm</button>
+<div id="output-irrigation-dijkstra" class="output-card"></div>
         <div id="code9" class="code-box">
 <pre><code>
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;queue&gt;
+#include <emscripten/emscripten.h>
+#include <vector>
+#include <queue>
+#include <string>
+
 using namespace std;
 
 struct Edge {
-    int to;
-    int cost;
+    int to, cost;
 };
 
-int V;
-vector&lt;vector&lt;Edge&gt;&gt; graph;
+extern "C" {
 
-vector&lt;int&gt; dijkstra(int source) {
-    vector&lt;int&gt; dist(V, 1e9);
-    dist[source] = 0;
+EMSCRIPTEN_KEEPALIVE
+const char* run_dijkstra(const char* jsonInput) {
+    vector<vector<Edge>> graph(5);
 
-    priority_queue&lt;pair&lt;int,int&gt;,
-                   vector&lt;pair&lt;int,int&gt;&gt;,
-                   greater&lt;pair&lt;int,int&gt;&gt;&gt; pq;
+    // Hardcoded graph for demo (matches JSON)
+    graph[0].push_back({1,10});
+    graph[0].push_back({2,5});
+    graph[2].push_back({4,2});
+    graph[1].push_back({3,1});
+    graph[4].push_back({3,4});
 
-    pq.push({0, source});
+    vector<int> dist(5, 1e9);
+    dist[0] = 0;
+
+    priority_queue<pair<int,int>,
+                   vector<pair<int,int>>,
+                   greater<pair<int,int>>> pq;
+
+    pq.push({0,0});
 
     while (!pq.empty()) {
-        int uCost = pq.top().first;
-        int u = pq.top().second;
+        auto [cost, u] = pq.top();
         pq.pop();
+        if (cost > dist[u]) continue;
 
-        if (uCost > dist[u]) continue;
-
-        for (auto &edge : graph[u]) {
-            int v = edge.to;
-            int cost = edge.cost;
-
-            if (dist[u] + cost < dist[v]) {
-                dist[v] = dist[u] + cost;
-                pq.push({dist[v], v});
+        for (auto &e : graph[u]) {
+            if (dist[u] + e.cost < dist[e.to]) {
+                dist[e.to] = dist[u] + e.cost;
+                pq.push({dist[e.to], e.to});
             }
         }
     }
 
-    return dist;
+    static string output;
+    output = "Minimum water cost to Field 3 = " + to_string(dist[3]);
+    return output.c_str();
+}
 }
 
-int main() {
-    V = 5;
-    graph.resize(V);
 
-    graph[0].push_back({1, 10});
-    graph[0].push_back({2, 5});
-    graph[1].push_back({2, 2});
-    graph[1].push_back({3, 1});
-    graph[2].push_back({1, 3});
-    graph[2].push_back({3, 9});
-    graph[2].push_back({4, 2});
-    graph[3].push_back({4, 4});
-    graph[4].push_back({3, 6});
-
-    vector&lt;int&gt; minCost = dijkstra(0);
-
-    for (int i = 0; i &lt; V; i++)
-        cout &lt;&lt; "Minimum water cost to field " &lt;&lt; i 
-             &lt;&lt; " = " &lt;&lt; minCost[i] &lt;&lt; endl;
-}
 </code></pre>
         </div>
     </div>
@@ -721,51 +899,67 @@ int main() {
             <li>Space Complexity: <b>O(V)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('code10')">Show Algorithm Code</button>
-
+        <button class="btn" onclick="toggleCode('code10')">Show Algorithm Code</button>&nbsp &nbsp
+ <button class="btn" onclick="runBeachBFS()">Run Algorithm</button>
+<div id="output-bfs" class="output-card"></div>
         <div id="code10" class="code-box">
 <pre>
-#include &lt;iostream&gt;
-#include &lt;queue&gt;
-#include &lt;vector&gt;
+#include <emscripten/emscripten.h>
+#include <string>
+#include <queue>
+#include <vector>
+#include <sstream>
+#include "json.hpp"
+
+using json = nlohmann::json;
 using namespace std;
 
-int rows = 5, cols = 5;
-int beach[5][5] = {
-    {0,1,0,0,0},
-    {0,1,1,0,0},
-    {0,0,0,1,0},
-    {1,0,0,0,0},
-    {0,0,1,0,1}
-};
+extern "C" {
 
-bool visited[5][5] = {false};
-int dx[4] = {1,-1,0,0};
-int dy[4] = {0,0,1,-1};
+EMSCRIPTEN_KEEPALIVE
+const char* run_bfs(const char* input) {
+    static string output;
+    output.clear();
 
-void BFS(int x, int y) {
-    queue&lt;pair&lt;int,int&gt;&gt; q;
-    q.push({x,y});
-    visited[x][y] = true;
+    json j = json::parse(input);
+    vector<vector<int>> grid = j["grid"];
 
-    while(!q.empty()) {
-        auto [cx, cy] = q.front();
-        q.pop();
-        cout &lt;&lt; "Debris found at: (" &lt;&lt; cx &lt;&lt; "," &lt;&lt; cy &lt;&lt; ")\n";
+    int rows = grid.size();
+    int cols = grid[0].size();
 
-        for(int i=0; i&lt;4; i++){
-            int nx = cx + dx[i];
-            int ny = cy + dy[i];
+    vector<vector<bool>> visited(rows, vector<bool>(cols, false));
+    int dx[4] = {1, -1, 0, 0};
+    int dy[4] = {0, 0, 1, -1};
 
-            if(nx >= 0 && ny >= 0 && nx < rows && ny < cols &&
-               beach[nx][ny] == 1 && !visited[nx][ny]) {
+    queue<pair<int,int>> q;
 
-                visited[nx][ny] = true;
-                q.push({nx,ny});
+    for(int i=0;i<rows;i++){
+        for(int j=0;j<cols;j++){
+            if(grid[i][j] == 1 && !visited[i][j]){
+                q.push({i,j});
+                visited[i][j] = true;
+
+                while(!q.empty()){
+                    auto [x,y] = q.front(); q.pop();
+                    output += "Debris at (" + to_string(x) + "," + to_string(y) + ")\n";
+
+                    for(int k=0;k<4;k++){
+                        int nx = x + dx[k];
+                        int ny = y + dy[k];
+                        if(nx>=0 && ny>=0 && nx<rows && ny<cols &&
+                           grid[nx][ny]==1 && !visited[nx][ny]){
+                            visited[nx][ny] = true;
+                            q.push({nx,ny});
+                        }
+                    }
+                }
             }
         }
     }
+    return output.c_str();
 }
+}
+
 </pre>
         </div>
     </div>
@@ -787,32 +981,43 @@ void BFS(int x, int y) {
             <li>Space Complexity: <b>O(V)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('code11')">Show Algorithm Code</button>
-
+        <button class="btn" onclick="toggleCode('code11')">Show Algorithm Code</button>&nbsp &nbsp
+ <button class="btn" onclick="runBeachDijkstra()">Run Algorithm</button>
+<div id="output-energy-dijkstra" class="output-card"></div>
         <div id="code11" class="code-box">
 <pre>
-#include &lt;limits&gt;
-#include &lt;iostream&gt;
-#include &lt;queue&gt;
+#include <emscripten/emscripten.h>
+#include <string>
+#include <vector>
+#include <queue>
+#include <limits>
+#include "json.hpp"
+
+using json = nlohmann::json;
 using namespace std;
 
-void dijkstra(vector&lt;vector&lt;int&gt;&gt;& graph, int src){
+extern "C" {
+
+EMSCRIPTEN_KEEPALIVE
+const char* run_dijkstra(const char* input) {
+    static string output;
+    output.clear();
+
+    json j = json::parse(input);
+    vector<vector<int>> graph = j["graph"];
+    int src = j["source"];
+
     int n = graph.size();
-    vector&lt;int&gt; dist(n, numeric_limits&lt;int&gt;::max());
+    vector<int> dist(n, numeric_limits<int>::max());
     dist[src] = 0;
 
-    priority_queue&lt;pair&lt;int,int&gt;,
-                   vector&lt;pair&lt;int,int&gt;&gt;,
-                   greater&lt;pair&lt;int,int&gt;&gt;&gt; pq;
-
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<>> pq;
     pq.push({0, src});
 
     while(!pq.empty()){
-        auto [d, u] = pq.top(); 
-        pq.pop();
-
+        auto [d,u] = pq.top(); pq.pop();
         for(int v=0; v<n; v++){
-            if(graph[u][v] && dist[v] > dist[u] + graph[u][v]){
+            if(graph[u][v] > 0 && dist[v] > dist[u] + graph[u][v]){
                 dist[v] = dist[u] + graph[u][v];
                 pq.push({dist[v], v});
             }
@@ -820,8 +1025,12 @@ void dijkstra(vector&lt;vector&lt;int&gt;&gt;& graph, int src){
     }
 
     for(int i=0;i<n;i++)
-        cout &lt;&lt; "Distance to " &lt;&lt; i &lt;&lt; ": " &lt;&lt; dist[i] &lt;&lt; endl;
+        output += "Energy cost to node " + to_string(i) + " = " + to_string(dist[i]) + "\n";
+
+    return output.c_str();
 }
+}
+
 </pre>
         </div>
     </div>
@@ -843,12 +1052,17 @@ void dijkstra(vector&lt;vector&lt;int&gt;&gt;& graph, int src){
             <li>Space Complexity: <b>O(n)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('code12')">Show Algorithm Code</button>
-
+        <button class="btn" onclick="toggleCode('code12')">Show Algorithm Code</button>&nbsp &nbsp
+ <button class="btn" onclick="runGarbageHeap()">Run Algorithm</button>
+<div id="output-garbage-heap" class="output-card"></div>
         <div id="code12" class="code-box">
 <pre>
-#include &lt;queue&gt;
-#include &lt;iostream&gt;
+#include <emscripten/emscripten.h>
+#include <string>
+#include <queue>
+#include "json.hpp"
+
+using json = nlohmann::json;
 using namespace std;
 
 struct Waste {
@@ -856,30 +1070,36 @@ struct Waste {
     string zone;
 };
 
-struct CompareWaste {
+struct Compare {
     bool operator()(Waste a, Waste b){
-        return a.amount < b.amount; // max heap
+        return a.amount < b.amount;
     }
 };
 
-priority_queue&lt;Waste, vector&lt;Waste&gt;, CompareWaste&gt; wasteHeap;
+extern "C" {
 
-void addWaste(string zone, int amount){
-    wasteHeap.push({amount, zone});
-}
+EMSCRIPTEN_KEEPALIVE
+const char* run_heap(const char* input) {
+    static string output;
+    output.clear();
 
-void collectWaste(){
-    if(wasteHeap.empty()) {
-        cout &lt;&lt; "All zones cleaned!\n";
-        return;
+    json j = json::parse(input);
+    priority_queue<Waste, vector<Waste>, Compare> pq;
+
+    for(auto &w : j["waste"]){
+        pq.push({ w["amount"], w["zone"] });
     }
 
-    Waste w = wasteHeap.top();
-    wasteHeap.pop();
+    while(!pq.empty()){
+        Waste w = pq.top(); pq.pop();
+        output += "Collecting " + w.zone +
+                  " (Waste=" + to_string(w.amount) + ")\n";
+    }
 
-    cout &lt;&lt; "Collecting from: " &lt;&lt; w.zone
-         &lt;&lt; " | Waste: " &lt;&lt; w.amount &lt;&lt; endl;
+    return output.c_str();
 }
+}
+
 </pre>
         </div>
     </div>
@@ -914,50 +1134,82 @@ void collectWaste(){
             <li>Space Complexity: <b>O(V)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('algoDFS')">Show Algorithm Code</button>
-
+        <button class="btn" onclick="toggleCode('algoDFS')">Show Algorithm Code</button>&nbsp &nbsp
+  <button class="btn" onclick="runSolarDFS()">Run Algorithm</button>
+<div id="output-solar-dfs" class="output-card"></div>
         <div id="algoDFS" class="code-box">
 <pre><code>
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
+#include <emscripten.h>
+#include <iostream>
+#include <vector>
+#include <string>
+#include <sstream>
+
 using namespace std;
 
-// Depth-First Search Function
-void DFS(int node, vector&lt;vector&lt;int&gt;&gt;& grid, vector&lt;bool&gt;& visited) {
-    visited[node] = true;
-    cout &lt;&lt; "Energy Cluster Node: " &lt;&lt; node &lt;&lt; endl;
+/*
+JSON FORMAT:
+{
+  "nodes": 6,
+  "adj": [
+    [1,2],
+    [0,3],
+    [0,4],
+    [1,5],
+    [2],
+    [3]
+  ]
+}
+*/
 
-    for (int next : grid[node]) {
-        if (!visited[next]) {
-            DFS(next, grid, visited);
-        }
+void dfsUtil(int u, vector<vector<int>>& adj, vector<bool>& vis, stringstream& out) {
+    vis[u] = true;
+    out << "Energy Node: " << u << "\n";
+    for (int v : adj[u]) {
+        if (!vis[v]) dfsUtil(v, adj, vis, out);
     }
 }
 
-int main() {
-    int n = 6;
+extern "C" {
 
-    vector&lt;vector&lt;int&gt;&gt; grid = {
-        {1, 2},
-        {0, 3},
-        {0, 4},
-        {1, 5},
-        {2},
-        {3}
-    };
+EMSCRIPTEN_KEEPALIVE
+const char* run_dfs(const char* jsonStr) {
+    static string result;
+    string s(jsonStr);
 
-    vector&lt;bool&gt; visited(n, false);
+    int n = stoi(s.substr(s.find("nodes") + 7));
+    vector<vector<int>> adj(n);
 
-    cout &lt;&lt; "DFS Traversal of Energy Cluster Grid:\n";
+    int pos = s.find("adj");
+    pos = s.find("[", pos);
 
     for (int i = 0; i < n; i++) {
-        if (!visited[i]) {
-            DFS(i, grid, visited);
+        pos = s.find("[", pos + 1);
+        int end = s.find("]", pos);
+        string row = s.substr(pos + 1, end - pos - 1);
+
+        stringstream ss(row);
+        int x;
+        while (ss >> x) {
+            adj[i].push_back(x);
+            ss.ignore();
         }
+        pos = end;
     }
 
-    return 0;
+    vector<bool> vis(n, false);
+    stringstream out;
+    out << "DFS Energy Flow:\n";
+
+    for (int i = 0; i < n; i++)
+        if (!vis[i]) dfsUtil(i, adj, vis, out);
+
+    result = out.str();
+    return result.c_str();
 }
+
+}
+
 </code></pre>
         </div>
     </div>
@@ -980,43 +1232,89 @@ int main() {
             <li>Space Complexity: <b>O(V)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('algoDijkstra')">Show Algorithm Code</button>
-
-        <div id="algoDijkstra" class="code-box">
+        <button class="btn" onclick="toggleCode('algoDijkstra')">Show Algorithm Code</button>&nbsp &nbsp
+  <button class="btn" onclick="runSolarDijkstra()">Run Algorithm</button>
+<div id="output-solar-dijkstra" class="output-card"></div>
+      <div id="algoDijkstra" class="code-box">
 <pre><code>
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;limits&gt;
-#include &lt;queue&gt;
+#include <emscripten.h>
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <sstream>
+#include <limits>
 
 using namespace std;
 
-void dijkstra(vector&lt;vector&lt;int&gt;&gt;& cost, int src) {
+/*
+JSON FORMAT:
+{
+  "cost": [
+    [0,4,0,0],
+    [4,0,8,0],
+    [0,8,0,2],
+    [0,0,2,0]
+  ],
+  "source": 0
+}
+*/
+
+extern "C" {
+
+EMSCRIPTEN_KEEPALIVE
+const char* run_dijkstra(const char* jsonStr) {
+    static string result;
+    string s(jsonStr);
+
+    int src = stoi(s.substr(s.find("source") + 9));
+    vector<vector<int>> cost;
+
+    int pos = s.find("[");
+    while (true) {
+        int start = s.find("[", pos + 1);
+        if (start == string::npos) break;
+        int end = s.find("]", start);
+        string row = s.substr(start + 1, end - start - 1);
+
+        vector<int> r;
+        stringstream ss(row);
+        int x;
+        while (ss >> x) {
+            r.push_back(x);
+            ss.ignore();
+        }
+        cost.push_back(r);
+        pos = end;
+    }
+
     int n = cost.size();
-    vector&lt;int&gt; dist(n, numeric_limits&lt;int&gt;::max());
+    vector<int> dist(n, INT_MAX);
     dist[src] = 0;
 
-    priority_queue&lt;pair&lt;int,int&gt;, 
-                   vector&lt;pair&lt;int,int&gt;&gt;, 
-                   greater&lt;pair&lt;int,int&gt;&gt;&gt; pq;
-
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<>> pq;
     pq.push({0, src});
 
     while (!pq.empty()) {
-        auto [currCost, u] = pq.top();
-        pq.pop();
-
-        for (int v = 0; v &lt; n; v++) {
-            if (cost[u][v] && dist[v] > dist[u] + cost[u][v]) {
-                dist[v] = dist[u] + cost[u][v];
+        auto [d,u] = pq.top(); pq.pop();
+        for (int v = 0; v < n; v++) {
+            if (cost[u][v] && dist[v] > d + cost[u][v]) {
+                dist[v] = d + cost[u][v];
                 pq.push({dist[v], v});
             }
         }
     }
 
-    for (int i = 0; i &lt; n; i++)
-        cout &lt;&lt; "Minimum loss to node " &lt;&lt; i &lt;&lt; ": " &lt;&lt; dist[i] &lt;&lt; endl;
+    stringstream out;
+    out << "Minimum Energy Loss Paths:\n";
+    for (int i = 0; i < n; i++)
+        out << "Node " << i << " -> " << dist[i] << "\n";
+
+    result = out.str();
+    return result.c_str();
 }
+
+}
+
 </code></pre>
         </div>
     </div>
@@ -1039,51 +1337,82 @@ void dijkstra(vector&lt;vector&lt;int&gt;&gt;& cost, int src) {
             <li>Space Complexity: <b>O(V)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('algoBellman')">Show Algorithm Code</button>
-
-        <div id="algoBellman" class="code-box">
+        <button class="btn" onclick="toggleCode('algoBellman')">Show Algorithm Code</button>&nbsp &nbsp
+  <button class="btn" onclick="runBellmanFord()">Run Algorithm</button>
+<div id="output-bellman" class="output-card"></div>
+      <div id="algoBellman" class="code-box">
 <pre><code>
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
+#include <emscripten.h>
+#include <iostream>
+#include <vector>
+#include <sstream>
+
 using namespace std;
 
-// Bellman-Ford Algorithm
-void bellmanFord(int V, int E, vector&lt;vector&lt;int&gt;&gt;& edges, int src) {
-    vector&lt;int&gt; dist(V, 1e9);
-    dist[src] = 0;
+/*
+JSON FORMAT:
+{
+  "V": 5,
+  "edges": [
+    [0,1,6],
+    [0,2,7],
+    [1,3,5],
+    [1,4,-4],
+    [2,3,-3]
+  ],
+  "source": 0
+}
+*/
 
-    for (int i = 1; i &lt;= V - 1; i++) {
-        for (auto &e : edges) {
-            int u = e[0];
-            int v = e[1];
-            int w = e[2];
+extern "C" {
 
-            if (dist[u] != 1e9 && dist[v] > dist[u] + w)
-                dist[v] = dist[u] + w;
+EMSCRIPTEN_KEEPALIVE
+const char* run_bellman(const char* jsonStr) {
+    static string result;
+    string s(jsonStr);
+
+    int V = stoi(s.substr(s.find("V") + 3));
+    int src = stoi(s.substr(s.find("source") + 9));
+
+    vector<vector<int>> edges;
+    int pos = s.find("edges");
+
+    while (true) {
+        int start = s.find("[", pos + 1);
+        if (start == string::npos) break;
+        int end = s.find("]", start);
+        string row = s.substr(start + 1, end - start - 1);
+
+        vector<int> e;
+        stringstream ss(row);
+        int x;
+        while (ss >> x) {
+            e.push_back(x);
+            ss.ignore();
         }
+        if (e.size() == 3) edges.push_back(e);
+        pos = end;
     }
 
-    cout &lt;&lt; "\nBest energy price to reach each node:\n";
-    for (int i = 0; i &lt; V; i++)
-        cout &lt;&lt; "Node " &lt;&lt; i &lt;&lt; " -> " &lt;&lt; dist[i] &lt;&lt; endl;
+    vector<int> dist(V, 1e9);
+    dist[src] = 0;
+
+    for (int i = 1; i < V; i++)
+        for (auto &e : edges)
+            if (dist[e[0]] + e[2] < dist[e[1]])
+                dist[e[1]] = dist[e[0]] + e[2];
+
+    stringstream out;
+    out << "Best Trading Prices:\n";
+    for (int i = 0; i < V; i++)
+        out << "Node " << i << " -> " << dist[i] << "\n";
+
+    result = out.str();
+    return result.c_str();
 }
 
-int main() {
-    int V = 5, E = 7;
-
-    vector&lt;vector&lt;int&gt;&gt; edges = {
-        {0, 1, 6},
-        {0, 2, 7},
-        {1, 2, 8},
-        {1, 3, 5},
-        {1, 4, -4},
-        {2, 3, -3},
-        {4, 3, 9}
-    };
-
-    bellmanFord(V, E, edges, 0);
-    return 0;
 }
+
 </code></pre>
         </div>
     </div>
@@ -1124,37 +1453,89 @@ int main() {
             <li>Space Complexity: <b>O(V)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('algo3')">Show Algorithm Code</button>
-
-        <div id="algo3" class="code-box">
+        <button class="btn" onclick="toggleCode('algo3')">Show Algorithm Code</button>&nbsp &nbsp 
+ <button class="btn" onclick="runFuelBFS()">Run Algorithm</button>
+<div id="output-fuel-bfs" class="output-card"></div>
+      <div id="algo3" class="code-box">
 <pre><code>
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;queue&gt;
+#include <emscripten.h>
+#include <iostream>
+#include <vector>
+#include <string>
+#include <sstream>
+#include <queue>
+
 using namespace std;
 
-void BFS(int start, vector&lt;vector&lt;int&gt;&gt;& seaZones) {
-    int n = seaZones.size();
-    vector&lt;bool&gt; visited(n, false);
+extern "C" {
 
-    queue&lt;int&gt; q;
-    visited[start] = true;
-    q.push(start);
+EMSCRIPTEN_KEEPALIVE
+const char* run_bfs(const char* jsonStr) {
+    static string result;
+    string s(jsonStr);
 
-    while (!q.empty()) {
-        int zone = q.front();
-        q.pop();
+    // Parse number of nodes
+    int n = 0;
+    int pos_nodes = s.find("nodes");
+    if (pos_nodes != string::npos) {
+        string number;
+        for (size_t i = pos_nodes; i < s.size(); i++) {
+            if (isdigit(s[i])) number += s[i];
+            else if (!number.empty()) break;
+        }
+        n = stoi(number);
+    }
 
-        cout &lt;&lt; "Monitoring Fuel Zone: " &lt;&lt; zone &lt;&lt; endl;
+    vector<vector<int>> adj(n);
 
-        for (int next : seaZones[zone]) {
-            if (!visited[next]) {
-                visited[next] = true;
-                q.push(next);
+    // Parse adjacency list safely
+    int pos = s.find("adj");
+    pos = s.find("[", pos);
+    for (int i = 0; i < n; i++) {
+        pos = s.find("[", pos + 1);
+        int end_row = s.find("]", pos);
+        string row = s.substr(pos + 1, end_row - pos - 1);
+
+        stringstream ss(row);
+        string token;
+        while (getline(ss, token, ',')) {
+            stringstream ts(token);
+            int num;
+            if (ts >> num) adj[i].push_back(num);
+        }
+
+        pos = end_row;
+    }
+
+    vector<bool> vis(n, false);
+    stringstream out;
+    out << "BFS Fuel Zones:\n";
+
+    for (int i = 0; i < n; i++) {
+        if (!vis[i]) {
+            queue<int> q;
+            q.push(i);
+            vis[i] = true;
+
+            while (!q.empty()) {
+                int u = q.front(); q.pop();
+                out << "Monitoring Fuel Zone: " << u << "\n";
+                for (int v : adj[u]) {
+                    if (!vis[v]) {
+                        vis[v] = true;
+                        q.push(v);
+                    }
+                }
             }
         }
     }
+
+    result = out.str();
+    return result.c_str();
 }
+
+}
+
 </code></pre>
         </div>
     </div>
@@ -1176,24 +1557,79 @@ void BFS(int start, vector&lt;vector&lt;int&gt;&gt;& seaZones) {
             <li>Space Complexity: <b>O(V)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('algo4')">Show Algorithm Code</button>
-
-        <div id="algo4" class="code-box">
+        <button class="btn" onclick="toggleCode('algo4')">Show Algorithm Code</button>&nbsp &nbsp
+ <button class="btn" onclick="runFuelDFS()">Run Algorithm</button>
+<div id="output-fuel-dfs" class="output-card"></div>       <div id="algo4" class="code-box">
 <pre><code>
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
+#include <emscripten.h>
+#include <iostream>
+#include <vector>
+#include <string>
+#include <sstream>
+
 using namespace std;
 
-void DFS(int zone, vector&lt;vector&lt;int&gt;&gt;& seaZones, vector&lt;bool&gt;& visited) {
-    visited[zone] = true;
-    cout &lt;&lt; "Analyzing Fuel Pattern (DFS Zone): " &lt;&lt; zone &lt;&lt; endl;
-
-    for (int next : seaZones[zone]) {
-        if (!visited[next]) {
-            DFS(next, seaZones, visited);
-        }
+void dfsUtil(int u, vector<vector<int>>& adj, vector<bool>& vis, stringstream& out) {
+    vis[u] = true;
+    out << "Analyzing Fuel Pattern (DFS Zone): " << u << "\n";
+    for (int v : adj[u]) {
+        if (!vis[v]) dfsUtil(v, adj, vis, out);
     }
 }
+
+extern "C" {
+
+EMSCRIPTEN_KEEPALIVE
+const char* run_dfs(const char* jsonStr) {
+    static string result;
+    string s(jsonStr);
+
+    // Parse number of nodes
+    int n = 0;
+    int pos_nodes = s.find("nodes");
+    if (pos_nodes != string::npos) {
+        string number;
+        for (size_t i = pos_nodes; i < s.size(); i++) {
+            if (isdigit(s[i])) number += s[i];
+            else if (!number.empty()) break;
+        }
+        n = stoi(number);
+    }
+
+    vector<vector<int>> adj(n);
+
+    // Parse adjacency list safely
+    int pos = s.find("adj");
+    pos = s.find("[", pos);
+    for (int i = 0; i < n; i++) {
+        pos = s.find("[", pos + 1);
+        int end_row = s.find("]", pos);
+        string row = s.substr(pos + 1, end_row - pos - 1);
+
+        stringstream ss(row);
+        string token;
+        while (getline(ss, token, ',')) {
+            stringstream ts(token);
+            int num;
+            if (ts >> num) adj[i].push_back(num);
+        }
+
+        pos = end_row;
+    }
+
+    vector<bool> vis(n, false);
+    stringstream out;
+    out << "DFS Fuel Pattern Analysis:\n";
+
+    for (int i = 0; i < n; i++)
+        if (!vis[i]) dfsUtil(i, adj, vis, out);
+
+    result = out.str();
+    return result.c_str();
+}
+
+}
+
 </code></pre>
         </div>
     </div>
@@ -1215,42 +1651,90 @@ void DFS(int zone, vector&lt;vector&lt;int&gt;&gt;& seaZones, vector&lt;bool&gt;
             <li>Space Complexity: <b>O(V)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('algo5')">Show Algorithm Code</button>
-
-        <div id="algo5" class="code-box">
+        <button class="btn" onclick="toggleCode('algo5')">Show Algorithm Code</button>&nbsp &nbsp
+ <button class="btn" onclick="runFuelDijkstra()">Run Algorithm</button>
+<div id="output-fuel-dijkstra" class="output-card"></div>      <div id="algo5" class="code-box">
 <pre><code>
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;queue&gt;
-#include &lt;limits&gt;
+#include <emscripten.h>
+#include <iostream>
+#include <vector>
+#include <string>
+#include <sstream>
+#include <limits>
+#include <queue>
+
 using namespace std;
 
-void dijkstra(vector&lt;vector&lt;int&gt;&gt;& graph, int src) {
-    int n = graph.size();
-    vector&lt;int&gt; dist(n, numeric_limits&lt;int&gt;::max());
-    dist[src] = 0;
+extern "C" {
 
-    priority_queue&lt;pair&lt;int,int&gt;,
-                   vector&lt;pair&lt;int,int&gt;&gt;,
-                   greater&lt;pair&lt;int,int&gt;&gt;&gt; pq;
+EMSCRIPTEN_KEEPALIVE
+const char* run_dijkstra(const char* jsonStr) {
+    static string result;
+    string s(jsonStr);
 
-    pq.push({0, src});
+    // Parse number of nodes
+    int n = 0;
+    int pos_nodes = s.find("nodes");
+    if (pos_nodes != string::npos) {
+        string number;
+        for (size_t i = pos_nodes; i < s.size(); i++) {
+            if (isdigit(s[i])) number += s[i];
+            else if (!number.empty()) break;
+        }
+        n = stoi(number);
+    }
+
+    vector<vector<int>> graph(n, vector<int>(n, 0));
+
+    // Parse adjacency matrix safely
+    int pos = s.find("graph");
+    pos = s.find("[", pos);
+    for (int i = 0; i < n; i++) {
+        pos = s.find("[", pos + 1);
+        int end_row = s.find("]", pos);
+        string row = s.substr(pos + 1, end_row - pos - 1);
+
+        stringstream ss(row);
+        string token;
+        int j = 0;
+        while (getline(ss, token, ',')) {
+            stringstream ts(token);
+            int val;
+            if (ts >> val) graph[i][j++] = val;
+        }
+
+        pos = end_row;
+    }
+
+    // Dijkstra
+    vector<int> dist(n, numeric_limits<int>::max());
+    dist[0] = 0;
+    using pii = pair<int,int>;
+    priority_queue<pii, vector<pii>, greater<pii>> pq;
+    pq.push({0,0});
+
+    stringstream out;
+    out << "Dijkstra Fuel-Efficient Routes:\n";
 
     while (!pq.empty()) {
-        auto [cost, u] = pq.top();
-        pq.pop();
-
-        for (int v = 0; v &lt; n; v++) {
-            if (graph[u][v] && dist[v] &gt; dist[u] + graph[u][v]) {
+        auto [d,u] = pq.top(); pq.pop();
+        for (int v = 0; v < n; v++) {
+            if (graph[u][v] != 0 && dist[v] > dist[u] + graph[u][v]) {
                 dist[v] = dist[u] + graph[u][v];
                 pq.push({dist[v], v});
             }
         }
     }
 
-    for (int i = 0; i &lt; n; i++)
-        cout &lt;&lt; "Fuel to reach zone " &lt;&lt; i &lt;&lt; ": " &lt;&lt; dist[i] &lt;&lt; endl;
+    for (int i = 0; i < n; i++)
+        out << "Fuel to reach zone " << i << ": " << dist[i] << "\n";
+
+    result = out.str();
+    return result.c_str();
 }
+
+}
+
 </code></pre>
         </div>
     </div>
@@ -1292,36 +1776,56 @@ void dijkstra(vector&lt;vector&lt;int&gt;&gt;& graph, int src) {
         </ul>
 
         <button class="btn" onclick="toggleCode('algo6')">Show Algorithm Code</button>
-
+<button class="btn" onclick="runMarketBFS()">Run Algorithm</button>
+<div id="output-market-bfs" class="output-card"></div>
         <div id="algo6" class="code-box">
 <pre><code>
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;queue&gt;
+#include <emscripten/emscripten.h>
+#include <string>
+#include <vector>
+#include <queue>
+#include "json.hpp"
+
+using json = nlohmann::json;
 using namespace std;
 
-void BFS(int start, vector&lt;vector&lt;int&gt;&gt;& marketZones) {
-    int n = marketZones.size();
-    vector&lt;bool&gt; visited(n, false);
+extern "C" {
 
-    queue&lt;int&gt; q;
-    visited[start] = true;
-    q.push(start);
+EMSCRIPTEN_KEEPALIVE
+const char* run_bfs(const char* input) {
+    static string output;
+    output.clear();
 
-    while (!q.empty()) {
-        int zone = q.front();
-        q.pop();
+    json j = json::parse(input);
+    json zones_json = j["zones"];
 
-        cout &lt;&lt; "Analyzing Demand Zone: " &lt;&lt; zone &lt;&lt; endl;
+    int n = zones_json.size();
+    vector<vector<int>> graph(n);
+    for (auto& [key, val] : zones_json.items()) {
+        int u = stoi(key);
+        for (auto v : val) graph[u].push_back(v);
+    }
 
-        for (int next : marketZones[zone]) {
-            if (!visited[next]) {
-                visited[next] = true;
-                q.push(next);
+    vector<bool> visited(n, false);
+    queue<int> q;
+    q.push(0);
+    visited[0] = true;
+
+    while(!q.empty()){
+        int u = q.front(); q.pop();
+        output += "Visiting Market Zone " + to_string(u) + "\n";
+        for(int v : graph[u]){
+            if(!visited[v]){
+                visited[v] = true;
+                q.push(v);
             }
         }
     }
+
+    return output.c_str();
 }
+}
+
 </code></pre>
         </div>
     </div>
@@ -1344,42 +1848,55 @@ void BFS(int start, vector&lt;vector&lt;int&gt;&gt;& marketZones) {
         </ul>
 
         <button class="btn" onclick="toggleCode('algo7')">Show Algorithm Code</button>
-
+<button class="btn" onclick="runMarketDijkstra()">Run Algorithm</button>
+<div id="output-market-dijkstra" class="output-card"></div>
         <div id="algo7" class="code-box">
 <pre><code>
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;queue&gt;
-#include &lt;limits&gt;
+#include <emscripten/emscripten.h>
+#include <string>
+#include <vector>
+#include <queue>
+#include <limits>
+#include "json.hpp"
+
+using json = nlohmann::json;
 using namespace std;
 
-void dijkstra(vector&lt;vector&lt;int&gt;&gt;& graph, int src) {
+extern "C" {
+
+EMSCRIPTEN_KEEPALIVE
+const char* run_dijkstra(const char* input){
+    static string output;
+    output.clear();
+
+    json j = json::parse(input);
+    vector<vector<int>> graph = j["graph"];
+    int src = j.value("source", 0);
+
     int n = graph.size();
-    vector&lt;int&gt; price(n, numeric_limits&lt;int&gt;::max());
-    price[src] = 0;
+    vector<int> dist(n, numeric_limits<int>::max());
+    dist[src] = 0;
 
-    priority_queue&lt;pair&lt;int,int&gt;,
-                   vector&lt;pair&lt;int,int&gt;&gt;,
-                   greater&lt;pair&lt;int,int&gt;&gt;&gt; pq;
-
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<>> pq;
     pq.push({0, src});
 
-    while (!pq.empty()) {
-        auto [cost, u] = pq.top();
-        pq.pop();
-
-        for (int v = 0; v &lt; n; v++) {
-            if (graph[u][v] && price[v] > price[u] + graph[u][v]) {
-                price[v] = price[u] + graph[u][v];
-                pq.push({price[v], v});
+    while(!pq.empty()){
+        auto [d, u] = pq.top(); pq.pop();
+        for(int v = 0; v < n; v++){
+            if(graph[u][v] > 0 && dist[v] > dist[u] + graph[u][v]){
+                dist[v] = dist[u] + graph[u][v];
+                pq.push({dist[v], v});
             }
         }
     }
 
-    for (int i = 0; i &lt; n; i++)
-        cout &lt;&lt; "Optimal price path to market " &lt;&lt; i
-             &lt;&lt; ": " &lt;&lt; price[i] &lt;&lt; endl;
+    for(int i = 0; i < n; i++)
+        output += "Optimal price path to market " + to_string(i) + " = " + to_string(dist[i]) + "\n";
+
+    return output.c_str();
 }
+}
+
 </code></pre>
         </div>
     </div>
@@ -1403,11 +1920,18 @@ void dijkstra(vector&lt;vector&lt;int&gt;&gt;& graph, int src) {
         </ul>
 
         <button class="btn" onclick="toggleCode('algo8')">Show Algorithm Code</button>
-
+<button class="btn" onclick="runCropHeap()">Run Algorithm</button>
+<div id="output-crop-heap" class="output-card"></div>
+ 
         <div id="algo8" class="code-box">
 <pre><code>
-#include &lt;queue&gt;
-#include &lt;string&gt;
+#include <emscripten/emscripten.h>
+#include <queue>
+#include <string>
+#include <vector>
+#include "json.hpp"
+
+using json = nlohmann::json;
 using namespace std;
 
 struct Crop {
@@ -1415,30 +1939,36 @@ struct Crop {
     string name;
 };
 
-struct CompareDemand {
+struct Compare {
     bool operator()(Crop a, Crop b) {
-        return a.demand &lt; b.demand;  // max heap
+        return a.demand < b.demand; // max-heap
     }
 };
 
-priority_queue&lt;Crop, vector&lt;Crop&gt;, CompareDemand&gt; cropHeap;
+extern "C" {
 
-void addCrop(string name, int demand) {
-    cropHeap.push({demand, name});
-}
+EMSCRIPTEN_KEEPALIVE
+const char* run_heap(const char* input){
+    static string output;
+    output.clear();
 
-void processCrop() {
-    if (cropHeap.empty()) {
-        cout &lt;&lt; "No high-demand crops in queue.\n";
-        return;
+    json j = json::parse(input);
+    auto crops_json = j["crops"];
+
+    priority_queue<Crop, vector<Crop>, Compare> pq;
+    for(auto& c : crops_json){
+        pq.push({c["demand"], c["name"]});
     }
 
-    Crop c = cropHeap.top();
-    cropHeap.pop();
+    while(!pq.empty()){
+        Crop c = pq.top(); pq.pop();
+        output += "High-Demand Crop: " + c.name + " | Demand Score: " + to_string(c.demand) + "\n";
+    }
 
-    cout &lt;&lt; "High-Priority Crop: " &lt;&lt; c.name
-         &lt;&lt; " | Demand Score: " &lt;&lt; c.demand &lt;&lt; endl;
+    return output.c_str();
 }
+}
+
 </code></pre>
         </div>
     </div>
@@ -1481,36 +2011,60 @@ void processCrop() {
         </ul>
 
         <button class="btn" onclick="toggleCode('algorithm')">Show Algorithm Code</button>
-
+<button class="btn" onclick="runWaterBFS()">Run Algorithm</button>
+<div id="output-water-bfs" class="output-card"></div>
         <div id="algorithm" class="code-box">
 <pre><code>
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;queue&gt;
+#include <emscripten/emscripten.h>
+#include <string>
+#include <vector>
+#include <queue>
+#include "json.hpp"
+
+using json = nlohmann::json;
 using namespace std;
 
-void BFS(int start, vector&lt;vector&lt;int&gt;&gt;& waterRoutes) {
-    int n = waterRoutes.size();
-    vector&lt;bool&gt; visited(n, false);
+extern "C" {
 
-    queue&lt;int&gt; q;
-    visited[start] = true;
-    q.push(start);
+EMSCRIPTEN_KEEPALIVE
+const char* run_bfs(const char* input) {
+    static string output;
+    output.clear();
 
-    while (!q.empty()) {
-        int point = q.front();
-        q.pop();
+    json j = json::parse(input);
+    auto waterPoints = j["waterPoints"];
+    auto edges = j["edges"];
 
-        cout &lt;&lt; "Visiting Water Point: " &lt;&lt; point &lt;&lt; endl;
+    int n = waterPoints.size();
+    vector<vector<int>> graph(n);
+    for (auto &e : edges) {
+        int u = e["from"];
+        int v = e["to"];
+        graph[u].push_back(v);
+        graph[v].push_back(u); // assuming undirected
+    }
 
-        for (int next : waterRoutes[point]) {
-            if (!visited[next]) {
-                visited[next] = true;
-                q.push(next);
+    vector<bool> visited(n, false);
+    queue<int> q;
+    q.push(0);
+    visited[0] = true;
+
+    output += "BFS Reachability from Dock 0:\n";
+    while(!q.empty()){
+        int u = q.front(); q.pop();
+        output += waterPoints[u].get<string>() + "\n";
+        for(int v : graph[u]){
+            if(!visited[v]){
+                visited[v] = true;
+                q.push(v);
             }
         }
     }
+
+    return output.c_str();
 }
+}
+
 </code></pre>
         </div>
     </div>
@@ -1533,42 +2087,69 @@ void BFS(int start, vector&lt;vector&lt;int&gt;&gt;& waterRoutes) {
         </ul>
 
         <button class="btn" onclick="toggleCode('algorithm1')">Show Algorithm Code</button>
-
+<button class="btn" onclick="runWaterDijkstra()">Run Algorithm</button>
+<div id="output-water-dijkstra" class="output-card"></div>
         <div id="algorithm1" class="code-box">
 <pre><code>
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;queue&gt;
-#include &lt;limits&gt;
+#include <emscripten/emscripten.h>
+#include <string>
+#include <vector>
+#include <queue>
+#include <limits>
+#include "json.hpp"
+
+using json = nlohmann::json;
 using namespace std;
 
-void dijkstra(vector&lt;vector&lt;int&gt;&gt;& graph, int src) {
-    int n = graph.size();
-    vector&lt;int&gt; dist(n, numeric_limits&lt;int&gt;::max());
-    dist[src] = 0;
+extern "C" {
 
-    priority_queue&lt;pair&lt;int,int&gt;,
-                   vector&lt;pair&lt;int,int&gt;&gt;,
-                   greater&lt;pair&lt;int,int&gt;&gt;&gt; pq;
+EMSCRIPTEN_KEEPALIVE
+const char* run_dijkstra(const char* input) {
+    static string output;
+    output.clear();
 
-    pq.push({0, src});
+    json j = json::parse(input);
+    auto waterPoints = j["waterPoints"];
+    auto edges = j["edges"];
 
-    while (!pq.empty()) {
-        auto [time, u] = pq.top();
-        pq.pop();
+    int n = waterPoints.size();
+    vector<vector<int>> graph(n, vector<int>(n, 0));
 
-        for (int v = 0; v &lt; n; v++) {
-            if (graph[u][v] && dist[v] > dist[u] + graph[u][v]) {
+    for (auto &e : edges) {
+        int u = e["from"];
+        int v = e["to"];
+        int t = e["time"];
+        graph[u][v] = t;
+        graph[v][u] = t; // assuming undirected
+    }
+
+    vector<int> dist(n, numeric_limits<int>::max());
+    dist[0] = 0;
+
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<>> pq;
+    pq.push({0,0});
+
+    while(!pq.empty()){
+        auto [d,u] = pq.top(); pq.pop();
+        if(d > dist[u]) continue;
+
+        for(int v=0; v<n; ++v){
+            if(graph[u][v] && dist[v] > dist[u] + graph[u][v]){
                 dist[v] = dist[u] + graph[u][v];
                 pq.push({dist[v], v});
             }
         }
     }
 
-    for (int i = 0; i &lt; n; i++)
-        cout &lt;&lt; "Fastest time to dock " &lt;&lt; i
-             &lt;&lt; ": " &lt;&lt; dist[i] &lt;&lt; endl;
+    output += "Fastest time from Dock 0:\n";
+    for(int i=0; i<n; ++i){
+        output += waterPoints[i].get<string>() + ": " + to_string(dist[i]) + " minutes\n";
+    }
+
+    return output.c_str();
 }
+}
+
 </code></pre>
         </div>
     </div>
@@ -1591,11 +2172,16 @@ void dijkstra(vector&lt;vector&lt;int&gt;&gt;& graph, int src) {
         </ul>
 
         <button class="btn" onclick="toggleCode('algorithm2')">Show Algorithm Code</button>
-
+<button class="btn" onclick="runTripScheduler()">Run Algorithm</button>
+<div id="output-trip-heap" class="output-card"></div>
         <div id="algorithm2" class="code-box">
 <pre><code>
-#include &lt;queue&gt;
-#include &lt;string&gt;
+#include <emscripten/emscripten.h>
+#include <string>
+#include <queue>
+#include "json.hpp"
+
+using json = nlohmann::json;
 using namespace std;
 
 struct Trip {
@@ -1605,28 +2191,38 @@ struct Trip {
 
 struct CompareTrips {
     bool operator()(Trip a, Trip b) {
-        return a.waitTime > b.waitTime;  // min-heap
+        return a.waitTime > b.waitTime; // min-heap
     }
 };
 
-priority_queue&lt;Trip, vector&lt;Trip&gt;, CompareTrips&gt; tripSchedule;
+priority_queue<Trip, vector<Trip>, CompareTrips> tripSchedule;
 
-void addTrip(string name, int waitTime) {
-    tripSchedule.push({waitTime, name});
-}
+extern "C" {
 
-void processTrip() {
-    if (tripSchedule.empty()) {
-        cout &lt;&lt; "No scheduled water trips.\n";
-        return;
+EMSCRIPTEN_KEEPALIVE
+const char* run_heap(const char* input) {
+    static string output;
+    output.clear();
+
+    json j = json::parse(input);
+    auto trips = j["trips"];
+
+    while(!tripSchedule.empty()) tripSchedule.pop();
+
+    for(auto &t : trips){
+        tripSchedule.push({t["waitTime"], t["routeName"]});
     }
 
-    Trip t = tripSchedule.top();
-    tripSchedule.pop();
+    output += "Scheduled Trips by Wait Time:\n";
+    while(!tripSchedule.empty()){
+        Trip t = tripSchedule.top(); tripSchedule.pop();
+        output += t.routeName + " | Wait Time: " + to_string(t.waitTime) + " minutes\n";
+    }
 
-    cout &lt;&lt; "Next Trip: " &lt;&lt; t.routeName
-         &lt;&lt; " | Wait Time: " &lt;&lt; t.waitTime &lt;&lt; " minutes" &lt;&lt; endl;
+    return output.c_str();
 }
+}
+
 </code></pre>
         </div>
     </div>
@@ -1685,7 +2281,13 @@ function toggleCode(id) {
     let box = document.getElementById(id);
     box.style.display = (box.style.display === "none") ? "block" : "none";
 }
+
+
+
+
 </script>
+<script type="module" src="script.js"></script>
+
+
 </body>
 </html>
-
