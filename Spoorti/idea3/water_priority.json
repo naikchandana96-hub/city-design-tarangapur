@@ -1,0 +1,7 @@
+{
+  "fields": [
+    { "name": "FieldA", "moisture": 40 },
+    { "name": "FieldB", "moisture": 25 },
+    { "name": "FieldC", "moisture": 30 }
+  ]
+}
