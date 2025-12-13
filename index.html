@@ -6,22 +6,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
+<script>
+  function toggleMenu() {
+    const nav = document.getElementById('nav-links');
+    nav.classList.toggle('show');
+  }
+
+  // Close the mobile menu when a navigation link is clicked
+  document.addEventListener('DOMContentLoaded', function () {
+    const nav = document.getElementById('nav-links');
+    if (!nav) return;
+
+    nav.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        nav.classList.remove('show');
+      });
+    });
+
+    // Optional: close menu when user clicks outside the nav or hamburger
+    document.addEventListener('click', (e) => {
+      const ham = document.querySelector('.hamburger');
+      if (!nav.classList.contains('show')) return;
+      if (e.target.closest('#nav-links') || e.target.closest('.hamburger')) return;
+      nav.classList.remove('show');
+    });
+  });
+</script>
+
 <body>
 
 <header class="nav">
   <div class="logo"><span class="wave">🌊</span> Tarangapur</div>
-  <nav class="navbar">
-    <ul>
-      <li><a href="#home">Home</a></li>
-      <li><a href="project.html">Project</a></li>
-      <li><a href="chandana">Chandana</a></li>
-      <li><a href="vidya">Vidya</a></li>
-      <li><a href="Spoorti">Spoorti</a></li>
-      <li><a href="shubharani">Shubharani</a></li>
-  
+ <nav class="navbar">
 
+    <!-- Hamburger Icon -->
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+    <!-- Navigation Links -->
+    <ul id="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="project.html">Project</a></li>
+        <li><a href="chandana/index.html">Chandana</a></li>
+        <li><a href="vidya/index.html">Vidya</a></li>
+        <li><a href="Spoorti/index.html">Spoorti</a></li>
+        <li><a href="shubharani/index.html">Shubharani</a></li>
     </ul>
-  </nav>
+
+</nav>
+
 </header>
 </header>
 
@@ -40,7 +72,7 @@
 <section class="about">
 
   <div class="about-hero">
-    <h2>ABOUT TARANGAPUR</h2>
+    <h2><b>ABOUT TARANGAPUR</b></h2>
     <p>
       Tarangapur is not just a coastal city of waves and buildings —  
   it is a living system designed with logic, efficiency, and intelligence.
@@ -93,44 +125,67 @@
 
 <!-- TEAM -->
 <section class="team">
-<h2 class="team-title">OUR TEAM</h2>
-
+  <h2 class="team-title">OUR TEAM</h2>
 
   <div class="team-grid">
+    <!-- First card -->
     <div class="team-card">
-  <img src="chandana/image.png" alt="Chandana">
-  <h3>Chandana Naik</h3>
-  <h5>USN:01fe24bcs145</h5>
-    <h5>Roll NO:243</h5>
-  <a href="chandana">View My Profile</a>
-</div>
+      <div class="avatar-fancy">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#024" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="4"></circle>
+          <path d="M6 20c0-3.3 2.7-6 6-6s6 2.7 6 6"></path>
+        </svg>
+      </div>
+      <h3>CHANDANA NAIK</h3>
+      <h3>USN:01FE24BCS145</h3>
+      <h3>Roll NO:243</h3>
+      <a href="chandana/index1.html">View my page</a>
+    </div>
 
-<div class="team-card">
-  <img src="Spoorti/WhatsApp Image 2025-12-01 at 12.23.50 AM.jpeg" alt="Spoorti">
-  <h3>Spoorti Inamati</h3>
-  <h5>USN:01fe24bcs150</h5>
-    <h5>Roll NO:248</h5>
-  <a href="Spoorti">View My Profile</a>
-</div>
+    <!-- Second card -->
+    <div class="team-card">
+      <div class="avatar-fancy">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#024" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="4"></circle>
+          <path d="M6 20c0-3.3 2.7-6 6-6s6 2.7 6 6"></path>
+        </svg>
+      </div>
+      <h3>SPOORTI INAMATI</h3>
+      <h3>USN:01FE24BCS1450</h3>
+      <h3>Roll NO:248</h3>
+      <a href="Spoorti/index1.html">View my page</a>
+    </div>
 
-<div class="team-card">
-  <img src="shubharani/img2.jpeg" alt="Shubharani">
-  <h3>Shubharani Kulkarni</h3>
-  <h5>USN:01fe24bcs150</h5>
-    <h5>Roll NO:248</h5>
-<a href="shubharani">View My Profile</a>
-</div>
+    <!-- Third card -->
+    <div class="team-card">
+      <div class="avatar-fancy">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#024" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="4"></circle>
+          <path d="M6 20c0-3.3 2.7-6 6-6s6 2.7 6 6"></path>
+        </svg>
+      </div>
+      <h3>SHUBHARANI KULKARNI</h3>
+      <h3>USN:01FE24BCS217</h3>
+      <h3>Roll NO:270</h3>
+      <a href="shubharani/index1.html">View My page</a>
+    </div>
 
-<div class="team-card">
-  <img src="vidya/vidya.jpeg" alt="Vidya">
-  <h3>Vidya M Gadad</h3>
-  <h5>USN:01fe24bcs150</h5>
-    <h5>Roll NO:248</h5>
-  <a href="vidya">View My Profile</a>
-</div>
-
+    <!-- Fourth card -->
+    <div class="team-card">
+      <div class="avatar-fancy">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#024" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="4"></circle>
+          <path d="M6 20c0-3.3 2.7-6 6-6s6 2.7 6 6"></path>
+        </svg>
+      </div>
+      <h2>VIDYA M GADAD</h2>
+      <h3>USN:01FE24BCS045</h5>
+      <h3>Roll NO:216</h3>
+      <a href="vidya/index1.html">View My page</a>
+    </div>
   </div>
 </section>
+
 
 <footer>
 <footer>
@@ -156,15 +211,6 @@
     </svg>
   </a>
 
-  <!-- Instagram -->
- <a href="index.html" class="icon">
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="#E1306C">
-      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.17.056 1.97.248 2.43.415a4.92 4.92 0 011.743 1.01 4.922 4.922 0 011.01 1.743c.167.46.36 1.26.415 2.43.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.056 1.17-.248 1.97-.415 2.43a4.916 4.916 0 01-1.01 1.743 4.922 4.922 0 01-1.743 1.01c-.46.167-1.26.36-2.43.415-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.056-1.97-.248-2.43-.415a4.922 4.922 0 01-1.743-1.01 4.92 4.92 0 01-1.01-1.743c-.167-.46-.36-1.26-.415-2.43-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.056-1.17.248-1.97.415-2.43a4.922 4.922 0 011.01-1.743 4.922 4.922 0 011.743-1.01c.46-.167 1.26-.36 2.43-.415C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.736 0 8.332.014 7.052.072 5.775.13 4.905.346 4.163.648a6.92 6.92 0 00-2.513 1.634 6.924 6.924 0 00-1.634 2.513C-.346 5.095-.13 5.965-.072 7.242-.014 8.522 0 8.927 0 12c0 3.073-.014 3.478-.072 4.758-.058 1.277-.274 2.147-.576 2.889a6.924 6.924 0 001.634 2.513 6.922 6.922 0 002.513 1.634c.742.302 1.612.518 2.889.576C8.332 23.986 8.736 24 12 24s3.668-.014 4.948-.072c1.277-.058 2.147-.274 2.889-.576a6.922 6.922 0 002.513-1.634 6.922 6.922 0 001.634-2.513c.302-.742.518-1.612.576-2.889.058-1.28.072-1.684.072-4.758s-.014-3.478-.072-4.758c-.058-1.277-.274-2.147-.576-2.889a6.922 6.922 0 00-1.634-2.513 6.922 6.922 0 00-2.513-1.634c-.742-.302-1.612-.518-2.889-.576C15.668.014 15.264 0 12 0z"/>
-      <circle cx="12" cy="12" r="3.6"/>
-      <circle cx="18.406" cy="5.594" r="1.44"/>
-     
-    </svg>
-  </a>
 </div>
 </footer>
   <p class="footer-text">© 2025 DAA City Design Project – KLE Technological University</p>
@@ -172,11 +218,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
