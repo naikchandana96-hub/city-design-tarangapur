@@ -1,0 +1,16 @@
+{
+    "zones": [
+        {
+            "name": "ZoneA",
+            "load": 40
+        },
+        {
+            "name": "ZoneB",
+            "load": 55
+        },
+        {
+            "name": "ZoneC",
+            "load": 30
+        }
+    ]
+}
