@@ -1,0 +1,29 @@
+{
+    "array": [
+        5,
+        8,
+        6,
+        3,
+        2,
+        7,
+        4,
+        6
+    ],
+    "operations": [
+        {
+            "type": "query",
+            "L": 2,
+            "R": 5
+        },
+        {
+            "type": "update",
+            "index": 3,
+            "value": 10
+        },
+        {
+            "type": "query",
+            "L": 0,
+            "R": 7
+        }
+    ]
+}
