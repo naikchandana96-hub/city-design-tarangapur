@@ -38,49 +38,61 @@
             <li>Space Complexity: <b>O(V)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('code1')">Show Algorithm Code</button>
+         <button class="btn" onclick="toggleCode('code1')">Show Algorithm Code</button>
+                <button class="btn"><a href="https://github.com/naikchandana96-hub/city-design-tarangapur/blob/b06e4f8d5d47a3726f9fd1484f4b64acea83303a/chandana/graph.json">Access json file</a></button>
+
 
         <div id="code1" class="code-box">
+#include <bits/stdc++.h>
+#include "json.hpp"   
+#include <fstream>
 
-#include &lt;bits/stdc++.h&gt;
 using namespace std;
+using json = nlohmann::json;
 
 int main() {
-    int V = 5;
-    vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; graph(V);
+    // Read JSON file
+    ifstream file("graph.json");
+    json j;
+    file >> j;
 
-    graph[0].push_back({1,10});
-    graph[0].push_back({4,5});
-    graph[1].push_back({2,1});
-    graph[1].push_back({4,2});
-    graph[2].push_back({3,4});
-    graph[4].push_back({3,2});
+    int V = j["V"];
+    vector<vector<pair<int,int>>> graph(V);
 
-    vector&lt;int&gt; dist(V, INT_MAX);
-    priority_queue&lt;pair&lt;int,int&gt;, vector&lt;pair&lt;int,int&gt;&gt;, greater&lt;&gt;&gt; pq;
+
+    for (auto &e : j["edges"]) {
+        int u = e["from"];
+        int v = e["to"];
+        int w = e["weight"];
+        graph[u].push_back({v, w});
+    }
+ vector<int> dist(V, INT_MAX);
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<>> pq;
 
     dist[0] = 0;
-    pq.push({0,0});
+    pq.push({0, 0});
 
-    while(!pq.empty()) {
+    while (!pq.empty()) {
         int u = pq.top().second;
         pq.pop();
 
-        for(auto e : graph[u]) {
-            int v = e.first, w = e.second;
-            if(dist[u] + w &lt; dist[v]) {
+        for (auto e : graph[u]) {
+            int v = e.first;
+            int w = e.second;
+            if (dist[u] + w < dist[v]) {
                 dist[v] = dist[u] + w;
                 pq.push({dist[v], v});
             }
         }
     }
-
-    cout &lt;&lt; "Shortest distances:\n";
-    for(int i=0;i&lt;V;i++)
-        cout &lt;&lt; i &lt;&lt; " : " &lt;&lt; dist[i] &lt;&lt; endl;
+  cout << "Shortest distances from source 0:\n";
+    for (int i = 0; i < V; i++) {
+        cout << i << " : " << dist[i] << endl;
+    }
 
     return 0;
 }
+
 
         </div>
     </div>
@@ -102,53 +114,67 @@ int main() {
             <li>Space Complexity: <b>O(V)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('code2')">Show Algorithm Code</button>
+<button class="btn" onclick="toggleCode('code2')">Show Algorithm Code</button>
+                <button class="btn"><a href="https://github.com/naikchandana96-hub/city-design-tarangapur/blob/798186382bb2ed3b639361bd57744c4faf46699b/chandana/astar_graph.json">Access json file</a></button>
+                <div id="code2" class="code-box">
+#include <bits/stdc++.h>
+#include "json.hpp"
+#include <fstream>
 
-        <div id="code2" class="code-box">
-#include &lt;bits/stdc++.h&gt;
 using namespace std;
+using json = nlohmann::json;
 
 int heuristic(int a, int b) {
     return abs(a - b);
 }
 
 int main() {
-    int V = 6;
-    vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; graph(V);
+    
+    ifstream file("astar_graph.json");
+    json j;
+    file >> j;
 
-    graph[0] = {{1,2},{2,4}};
-    graph[1] = {{3,7}};
-    graph[2] = {{3,1}};
-    graph[3] = {{4,3}};
-    graph[4] = {{5,1}};
+    int V = j["V"];
+    int start = j["start"];
+    int goal = j["goal"];
 
-    int start = 0, goal = 5;
+    vector<vector<pair<int,int>>> graph(V);
 
-    vector&lt;int&gt; g(V, INT_MAX);
-    priority_queue&lt;pair&lt;int,int&gt;, vector&lt;pair&lt;int,int&gt;&gt;, greater&lt;&gt;&gt; pq;
+      
+    for (auto &e : j["edges"]) {
+        int u = e["from"];
+        int v = e["to"];
+        int w = e["weight"];
+        graph[u].push_back({v, w});
+    }
+
+    vector<int> g(V, INT_MAX);
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<>> pq;
 
     g[start] = 0;
-    pq.push({heuristic(start,goal), start});
+    pq.push({heuristic(start, goal), start});
 
-    while(!pq.empty()) {
+    while (!pq.empty()) {
         int u = pq.top().second;
         pq.pop();
 
-        if(u == goal) {
-            cout &lt;&lt; "Goal reached with cost: " &lt;&lt; g[u] &lt;&lt; endl;
+        if (u == goal) {
+            cout << "Goal reached with cost: " << g[u] << endl;
             return 0;
         }
 
-        for(auto e : graph[u]) {
-            int v = e.first, w = e.second;
-            if(g[u] + w &lt; g[v]) {
+        for (auto e : graph[u]) {
+            int v = e.first;
+            int w = e.second;
+
+            if (g[u] + w < g[v]) {
                 g[v] = g[u] + w;
-                pq.push({g[v] + heuristic(v,goal), v});
+                pq.push({g[v] + heuristic(v, goal), v});
             }
         }
     }
 
-    cout &lt;&lt; "Path not found";
+    cout << "Path not found";
     return 0;
 }
 
@@ -172,49 +198,64 @@ int main() {
         </ul>
 
         <button class="btn" onclick="toggleCode('code3')">Show Algorithm Code</button>
+                <button class="btn"><a href="https://github.com/naikchandana96-hub/city-design-tarangapur/blob/1a428ab13fa14779c08c0e7cea0e33a8c2ead27a/chandana/prim_graph.json">Access json file</a></button>
 
         <div id="code3" class="code-box">
 
-#include &lt;bits/stdc++.h&gt;
+#include <bits/stdc++.h>
+#include "json.hpp"
+#include <fstream>
+
 using namespace std;
+using json = nlohmann::json;
 
 int main() {
-    int V = 5;
-    vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; graph(V);
+    // Read JSON file
+    ifstream file("prim_graph.json");
+    json j;
+    file >> j;
 
-    graph[0] = {{1,2},{3,6}};
-    graph[1] = {{0,2},{2,3},{3,8},{4,5}};
-    graph[2] = {{1,3},{4,7}};
-    graph[3] = {{0,6},{1,8}};
-    graph[4] = {{1,5},{2,7}};
+    int V = j["V"];
+    vector<vector<pair<int,int>>> graph(V);
 
-    vector&lt;int&gt; key(V, INT_MAX), parent(V, -1);
-    vector&lt;bool&gt; mst(V, false);
+    // Read edges (undirected graph)
+    for (auto &e : j["edges"]) {
+        int u = e["from"];
+        int v = e["to"];
+        int w = e["weight"];
+        graph[u].push_back({v, w});
+        graph[v].push_back({u, w});
+    }
+
+    vector<int> key(V, INT_MAX), parent(V, -1);
+    vector<bool> mst(V, false);
     key[0] = 0;
 
-    for(int i=0;i&lt;V-1;i++) {
-        int u=-1;
-        for(int j=0;j&lt;V;j++)
-            if(!mst[j] && (u==-1 || key[j]&lt;key[u]))
-                u=j;
+    for (int i = 0; i < V - 1; i++) {
+        int u = -1;
+        for (int j = 0; j < V; j++)
+            if (!mst[j] && (u == -1 || key[j] < key[u]))
+                u = j;
 
-        mst[u]=true;
+        mst[u] = true;
 
-        for(auto e:graph[u]) {
-            int v=e.first,w=e.second;
-            if(!mst[v] && w&lt;key[v]) {
-                key[v]=w;
-                parent[v]=u;
+        for (auto e : graph[u]) {
+            int v = e.first;
+            int w = e.second;
+            if (!mst[v] && w < key[v]) {
+                key[v] = w;
+                parent[v] = u;
             }
         }
     }
 
-    cout &lt;&lt; "Edges in MST:\n";
-    for(int i=1;i&lt;V;i++)
-        cout &lt;&lt; parent[i] &lt;&lt; " - " &lt;&lt; i &lt;&lt; " (" &lt;&lt; key[i] &lt;&lt; ")\n";
+    cout << "Edges in MST:\n";
+    for (int i = 1; i < V; i++)
+        cout << parent[i] << " - " << i << " (" << key[i] << ")\n";
 
     return 0;
 }
+
 
         </div>
     </div>
@@ -255,15 +296,20 @@ int main() {
             <li>Space Complexity: <b>O(N)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('code4')">Show Algorithm Code</button>
+ <button class="btn" onclick="toggleCode('code4')">Show Algorithm Code</button>
+                <button class="btn"><a href="https://github.com/naikchandana96-hub/city-design-tarangapur/blob/9b004bd55b854e56e563a4d61fe67a06a8c1cf19/chandana/astar_graph.json">Access json file</a></button>
 
         <div id="code4" class="code-box">
-#include &lt;bits/stdc++.h&gt;
+#include <bits/stdc++.h>
+#include "json.hpp"
+#include <fstream>
+
 using namespace std;
+using json = nlohmann::json;
 
-vector&lt;int&gt; seg;  
+vector<int> seg;
 
-void build(vector&lt;int&gt; &arr, int node, int l, int r) {
+void build(vector<int> &arr, int node, int l, int r) {
     if (l == r) {
         seg[node] = arr[l];
         return;
@@ -275,8 +321,8 @@ void build(vector&lt;int&gt; &arr, int node, int l, int r) {
 }
 
 int query(int node, int l, int r, int L, int R) {
-    if (R &lt; l || r &lt; L) return 0; 
-    if (L &lt;= l && r &lt;= R) return seg[node]; 
+    if (R < l || r < L) return 0;
+    if (L <= l && r <= R) return seg[node];
     int mid = (l + r) / 2;
     return query(2 * node, l, mid, L, R) +
            query(2 * node + 1, mid + 1, r, L, R);
@@ -288,7 +334,7 @@ void update(int node, int l, int r, int idx, int val) {
         return;
     }
     int mid = (l + r) / 2;
-    if (idx &lt;= mid)
+    if (idx <= mid)
         update(2 * node, l, mid, idx, val);
     else
         update(2 * node + 1, mid + 1, r, idx, val);
@@ -297,21 +343,37 @@ void update(int node, int l, int r, int idx, int val) {
 }
 
 int main() {
-    vector&lt;int&gt; arr = {3, 2, 1, 7, 5};
-    int n = (int)arr.size();
+    // Read JSON file
+    ifstream file("segment_tree_input.json");
+    json j;
+    file >> j;
 
-    seg.assign(4 * n, 0); 
+    vector<int> arr = j["array"].get<vector<int>>();
+    int n = arr.size();
 
+    seg.assign(4 * n, 0);
     build(arr, 1, 0, n - 1);
 
-    cout &lt;&lt; "Sum of range(1, 3): " &lt;&lt; query(1, 0, n - 1, 1, 3) &lt;&lt; endl;
-
-    update(1, 0, n - 1, 2, 10); 
-
-    cout &lt;&lt; "After update, sum of range(1, 3): " &lt;&lt; query(1, 0, n - 1, 1, 3) &lt;&lt; endl;
+    // Process queries
+    for (auto &q : j["queries"]) {
+        string type = q["type"];
+        if (type == "sum") {
+            int L = q["L"];
+            int R = q["R"];
+            cout << "Sum of range(" << L << ", " << R << "): "
+                 << query(1, 0, n - 1, L, R) << endl;
+        } 
+        else if (type == "update") {
+            int idx = q["index"];
+            int val = q["value"];
+            update(1, 0, n - 1, idx, val);
+            cout << "Updated index " << idx << " to " << val << endl;
+        }
+    }
 
     return 0;
 }
+
         </div>
     </div>
 
@@ -332,26 +394,50 @@ int main() {
             <li>Space Complexity: <b>O(N)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('code5')">Show Algorithm Code</button>
+ <button class="btn" onclick="toggleCode('code5')">Show Algorithm Code</button>
+                <button class="btn"><a href="https://github.com/naikchandana96-hub/city-design-tarangapur/blob/83ae51867e39e3dc262ea4817c6350c981c2b81c/chandana/zones_input.json">Access json file</a></button>
 
         <div id="code5" class="code-box">
-#include &lt;bits/stdc++.h&gt;
-using namespace std;
+#include <bits/stdc++.h>
+#include "json.hpp"
+#include <fstream>
 
-pair&lt;string, int&gt; getMaxLoad(vector&lt;pair&lt;string,int&gt;&gt; &zones) {
-    priority_queue&lt;pair&lt;int,string&gt;&gt; pq;
-    for(auto &z : zones) {
+using namespace std;
+using json = nlohmann::json;
+
+pair<string, int> getMaxLoad(vector<pair<string,int>> &zones) {
+    priority_queue<pair<int,string>> pq;
+    for (auto &z : zones) {
         pq.push({z.second, z.first});
     }
     return {pq.top().second, pq.top().first};
 }
 
 int main() {
-    vector&lt;pair&lt;string,int&gt;&gt; zones = { {"ZoneA",40}, {"ZoneB",55}, {"ZoneC",30} };
+    
+    ifstream file("zones_input.json");
+    json j;
+    file >> j;
+
+    vector<pair<string,int>> zones;
+
+    
+    for (auto &z : j["zones"]) {
+        string name = z["name"];
+        int load = z["load"];
+        zones.push_back({name, load});
+    }
+
     auto result = getMaxLoad(zones);
-    cout &lt;&lt; "Highest Load Zone = " &lt;&lt; result.first &lt;&lt; " Load = " &lt;&lt; result.second &lt;&lt; endl;
+
+    cout << "Highest Load Zone = " 
+         << result.first 
+         << " Load = " 
+         << result.second << endl;
+
     return 0;
 }
+
         </div>
     </div>
     <!-- ---------------- ALGORITHM 3 ---------------- -->
@@ -370,11 +456,16 @@ int main() {
             <li>Time Complexity: <b>O(log N)</b> for search, insert, delete</li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('code6')">Show Algorithm Code</button>
+ <button class="btn" onclick="toggleCode('code6')">Show Algorithm Code</button>
+                <button class="btn"><a href="https://github.com/naikchandana96-hub/city-design-tarangapur/blob/6ba4dbb3377eb47a835f0fa994f3e39d148c60ad/chandana/avl_input.json">Access json file</a></button>
 
         <div id="code6" class="code-box">
-#include &lt;bits/stdc++.h&gt;
+#include <bits/stdc++.h>
+#include "json.hpp"
+#include <fstream>
+
 using namespace std;
+using json = nlohmann::json;
 
 struct Node {
     int key;
@@ -383,53 +474,102 @@ struct Node {
     Node(int k) : key(k), left(NULL), right(NULL), height(1) {}
 };
 
-int getHeight(Node* n){ return n ? n->height : 0; }
-int getBalance(Node* n){ return n ? getHeight(n->left)-getHeight(n->right) : 0; }
+int getHeight(Node* n) {
+    return n ? n->height : 0;
+}
 
-Node* rotateRight(Node* y){
-    Node* x=y->left; Node* T2=x->right;
-    x->right=y; y->left=T2;
-    y->height=1+max(getHeight(y->left),getHeight(y->right));
-    x->height=1+max(getHeight(x->left),getHeight(x->right));
+int getBalance(Node* n) {
+    return n ? getHeight(n->left) - getHeight(n->right) : 0;
+}
+
+Node* rotateRight(Node* y) {
+    Node* x = y->left;
+    Node* T2 = x->right;
+
+    x->right = y;
+    y->left = T2;
+
+    y->height = 1 + max(getHeight(y->left), getHeight(y->right));
+    x->height = 1 + max(getHeight(x->left), getHeight(x->right));
+
     return x;
 }
 
-Node* rotateLeft(Node* x){
-    Node* y=x->right; Node* T2=y->left;
-    y->left=x; x->right=T2;
-    x->height=1+max(getHeight(x->left),getHeight(x->right));
-    y->height=1+max(getHeight(y->left),getHeight(y->right));
+Node* rotateLeft(Node* x) {
+    Node* y = x->right;
+    Node* T2 = y->left;
+
+    y->left = x;
+    x->right = T2;
+
+    x->height = 1 + max(getHeight(x->left), getHeight(x->right));
+    y->height = 1 + max(getHeight(y->left), getHeight(y->right));
+
     return y;
 }
 
-Node* insert(Node* root,int key){
-    if(!root) return new Node(key);
-    if(key<root->key) root->left=insert(root->left,key);
-    else if(key>root->key) root->right=insert(root->right,key);
-    else return root;
-    root->height=1+max(getHeight(root->left),getHeight(root->right));
-    int balance=getBalance(root);
-    if(balance>1 && key<root->left->key) return rotateRight(root);
-    if(balance<-1 && key>root->right->key) return rotateLeft(root);
-    if(balance>1 && key>root->left->key){ root->left=rotateLeft(root->left); return rotateRight(root);}
-    if(balance<-1 && key<root->right->key){ root->right=rotateRight(root->right); return rotateLeft(root);}
+Node* insert(Node* root, int key) {
+    if (!root) return new Node(key);
+
+    if (key < root->key)
+        root->left = insert(root->left, key);
+    else if (key > root->key)
+        root->right = insert(root->right, key);
+    else
+        return root;
+
+    root->height = 1 + max(getHeight(root->left), getHeight(root->right));
+    int balance = getBalance(root);
+
+    if (balance > 1 && key < root->left->key)
+        return rotateRight(root);
+
+    
+    if (balance < -1 && key > root->right->key)
+        return rotateLeft(root);
+
+    
+    if (balance > 1 && key > root->left->key) {
+        root->left = rotateLeft(root->left);
+        return rotateRight(root);
+    }
+
+    
+    if (balance < -1 && key < root->right->key) {
+        root->right = rotateRight(root->right);
+        return rotateLeft(root);
+    }
+
     return root;
 }
 
-void inorder(Node* root){
-    if(!root) return;
+void inorder(Node* root) {
+    if (!root) return;
     inorder(root->left);
-    cout &lt;&lt; root->key &lt;&lt; " ";
+    cout << root->key << " ";
     inorder(root->right);
 }
 
-int main(){
-    Node* root=NULL;
-    vector&lt;int&gt; values={30,20,40,10,25,35,50};
-    for(int x:values) root=insert(root,x);
-    cout &lt;&lt; "AVL Tree (Inorder): ";
+int main() {
+   
+    ifstream file("avl_input.json");
+    json j;
+    file >> j;
+
+    vector<int> values = j["values"].get<vector<int>>();
+
+    Node* root = NULL;
+    for (int x : values)
+        root = insert(root, x);
+
+    cout << "AVL Tree (Inorder): ";
     inorder(root);
+    cout << endl;
+
+    return 0;
 }
+
+
         </div>
     </div>
 
@@ -449,28 +589,67 @@ int main(){
             <li>Time Complexity: <b>O(V × E)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('code7')">Show Algorithm Code</button>
+ <button class="btn" onclick="toggleCode('code7')">Show Algorithm Code</button>
+                <button class="btn"><a href="https://github.com/naikchandana96-hub/city-design-tarangapur/blob/6c4103909cfd3bbb0047ea9d0525ce47e3e1ad66/chandana/bellman_ford_input.json">Access json file</a></button>
 
         <div id="code7" class="code-box">
-  #include &lt;bits/stdc++.h&gt;
+  #include <bits/stdc++.h>
+#include "json.hpp"
+#include <fstream>
+
 using namespace std;
+using json = nlohmann::json;
 
 vector<int> bellmanFord(int V, vector<tuple<int,int,int>> &edges, int src) {
     const int INF = 1e9;
     vector<int> dist(V, INF);
     dist[src] = 0;
 
-    for(int i = 0; i &lt; V-1; i++) {
-        for(auto &e : edges) {
+    
+    for (int i = 0; i < V - 1; i++) {
+        for (auto &e : edges) {
             int u, v, w;
-            tie(u,v,w) = e;
-            if(dist[u] != INF && dist[u] + w < dist[v]) {
+            tie(u, v, w) = e;
+            if (dist[u] != INF && dist[u] + w < dist[v]) {
                 dist[v] = dist[u] + w;
             }
         }
     }
     return dist;
-}      </div>
+}
+
+int main() {
+   
+    ifstream file("bellman_ford_input.json");
+    json j;
+    file >> j;
+
+    int V = j["V"];
+    int src = j["source"];
+
+    vector<tuple<int,int,int>> edges;
+
+   
+    for (auto &e : j["edges"]) {
+        int u = e["from"];
+        int v = e["to"];
+        int w = e["weight"];
+        edges.push_back({u, v, w});
+    }
+
+    vector<int> dist = bellmanFord(V, edges, src);
+
+    cout << "Shortest distances from source " << src << ":\n";
+    for (int i = 0; i < V; i++) {
+        if (dist[i] == 1e9)
+            cout << i << " : INF\n";
+        else
+            cout << i << " : " << dist[i] << endl;
+    }
+
+    return 0;
+}
+    </div>
     </div>
 </div>
     <div class="container">
@@ -503,12 +682,16 @@ vector<int> bellmanFord(int V, vector<tuple<int,int,int>> &edges, int src) {
         <ul>
             <li>Time Complexity: <b>O(log N)</b> (search, insert, delete)</li>
         </ul>
-
-        <button class="btn" onclick="toggleCode('codeInv1')">Show Algorithm Code</button>
+<button class="btn" onclick="toggleCode('codeInv1')">Show Algorithm Code</button>
+                <button class="btn"><a href="https://github.com/naikchandana96-hub/city-design-tarangapur/blob/73dfa1d72d91870abbc940fc147b2c23d87386b8/chandana/avl_products.json">Access json file</a></button>
 
         <div id="codeInv1" class="code-box">
-#include &lt;bits/stdc++.h&gt;
+#include <bits/stdc++.h>
+#include "json.hpp"
+#include <fstream>
+
 using namespace std;
+using json = nlohmann::json;
 
 struct Node {
     int productID;
@@ -545,16 +728,21 @@ Node* rotateLeft(Node* x){
 Node* insert(Node* root, int id){
     if(!root) return new Node(id);
 
-    if(id < root->productID) root->left = insert(root->left, id);
-    else if(id > root->productID) root->right = insert(root->right, id);
-    else return root;
+    if(id < root->productID)
+        root->left = insert(root->left, id);
+    else if(id > root->productID)
+        root->right = insert(root->right, id);
+    else
+        return root;
 
     root->height = 1 + max(height(root->left), height(root->right));
-
     int b = balance(root);
 
-    if(b > 1 && id < root->left->productID) return rotateRight(root);
-    if(b < -1 && id > root->right->productID) return rotateLeft(root);
+    if(b > 1 && id < root->left->productID)
+        return rotateRight(root);
+
+    if(b < -1 && id > root->right->productID)
+        return rotateLeft(root);
 
     if(b > 1 && id > root->left->productID){
         root->left = rotateLeft(root->left);
@@ -568,6 +756,33 @@ Node* insert(Node* root, int id){
 
     return root;
 }
+
+void inorder(Node* root){
+    if(!root) return;
+    inorder(root->left);
+    cout << root->productID << " ";
+    inorder(root->right);
+}
+
+int main(){
+   
+    ifstream file("avl_products.json");
+    json j;
+    file >> j;
+
+    vector<int> products = j["products"].get<vector<int>>();
+
+    Node* root = NULL;
+    for(int id : products)
+        root = insert(root, id);
+
+    cout << "AVL Tree (Inorder Traversal): ";
+    inorder(root);
+    cout << endl;
+
+    return 0;
+}
+
         </div>
     </div>
 
@@ -588,16 +803,20 @@ Node* insert(Node* root, int id){
             <li>Space Complexity: <b>O(N)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('codeInv2')">Show Algorithm Code</button>
-
+<button class="btn" onclick="toggleCode('codeInv2')">Show Algorithm Code</button>
+                <button class="btn"><a href="https://github.com/naikchandana96-hub/city-design-tarangapur/blob/c9ce718193c29fd46de5b2bc3b3595943ecdbf90/chandana/segment_tree_ops.json">Access json file</a></button>
         <div id="codeInv2" class="code-box">
-#include &lt;bits/stdc++.h&gt;
+#include <bits/stdc++.h>
+#include "json.hpp"
+#include <fstream>
+
 using namespace std;
+using json = nlohmann::json;
 
 vector<int> seg;
 
 void build(vector<int> &arr, int node, int l, int r) {
-    if(l == r){
+    if (l == r) {
         seg[node] = arr[l];
         return;
     }
@@ -607,26 +826,59 @@ void build(vector<int> &arr, int node, int l, int r) {
     seg[node] = seg[node*2] + seg[node*2+1];
 }
 
-int query(int node, int l, int r, int L, int R){
-    if(R < l || L > r) return 0;
-    if(L <= l && r <= R) return seg[node];
-
-    int mid = (l + r)/2;
-    return query(node*2, l, mid, L, R)
-         + query(node*2+1, mid+1, r, L, R);
+int query(int node, int l, int r, int L, int R) {
+    if (R < l || L > r) return 0;
+    if (L <= l && r <= R) return seg[node];
+    int mid = (l + r) / 2;
+    return query(node*2, l, mid, L, R) +
+           query(node*2+1, mid+1, r, L, R);
 }
 
-void update(int node, int l, int r, int idx, int val){
-    if(l == r){
+void update(int node, int l, int r, int idx, int val) {
+    if (l == r) {
         seg[node] = val;
         return;
     }
-    int mid = (l + r)/2;
-    if(idx <= mid) update(node*2, l, mid, idx, val);
-    else update(node*2+1, mid+1, r, idx, val);
+    int mid = (l + r) / 2;
+    if (idx <= mid)
+        update(node*2, l, mid, idx, val);
+    else
+        update(node*2+1, mid+1, r, idx, val);
 
     seg[node] = seg[node*2] + seg[node*2+1];
 }
+
+int main() {
+    
+    ifstream file("segment_tree_ops.json");
+    json j;
+    file >> j;
+
+    vector<int> arr = j["array"].get<vector<int>>();
+    int n = arr.size();
+
+    seg.assign(4*n, 0);
+    build(arr, 1, 0, n-1);
+
+   
+    for (auto &op : j["operations"]) {
+        if (op["type"] == "query") {
+            int L = op["L"];
+            int R = op["R"];
+            cout << "Sum(" << L << ", " << R << ") = "
+                 << query(1, 0, n-1, L, R) << endl;
+        }
+        else if (op["type"] == "update") {
+            int idx = op["index"];
+            int val = op["value"];
+            update(1, 0, n-1, idx, val);
+            cout << "Updated index " << idx << " to " << val << endl;
+        }
+    }
+
+    return 0;
+}
+
         </div>
     </div>
 
@@ -646,32 +898,44 @@ void update(int node, int l, int r, int idx, int val){
             <li>Time Complexity: <b>O(log N)</b> (insert/remove)</li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('codeInv3')">Show Algorithm Code</button>
-
+<button class="btn" onclick="toggleCode('codeInv3')">Show Algorithm Code</button>
+                <button class="btn"><a href="https://github.com/naikchandana96-hub/city-design-tarangapur/blob/22923642578ada177ad30acc7f6fed313776b61e/chandana/urgent_orders.json">Access json file</a></button>
         <div id="codeInv3" class="code-box">
-#include &lt;bits/stdc++.h&gt;
+#include <bits/stdc++.h>
+#include <fstream>
+#include "json.hpp"  
+
 using namespace std;
+using json = nlohmann::json;
 
 pair<int,string> getUrgentOrder(vector<pair<int,string>> &orders){
     priority_queue<pair<int,string>> pq;
 
     for(auto &o : orders){
-        pq.push({o.first, o.second}); 
+        pq.push({o.first, o.second});
     }
     return pq.top();
 }
 
 int main(){
-    vector<pair<int,string>> orders = {
-        {5, "Order101"},
-        {9, "Order202"},
-        {3, "Order303"}
-    };
+    ifstream file("urgent_orders.json");
+    json j;
+    file >> j;
+
+    vector<pair<int,string>> orders;
+
+    for(auto &o : j["orders"]){
+        orders.push_back({o["priority"], o["orderId"]});
+    }
 
     auto urgent = getUrgentOrder(orders);
-    cout &lt;&lt; "Urgent Order: " << urgent.second 
+
+    cout << "Urgent Order: " << urgent.second
          << " Priority = " << urgent.first << endl;
+
+    return 0;
 }
+
         </div>
     </div>
 
@@ -692,25 +956,38 @@ int main(){
             <li>Merge Sort: <b>O(N log N)</b> guaranteed</li>
             <li>Insertion Sort: <b>O(N²)</b> (best for small datasets)</li>
         </ul>
-
-        <button class="btn" onclick="toggleCode('codeInv4')">Show Sorting Code</button>
+ <button class="btn" onclick="toggleCode('codeInv4')">Show Algorithm Code</button>
+                <button class="btn"><a href="https://github.com/naikchandana96-hub/city-design-tarangapur/blob/95b02e080741b1c1d20a7dc4a5e6a13cac7569d6/chandana/stock_levels.json">Access json file</a></button>
 
         <div id="codeInv4" class="code-box">
-#include &lt;bits/stdc++.h&gt;
+#include <bits/stdc++.h>
+#include <fstream>
 using namespace std;
+#include "json.hpp"
+using json = nlohmann::json;
 
-void mergeSort(vector<int> &arr){
-    sort(arr.begin(), arr.end()); 
+void mergeSort(vector<int> &arr) {
+    sort(arr.begin(), arr.end());
 }
 
-int main(){
-    vector<int> stock = {40, 10, 60, 20, 30};
+int main() {
+    
+    ifstream file("stock_levels.json");
+    if (!file.is_open()) {
+        cout << "Error: Could not open JSON file" << endl;
+        return 1;
+    }
+   json j;
+    file >> j;
+    vector<int> stock = j["stock"];
+        mergeSort(stock);
+         cout << "Sorted Stock Levels: ";
+    for (int x : stock)
+        cout << x << " ";
 
-    mergeSort(stock);
-
-    cout << "Sorted Stock Levels: ";
-    for(int x : stock) cout << x << " ";
+    return 0;
 }
+
         </div>
     </div>
 
@@ -748,24 +1025,31 @@ int main(){
             <li>Time Complexity: <b>O((V + E) log V)</b> with a binary heap (priority_queue)</li>
             <li>Space Complexity: <b>O(V)</b></li>
         </ul>
-
-        <button class="btn" onclick="toggleCode('codeSW1')">Show Algorithm Code</button>
+<button class="btn" onclick="toggleCode('codeSW1')">Show Algorithm Code</button>
+                <button class="btn"><a href="https://github.com/naikchandana96-hub/city-design-tarangapur/blob/afdd2f3c54be23f07abae471180240321f260ab3/chandana/dijkstra_input.json">Access json file</a></button>
 
         <div id="codeSW1" class="code-box">
-#include &lt;bits/stdc++.h&gt;
+#include <bits/stdc++.h>
+#include <fstream>
 using namespace std;
 
+#include "json.hpp"
+using json = nlohmann::json;
 
 vector<int> dijkstra(int V, vector<vector<pair<int,int>>>& adj, int src) {
     const int INF = 1e9;
     vector<int> dist(V, INF);
     dist[src] = 0;
+
     priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
     pq.push({0, src});
 
     while(!pq.empty()) {
-        auto [d, u] = pq.top(); pq.pop();
+        auto [d, u] = pq.top();
+        pq.pop();
+
         if(d > dist[u]) continue;
+
         for(auto &edge : adj[u]) {
             int v = edge.first, w = edge.second;
             if(dist[u] + w < dist[v]) {
@@ -778,23 +1062,36 @@ vector<int> dijkstra(int V, vector<vector<pair<int,int>>>& adj, int src) {
 }
 
 int main() {
-    int V = 6;
-    vector<vector<pair<int,int>>> adj(V);
-    adj[0].push_back({1, 7});
-    adj[0].push_back({2, 9});
-    adj[0].push_back({5,14});
-    adj[1].push_back({2,10});
-    adj[1].push_back({3,15});
-    adj[2].push_back({3,11});
-    adj[2].push_back({5,2});
-    adj[3].push_back({4,6});
-    adj[4].push_back({5,9});
+    ifstream file("dijkstra_graph.json");
+    if(!file.is_open()) {
+        cout << "Error opening JSON file\n";
+        return 0;
+    }
 
-    vector<int> dist = dijkstra(V, adj, 0);
-    cout &lt;&lt; "Distances from depot (0):\\n";
-    for(int i = 0; i &lt; V; ++i) cout &lt;&lt; i &lt;&lt; ": " &lt;&lt; dist[i] &lt;&lt; "\\n";
+    json j;
+    file >> j;
+
+    int V = j["vertices"];
+    int src = j["source"];
+
+    vector<vector<pair<int,int>>> adj(V);
+
+    for(auto &e : j["edges"]) {
+        int u = e["from"];
+        int v = e["to"];
+        int w = e["weight"];
+        adj[u].push_back({v, w});   // directed graph
+    }
+
+    vector<int> dist = dijkstra(V, adj, src);
+
+    cout << "Distances from depot (" << src << "):\n";
+    for(int i = 0; i < V; i++)
+        cout << i << " : " << dist[i] << "\n";
+
     return 0;
 }
+
         </div>
     </div>
 
@@ -815,51 +1112,86 @@ int main() {
             <li>Space Complexity: <b>O(N)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('codeSW2')">Show Algorithm Code</button>
+<button class="btn" onclick="toggleCode('codeSW2')">Show Algorithm Code</button>
+                <button class="btn"><a href="https://github.com/naikchandana96-hub/city-design-tarangapur/blob/9da16daf08a4f8e93a0193e2901baa70865efe06/chandana/bins.json">Access json file</a></button>
 
         <div id="codeSW2" class="code-box">
-#include &lt;bits/stdc++.h&gt;
-using namespace std;
+#include <bits/stdc++.h>
+#include <fstream>
+#include <nlohmann/json.hpp>
 
-vector<int> seg; 
+using namespace std;
+using json = nlohmann::json;
+
+vector<int> seg;
+
 
 void build(vector<int>& arr, int node, int l, int r) {
-    if(l == r) { seg[node] = arr[l]; return; }
+    if (l == r) {
+        seg[node] = arr[l];
+        return;
+    }
     int mid = (l + r) / 2;
-    build(arr, 2*node, l, mid);
-    build(arr, 2*node+1, mid+1, r);
-    seg[node] = max(seg[2*node], seg[2*node+1]); // store max fill %
+    build(arr, 2 * node, l, mid);
+    build(arr, 2 * node + 1, mid + 1, r);
+    seg[node] = max(seg[2 * node], seg[2 * node + 1]);
 }
 
+/* Range Maximum Query */
 int queryMax(int node, int l, int r, int L, int R) {
-    if(R &lt; l || r &lt; L) return -1; // no overlap
-    if(L &lt;= l && r &lt;= R) return seg[node];
+    if (R < l || r < L) return -1;
+    if (L <= l && r <= R) return seg[node];
+
     int mid = (l + r) / 2;
-    return max(queryMax(2*node, l, mid, L, R),
-               queryMax(2*node+1, mid+1, r, L, R));
+    return max(
+        queryMax(2 * node, l, mid, L, R),
+        queryMax(2 * node + 1, mid + 1, r, L, R)
+    );
 }
+
 
 void update(int node, int l, int r, int idx, int val) {
-    if(l == r) { seg[node] = val; return; }
+    if (l == r) {
+        seg[node] = val;
+        return;
+    }
     int mid = (l + r) / 2;
-    if(idx &lt;= mid) update(2*node, l, mid, idx, val);
-    else update(2*node+1, mid+1, r, idx, val);
-    seg[node] = max(seg[2*node], seg[2*node+1]);
+    if (idx <= mid)
+        update(2 * node, l, mid, idx, val);
+    else
+        update(2 * node + 1, mid + 1, r, idx, val);
+
+    seg[node] = max(seg[2 * node], seg[2 * node + 1]);
 }
 
 int main() {
-    vector<int> fill = {20, 55, 40, 78, 10, 90}; // fill percentages per bin
-    int n = (int)fill.size();
-    seg.assign(4*n, 0);
-    build(fill, 1, 0, n-1);
-
-    cout &lt;&lt; "Max fill in range(1,4): " &lt;&lt; queryMax(1,0,n-1,1,4) &lt;&lt; endl;
-
     
-    update(1,0,n-1,2,95);
-    cout &lt;&lt; "After update, max in range(1,4): " &lt;&lt; queryMax(1,0,n-1,1,4) &lt;&lt; endl;
+    ifstream file("bins.json");
+    json j;
+    file >> j;
+
+    vector<int> fill = j["fill_percentages"];
+    int n = fill.size();
+
+    seg.assign(4 * n, 0);
+    build(fill, 1, 0, n - 1);
+ for (auto& q : j["queries"]) {
+        int L = q["L"];
+        int R = q["R"];
+        cout << "Max fill in range(" << L << "," << R << "): "
+             << queryMax(1, 0, n - 1, L, R) << endl;
+    }
+ for (auto& u : j["updates"]) {
+        int idx = u["index"];
+        int val = u["value"];
+        update(1, 0, n - 1, idx, val);
+    }
+    cout << "After update, max in range(1,4): "
+         << queryMax(1, 0, n - 1, 1, 4) << endl;
+
     return 0;
 }
+
         </div>
     </div>
 
@@ -880,28 +1212,47 @@ int main() {
             <li>Space Complexity: <b>O(N)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('codeSW3')">Show Algorithm Code</button>
+<button class="btn" onclick="toggleCode('codeSW3')">Show Algorithm Code</button>
+                <button class="btn"><a href="https://github.com/naikchandana96-hub/city-design-tarangapur/blob/661247122bd1f72c4dbe157eb6370173e008850d/chandana/urgent_bins.json">Access json file</a></button>
 
         <div id="codeSW3" class="code-box">
-#include &lt;bits/stdc++.h&gt;
-using namespace std;
+#include <bits/stdc++.h>
+#include <fstream>
+#include <nlohmann/json.hpp>
 
+using namespace std;
+using json = nlohmann::json;
 
 pair<int,int> getTopUrgent(vector<pair<int,int>>& bins) {
-   
-    priority_queue<pair<int,int>> pq; 
-    for(auto &b : bins) pq.push({b.second, b.first});
+    priority_queue<pair<int,int>> pq;  // max-heap (fill%, id)
+    for (auto &b : bins)
+        pq.push({b.second, b.first});
+
     auto top = pq.top();
-    return {top.second, top.first}; 
+    return {top.second, top.first};
 }
 
 int main() {
-    vector<pair<int,int>> bins = { {101, 60}, {102, 95}, {103, 80}, {104, 45} };
+  
+    ifstream file("urgent_bins.json");
+    json j;
+    file >> j;
+
+    vector<pair<int,int>> bins;
+
+   
+    for (auto &b : j["bins"]) {
+        bins.push_back({b["id"], b["fill"]});
+    }
+
     auto urgent = getTopUrgent(bins);
-    cout &lt;&lt; "Most urgent bin ID = " &lt;&lt; urgent.first
-         &lt;&lt; " Fill% = " &lt;&lt; urgent.second &lt;&lt; endl;
+
+    cout << "Most urgent bin ID = " << urgent.first
+         << " Fill% = " << urgent.second << endl;
+
     return 0;
 }
+
         </div>
     </div>
 
@@ -921,11 +1272,16 @@ int main() {
             <li>Time Complexity: <b>O(log N)</b> search/insert/delete</li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('codeSW4')">Show Algorithm Code</button>
+<button class="btn" onclick="toggleCode('codeSW4')">Show Algorithm Code</button>
+                <button class="btn"><a href="https://github.com/naikchandana96-hub/city-design-tarangapur/blob/fc6809788c6ae7cc4bcabe308d95cc6773927975/chandana/bin_registry.json">Access json file</a></button>
 
         <div id="codeSW4" class="code-box">
-#include &lt;bits/stdc++.h&gt;
+#include <bits/stdc++.h>
+#include <fstream>
+#include <nlohmann/json.hpp>
+
 using namespace std;
+using json = nlohmann::json;
 
 struct Node {
     int binID;
@@ -934,58 +1290,101 @@ struct Node {
     Node(int id) : binID(id), left(NULL), right(NULL), height(1) {}
 };
 
-int height(Node* n){ return n ? n->height : 0; }
-int getBalance(Node* n){ return n ? height(n->left) - height(n->right) : 0; }
+int height(Node* n) {
+    return n ? n->height : 0;
+}
 
-Node* rotateRight(Node* y){
-    Node* x = y->left; Node* T2 = x->right;
-    x->right = y; y->left = T2;
+int getBalance(Node* n) {
+    return n ? height(n->left) - height(n->right) : 0;
+}
+
+Node* rotateRight(Node* y) {
+    Node* x = y->left;
+    Node* T2 = x->right;
+
+    x->right = y;
+    y->left = T2;
+
     y->height = 1 + max(height(y->left), height(y->right));
     x->height = 1 + max(height(x->left), height(x->right));
+
     return x;
 }
 
-Node* rotateLeft(Node* x){
-    Node* y = x->right; Node* T2 = y->left;
-    y->left = x; x->right = T2;
+Node* rotateLeft(Node* x) {
+    Node* y = x->right;
+    Node* T2 = y->left;
+
+    y->left = x;
+    x->right = T2;
+
     x->height = 1 + max(height(x->left), height(x->right));
     y->height = 1 + max(height(y->left), height(y->right));
+
     return y;
 }
 
-Node* insert(Node* root, int id){
-    if(!root) return new Node(id);
-    if(id < root->binID) root->left = insert(root->left, id);
-    else if(id > root->binID) root->right = insert(root->right, id);
-    else return root;
+Node* insert(Node* root, int id) {
+    if (!root)
+        return new Node(id);
+
+    if (id < root->binID)
+        root->left = insert(root->left, id);
+    else if (id > root->binID)
+        root->right = insert(root->right, id);
+    else
+        return root;
 
     root->height = 1 + max(height(root->left), height(root->right));
     int balance = getBalance(root);
 
-    if(balance > 1 && id < root->left->binID) return rotateRight(root);
-    if(balance < -1 && id > root->right->binID) return rotateLeft(root);
-    if(balance > 1 && id > root->left->binID) { root->left = rotateLeft(root->left); return rotateRight(root); }
-    if(balance < -1 && id < root->right->binID) { root->right = rotateRight(root->right); return rotateLeft(root); }
+    
+    if (balance > 1 && id < root->left->binID)
+        return rotateRight(root);
+
+    if (balance < -1 && id > root->right->binID)
+        return rotateLeft(root);
+
+    if (balance > 1 && id > root->left->binID) {
+        root->left = rotateLeft(root->left);
+        return rotateRight(root);
+    }
+
+    if (balance < -1 && id < root->right->binID) {
+        root->right = rotateRight(root->right);
+        return rotateLeft(root);
+    }
 
     return root;
 }
 
-void inorder(Node* root){
-    if(!root) return;
+void inorder(Node* root) {
+    if (!root) return;
     inorder(root->left);
-    cout &lt;&lt; root->binID &lt;&lt; " ";
+    cout << root->binID << " ";
     inorder(root->right);
 }
 
-int main(){
+int main() {
+   
+    ifstream file("bin_registry.json");
+    json j;
+    file >> j;
+
     Node* root = NULL;
-    vector<int> bins = {201, 150, 300, 110, 175, 260};
-    for(int id : bins) root = insert(root, id);
-    cout &lt;&lt; "Bin registry (inorder IDs): ";
+
+  
+    for (int id : j["bins"]) {
+        root = insert(root, id);
+    }
+
+    cout << "Bin registry (inorder IDs): ";
     inorder(root);
-    cout &lt;&lt; endl;
+    cout << endl;
+
     return 0;
 }
+
         </div>
     </div>
 
@@ -1025,8 +1424,8 @@ int main(){
             <li>Space Complexity: <b>O(N)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('codeAG1')">Show Algorithm Code</button>
-
+<button class="btn" onclick="toggleCode('codeAG1')">Show Algorithm Code</button>
+                <button class="btn"><a href="">Access json file</a></button>
         <div id="codeAG1" class="code-box">
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
@@ -2089,4 +2488,4 @@ function toggleCode(id){
 </body>
 </html>
 
-
+ 
