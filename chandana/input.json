@@ -1,0 +1,18 @@
+{
+  "moisture": [
+    40,
+    55,
+    33,
+    60,
+    20,
+    75
+  ],
+  "queries": {
+    "range_l": 1,
+    "range_r": 4
+  },
+  "update": {
+    "index": 2,
+    "value": 18
+  }
+}
