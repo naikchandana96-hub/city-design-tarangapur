@@ -1,0 +1,20 @@
+{
+  "zones": [
+    {
+      "zone_id": 1,
+      "moisture": 40
+    },
+    {
+      "zone_id": 2,
+      "moisture": 20
+    },
+    {
+      "zone_id": 3,
+      "moisture": 55
+    },
+    {
+      "zone_id": 4,
+      "moisture": 10
+    }
+  ]
+}
