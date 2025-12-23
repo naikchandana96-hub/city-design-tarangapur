@@ -1,0 +1,59 @@
+#include <bits/stdc++.h>
+#include "json.hpp"   
+
+using namespace std;
+using json = nlohmann::json;
+
+vector<int> dijkstra(int V, vector<vector<pair<int,int>>> &graph, int src) {
+    vector<int> dist(V, INT_MAX);
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+
+    dist[src] = 0;
+    pq.push({0, src});
+
+    while (!pq.empty()) {
+        int d = pq.top().first;
+        int node = pq.top().second;
+        pq.pop();
+
+        if (d > dist[node]) continue;
+
+        for (auto &edge : graph[node]) {
+            int next = edge.first;
+            int weight = edge.second;
+
+            if (d + weight < dist[next]) {
+                dist[next] = d + weight;
+                pq.push({dist[next], next});
+            }
+        }
+    }
+    return dist;
+}
+
+int main() {
+    ifstream file("graph.json");
+    json j;
+    file >> j;
+
+    int V = j["V"];
+    int src = j["source"];
+
+    vector<vector<pair<int,int>>> graph(V);
+
+    for (auto &e : j["edges"]) {
+        int u = e["from"];
+        int v = e["to"];
+        int w = e["weight"];
+        graph[u].push_back({v, w});
+    }
+
+    vector<int> result = dijkstra(V, graph, src);
+
+    cout << "Shortest distances:\n";
+    for (int i = 0; i < V; i++) {
+        cout << i << " -> " << result[i] << endl;
+    }
+
+    return 0;
+}
