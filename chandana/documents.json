@@ -1,0 +1,16 @@
+{
+  "documents": [
+    {
+      "score": 95,
+      "title": "AI Research Paper"
+    },
+    {
+      "score": 80,
+      "title": "Data Mining Basics"
+    },
+    {
+      "score": 60,
+      "title": "History Notes"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "lessons": [
+    { "priority": 90, "name": "Data Structures" },
+    { "priority": 70, "name": "Algorithms" },
+    { "priority": 95, "name": "Operating Systems" }
+  ]
+}
