@@ -1425,60 +1425,83 @@ int main() {
         </ul>
 
 <button class="btn" onclick="toggleCode('codeAG1')">Show Algorithm Code</button>
-                <button class="btn"><a href="">Access json file</a></button>
+                <button class="btn"><a href="https://github.com/naikchandana96-hub/city-design-tarangapur/blob/9e9ac096eb8c45dbd5de077a7f04538f23ece2db/chandana/input.json">Access json file</a></button>
         <div id="codeAG1" class="code-box">
-#include &lt;bits/stdc++.h&gt;
+#include <bits/stdc++.h>
+#include "json.hpp"     
 using namespace std;
+using json = nlohmann::json;
 
 vector<int> segTree;
 
 
 void build(vector<int>& arr, int node, int start, int end) {
-    if(start == end) {
+    if (start == end) {
         segTree[node] = arr[start];
         return;
     }
     int mid = (start + end) / 2;
-    build(arr, node*2, start, mid);
-    build(arr, node*2+1, mid+1, end);
-    segTree[node] = min(segTree[node*2], segTree[node*2+1]); 
+    build(arr, node * 2, start, mid);
+    build(arr, node * 2 + 1, mid + 1, end);
+    segTree[node] = min(segTree[node * 2], segTree[node * 2 + 1]);
 }
 
 
 int queryMin(int node, int start, int end, int l, int r) {
-    if(r < start || end < l) return INT_MAX;
-    if(l <= start && end <= r) return segTree[node];
+    if (r < start || end < l)
+        return INT_MAX;
+
+    if (l <= start && end <= r)
+        return segTree[node];
+
     int mid = (start + end) / 2;
-    return min(queryMin(node*2, start, mid, l, r),
-               queryMin(node*2+1, mid+1, end, l, r));
+    return min(queryMin(node * 2, start, mid, l, r),
+               queryMin(node * 2 + 1, mid + 1, end, l, r));
 }
 
 
 void update(int node, int start, int end, int idx, int val) {
-    if(start == end) {
+    if (start == end) {
         segTree[node] = val;
         return;
     }
     int mid = (start + end) / 2;
-    if(idx <= mid) update(node*2, start, mid, idx, val);
-    else update(node*2+1, mid+1, end, idx, val);
 
-    segTree[node] = min(segTree[node*2], segTree[node*2+1]);
+    if (idx <= mid)
+        update(node * 2, start, mid, idx, val);
+    else
+        update(node * 2 + 1, mid + 1, end, idx, val);
+
+    segTree[node] = min(segTree[node * 2], segTree[node * 2 + 1]);
 }
 
 int main() {
-    vector<int> moisture = {40, 55, 33, 60, 20, 75};
+    /* Read JSON file */
+    ifstream file("input.json");
+    json data;
+    file >> data;
+
+    
+    vector<int> moisture = data["moisture"];
+    int l = data["queries"]["range_l"];
+    int r = data["queries"]["range_r"];
+    int idx = data["update"]["index"];
+    int val = data["update"]["value"];
+
     int n = moisture.size();
-    segTree.assign(4*n, 0);
+    segTree.assign(4 * n, 0);
 
-    build(moisture, 1, 0, n-1);
-    cout &lt;&lt; "Min moisture in range(1,4): "
-         &lt;&lt; queryMin(1, 0, n-1, 1, 4) &lt;&lt; endl;
+    build(moisture, 1, 0, n - 1);
 
-    update(1, 0, n-1, 2, 18);
+    cout << "Min moisture in range (" << l << "," << r << "): "
+         << queryMin(1, 0, n - 1, l, r) << endl;
 
-    cout &lt;&lt; "After update, min moisture in range(1,4): "
-         &lt;&lt; queryMin(1, 0, n-1, 1, 4) &lt;&lt; endl;
+    update(1, 0, n - 1, idx, val);
+
+    cout << "After update, min moisture in range (" << l << "," << r << "): "
+         << queryMin(1, 0, n - 1, l, r) << endl;
+
+    return 0;
 }
         </div>
     </div>
@@ -1500,31 +1523,47 @@ int main() {
             <li>Space Complexity: <b>O(N)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('codeAG2')">Show Algorithm Code</button>
-
+<button class="btn" onclick="toggleCode('codeAG2')">Show Algorithm Code</button>
+                <button class="btn"><a href="https://github.com/naikchandana96-hub/city-design-tarangapur/blob/4dd99e3d56b0e14074ef8a6013cb18b1d2f4d04c/chandana/irrigation_input.json">Access json file</a></button>
         <div id="codeAG2" class="code-box">
-#include &lt;bits/stdc++.h&gt;
+#include <bits/stdc++.h>
+#include "json.hpp"   
 using namespace std;
-
+using json = nlohmann::json;
 
 pair<int,int> getIrrigationPriority(vector<pair<int,int>>& zones) {
-    priority_queue<pair<int,int>> pq; 
+    priority_queue<pair<int,int>> pq;
 
-    for(auto &z : zones) {
-        int dryness = 100 - z.second;
+    for (auto &z : zones) {
+        int dryness = 100 - z.second;  
         pq.push({dryness, z.first});
     }
 
     auto top = pq.top();
-    return {top.second, 100 - top.first}; 
+    return {top.second, 100 - top.first};
 }
 
 int main() {
-    vector<pair<int,int>> zones = { {1,40}, {2,20}, {3,55}, {4,10} };
+    
+    ifstream file("irrigation_input.json");
+    json data;
+    file >> data;
+
+    vector<pair<int,int>> zones;
+
+    
+    for (auto &z : data["zones"]) {
+        int id = z["zone_id"];
+        int moisture = z["moisture"];
+        zones.push_back({id, moisture});
+    }
+
     auto urgent = getIrrigationPriority(zones);
 
-    cout &lt;&lt; "Highest priority zone = " &lt;&lt; urgent.first
-         &lt;&lt; " Moisture = " &lt;&lt; urgent.second &lt;&lt; endl;
+    cout << "Highest priority zone = " << urgent.first
+         << " Moisture = " << urgent.second << endl;
+
+    return 0;
 }
         </div>
     </div>
@@ -1546,45 +1585,54 @@ int main() {
             <li>Space Complexity: <b>O(V)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('codeAG3')">Show Algorithm Code</button>
-
+<button class="btn" onclick="toggleCode('codeAG3')">Show Algorithm Code</button>
+                <button class="btn"><a href="https://github.com/naikchandana96-hub/city-design-tarangapur/blob/000e381cf96c6305a1108d075706c4800b873a9e/chandana/farm_graph.json">Access json file</a></button>
         <div id="codeAG3" class="code-box">
-#include &lt;bits/stdc++.h&gt;
+#include <bits/stdc++.h>
+#include "json.hpp"    
 using namespace std;
+using json = nlohmann::json;
 
 vector<vector<int>> graphFarm;
 vector<bool> visited;
 
 void dfs(int node) {
     visited[node] = true;
-    cout &lt;&lt; "Infected plot: " &lt;&lt; node &lt;&lt; endl;
+    cout << "Infected plot: " << node << endl;
 
-    for(int next : graphFarm[node]) {
-        if(!visited[next]) dfs(next);
+    for (int next : graphFarm[node]) {
+        if (!visited[next])
+            dfs(next);
     }
 }
 
 int main() {
-    int plots = 6;
+  
+    ifstream file("farm_graph.json");
+    json data;
+    file >> data;
+
+    int plots = data["plots"];
+    int infectedStart = data["infected_start"];
+
     graphFarm.assign(plots, {});
     visited.assign(plots, false);
 
-   
-    graphFarm[0] = {1};
-    graphFarm[1] = {0,2,3};
-    graphFarm[2] = {1,4};
-    graphFarm[3] = {1,5};
-    graphFarm[4] = {2};
-    graphFarm[5] = {3};
+    
+    for (auto &e : data["edges"]) {
+        int u = e[0];
+        int v = e[1];
+        graphFarm[u].push_back(v);
+        graphFarm[v].push_back(u);
+    }
 
-    int infectedStart = 1;
-    cout &lt;&lt; "Disease spreading from plot " &lt;&lt; infectedStart &lt;&lt; endl;
+    cout << "Disease spreading from plot " << infectedStart << endl;
     dfs(infectedStart);
 
     return 0;
-}
+}  
         </div>
-    </div>
+  </div>
 
 </div>
 <!-- ---------------- FRAUD DETECTION IN BANKING ---------------- -->
@@ -1621,25 +1669,39 @@ int main() {
             <li>Space Complexity: <b>O(N)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('codeFD1')">Show Algorithm Code</button>
-
+<button class="btn" onclick="toggleCode('codeFD1')">Show Algorithm Code</button>
+                <button class="btn"><a href="https://github.com/naikchandana96-hub/city-design-tarangapur/blob/e5b6eefb3c024f523dab056504b0ea97dcd91b97/chandana/transactions.json">Access json file</a></button>
         <div id="codeFD1" class="code-box">
-#include &lt;bits/stdc++.h&gt;
-using namespace std;
+#include <bits/stdc++.h>
+#include "json.hpp"   
+#include <fstream>
 
+using namespace std;
+using json = nlohmann::json;
 
 int main() {
     unordered_map<string, int> transactionCount;
 
-    vector<string> transactions = {
-        "TX1001", "TX1002", "TX1003", "TX1002", "TX1005"
-    };
+   
+    ifstream file("transactions.json");
+    if (!file.is_open()) {
+        cout << "Error: Cannot open JSON file" << endl;
+        return 1;
+    }
+
+  
+    json j;
+    file >> j;
+
+    
+    vector<string> transactions = j["transactions"];
 
     for (auto &tx : transactions) {
         transactionCount[tx]++;
 
         if (transactionCount[tx] > 1) {
-            cout &lt;&lt; "Suspicious: repeated transaction ID = " &lt;&lt; tx &lt;&lt; endl;
+            cout << "Suspicious: repeated transaction ID = "
+                 << tx << endl;
         }
     }
 
@@ -1665,42 +1727,39 @@ int main() {
             <li>Space Complexity: <b>O(V)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('codeFD2')">Show Algorithm Code</button>
-
+<button class="btn" onclick="toggleCode('codeFD2')">Show Algorithm Code</button>
+                <button class="btn"><a href="https://github.com/naikchandana96-hub/city-design-tarangapur/tree/24eb6c93b1ecd751a3e62ae83ab939206d21ec68/chandana">Access json file</a></button>
         <div id="codeFD2" class="code-box">
-#include &lt;bits/stdc++.h&gt;
+    #include &lt;bits/stdc++.h&gt;
 using namespace std;
 
-vector<vector<int>> graphBank;
-vector<bool> visited;
 
-void dfs(int node) {
-    visited[node] = true;
-    cout &lt;&lt; "Suspicious linked account: " &lt;&lt; node &lt;&lt; endl;
+vector<int> dijkstra(int V, vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; &graph, int src) {
+    vector<int> dist(V, INT_MAX);
+    priority_queue&lt;pair&lt;int,int&gt;, vector&lt;pair&lt;int,int&gt;&gt;, greater&lt;pair&lt;int,int&gt;&gt;&gt; pq;
 
-    for (int next : graphBank[node]) {
-        if (!visited[next]) dfs(next);
+    dist[src] = 0;
+    pq.push({0, src});
+
+    while (!pq.empty()) {
+        int d = pq.top().first;
+        int node = pq.top().second;
+        pq.pop();
+
+        for (auto &edge : graph[node]) {
+            int next = edge.first;
+            int weight = edge.second;
+
+            if (d + weight &lt; dist[next]) {
+                dist[next] = d + weight;
+                pq.push({dist[next], next});
+            }
+        }
     }
-}
-
-int main() {
-    int accounts = 6;
-    graphBank.assign(accounts, {});
-    visited.assign(accounts, false);
-    graphBank[0] = {1, 2};
-    graphBank[1] = {3};
-    graphBank[2] = {4};
-    graphBank[3] = {5};
-    graphBank[4] = {};
-    graphBank[5] = {};
-
-    int suspectStart = 0;
-    cout &lt;&lt; "Fraud chain starts from account " &lt;&lt; suspectStart &lt;&lt; endl;
-    dfs(suspectStart);
-
-    return 0;
+    return dist;
 }
         </div>
+
     </div>
 
     <!-- ---------------- ALGORITHM 3 ---------------- -->
@@ -1720,20 +1779,25 @@ int main() {
             <li>Space Complexity: <b>O(1)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('codeFD3')">Show Algorithm Code</button>
-
+<button class="btn" onclick="toggleCode('codeFD3')">Show Algorithm Code</button>
+                <button class="btn"><a href="https://github.com/naikchandana96-hub/city-design-tarangapur/blob/74052ea3b5580640b10c60c10ac43c0c04f69d69/chandana/logs.json">Access json file</a></button>
         <div id="codeFD3" class="code-box">
-#include &lt;bits/stdc++.h&gt;
+#include <bits/stdc++.h>
+#include "json.hpp"
+#include <fstream>
+
 using namespace std;
+using json = nlohmann::json;
 
 vector<int> rabinKarp(string text, string pattern) {
     const int p = 31;
     const int m = 1e9 + 9;
+
     int T = text.size(), P = pattern.size();
     vector<long long> power(T);
     power[0] = 1;
 
-    for (int i = 1; i < T; i++) 
+    for (int i = 1; i < T; i++)
         power[i] = (power[i - 1] * p) % m;
 
     long long patHash = 0, currHash = 0;
@@ -1758,13 +1822,23 @@ vector<int> rabinKarp(string text, string pattern) {
 }
 
 int main() {
-    string logs = "transaction flagged suspicious transfer suspicious alert";
-    string keyword = "suspicious";
+    ifstream file("logs.json");
+    if (!file.is_open()) {
+        cout << "Error opening JSON file" << endl;
+        return 1;
+    }
+
+    json j;
+    file >> j;
+
+    string logs = j["logs"];
+    string keyword = j["keyword"];
 
     auto found = rabinKarp(logs, keyword);
 
     for (int pos : found)
-        cout &lt;&lt; "Suspicious keyword found at index: " &lt;&lt; pos &lt;&lt; endl;
+        cout << "Suspicious keyword found at index: "
+             << pos << endl;
 
     return 0;
 }
@@ -1805,8 +1879,8 @@ int main() {
             <li>Space Complexity: <b>O(V)</b></li>
         </ul>
 
-        <button class="btn" onclick="toggleCode('codeSR1')">Show Algorithm Code</button>
-
+<button class="btn" onclick="toggleCode('codeSR1')">Show Algorithm Code</button>
+                <button class="btn"><a href="">Access json file</a></button>
         <div id="codeSR1" class="code-box">
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
